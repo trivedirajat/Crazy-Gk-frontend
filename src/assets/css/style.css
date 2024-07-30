@@ -1,0 +1,342 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+:focus {
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: none;
+}
+body {
+    font-family: Poppins, sans-serif !important;
+}
+
+a {
+    text-decoration: none !important;
+    color: #000 !important;
+}
+
+p {
+    font-size: 16px;
+    font-weight: 400;
+}
+.btn:hover {
+    background-color: #04aa50 !important;
+    border-color: #04aa50 !important;
+    color: #fff !important;
+}
+.btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active{
+    background: #04AA50 !important;
+}
+.container-space {
+    padding: 0 25px !important;
+}
+.btn-green {
+    background: #04AA50 !important;
+    border: none !important;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 13px 20px 13px 20px !important;
+}
+button.btn.btn-outline-success {
+    font-size: 14px;
+}
+.space-section {
+    padding: 50px 0 !important;
+}
+.section-padding {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.star-icon i {
+    color: #04AA50;
+    margin: 0 2px;
+}
+
+.main-heading {
+    text-align: center;
+    margin: 0 0 50px;
+}
+
+.main-heading h6 {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    color: #04AA50;
+}
+
+.main-heading h4 {
+    font-size: 40px;
+    font-weight: 600;
+    letter-spacing: 0px;
+}
+
+.login-area.modal-body {
+    padding: 35px;
+}
+
+.login-area.modal-body h6 {
+    font-weight: 600;
+    margin: 8px 0;
+}
+
+.login-area.modal-body h2 {
+    font-weight: 600;
+    font-size: 30px;
+    margin: 0 0 25px;
+}
+
+.login-area.modal-body form label {
+    font-size: 15px;
+}
+
+.login-area form input {
+    background: #CDEEDC;
+    color: #8A8A8A;
+    font-size: 14px;
+}
+.form-select {
+    font-size: 14px;
+    color: #8A8A8A;
+    background-color: #cdeedc;
+}
+.Forgottext {
+    text-align: right;
+}
+
+.login-area.modal-body button {
+    background: #04AA50;
+    border: none;
+}
+
+.login-area.modal-body p a {
+    color: #04AA50 !important;
+}
+
+.login-area.modal-body p {
+    color: #8A8A8A;
+    margin: 20px 0 0;
+}
+
+.social-are {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0 20px;
+}
+
+.social-login {
+    background: #CDEEDC;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 0 3px;
+}
+
+.otp-input-fields {
+    margin: auto;
+    max-width: 400px;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.otp-input-fields input {
+    height: 40px;
+    width: 40px;
+    background-color: transparent;
+    border-radius: 4px;
+    border: 1px solid #2f8f1f;
+    text-align: center;
+    outline: none;
+    font-size: 16px;
+}
+
+.otp-input-fields input::-webkit-outer-spin-button,
+.otp-input-fields input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.otp-input-fields input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.otp-input-fields input:focus {
+    border-width: 2px;
+    border-color: #27a844;
+    font-size: 20px;
+}
+
+/* all-bannerBG area css */
+.all-bannerBG {
+    background: url(../images/img/allbaanner.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.all-banner-content {
+    padding: 130px 0;
+    text-align: center;
+}
+.all-banner-content h3 {
+    font-size: 40px;
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 10px;
+}
+.all-banner-content .input-group{
+    margin: 25px 0;
+}
+.all-banner-content .form-control input {
+    border-radius: 4px;
+}
+.all-banner-content a {
+    color: #fff !important;
+    font-weight: 500;
+    letter-spacing: 0.23999999463558197px;
+}
+.all-banner-content span {
+    color: #fff;
+    font-weight: 500;
+    letter-spacing: 0.23999999463558197px;
+    border-radius: 3px;
+}
+.input-group-text {
+    background-color: #04AA50 !important;
+    border: var(--bs-border-width) solid #04AA50 !important;
+    color: #fff !important;
+    border-radius: 4px;
+}
+.viewmore {
+    text-align: center;
+}
+.viewmore a {
+    color: #009580 !important;
+    font-size: 20px;
+    font-weight: 600;
+}
+h4.inner-head {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 22px;
+    margin: 0 0 20px;
+}
+.calendar-area {
+    box-shadow: 0px 0px 5px 0px #00000040;
+    padding: 24px 0;
+    border-radius: 3px;
+    text-align: center;
+}
+.calendar-area .react-calendar {
+    border: none;
+}
+.all-banner-content button {
+    background: #fff;
+    color: #000;
+    border: 2px solid #04aa50;
+    margin: 10px 15px;
+    border-radius: 10px;
+    padding: 14px 16px 10px 16px;
+    font-size: 18px;
+    font-weight: 500;
+}
+.all-banner-content button img {
+    margin-left: 15px;
+}
+.btn:hover {
+    color: none !important;
+    background-color: none!important;
+    border-color: none!important;
+}.all-banner-content input {
+    border-radius: 3px 0 0 3px!important;
+}
+
+/* Video area  */
+.Editorials-card {
+    position: relative;
+  }
+  
+  .Editorials-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  
+  .Editorials-card .play-icon {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 25px;
+    color: #000;
+    background: #fff;
+    padding: 10px 20px;
+    border-radius: 50%;
+}
+
+a.all-view {
+    font-size: 20px;
+    font-weight: 500;
+    justify-content: center;
+    display: flex;
+    flex-flow: column;
+    text-align: center;
+    margin: 30px 0 0;
+    color: #009580 !important;
+}
+.all-banner-content span i {
+    margin: 0 10px;
+}
+.video-hide {
+    margin: 50px 0 0;
+}
+
+.box-video{
+    line-height: 0;
+    display: block;
+    border: 5px solid #fff;
+    position: relative;
+    
+   
+  }
+  .box-video:before{
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: rgba(black, 0.3);
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+  }
+  .overlay{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 5px solid #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 50px;
+    border-radius: 99%;
+    text-align: center;
+    font-weight: 700;
+    color: #fff;
+    font-size: 20px;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+  }
+  .wel-btn{
+    background: #fff;
+    color: #000;
+    border: 2px solid #04aa50;
+    margin: 10px 15px;
+    border-radius: 10px;
+    padding: 14px 16px 10px 16px;
+    font-size: 18px;
+    font-weight: 500;
+  }

@@ -1,0 +1,18 @@
+.Suscription-area h6 {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.profile-upload {
+    text-align: center;
+}
+.profile-upload img {
+    width: 100px;
+    height: auto;
+}
+.profile-upload label {
+    color: #04aa50;
+}
+.profilen-area {
+    padding: 3rem;
+}

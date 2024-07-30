@@ -1,0 +1,14 @@
+.Editorials-card img {
+    width: 100%;
+}
+.Editorials-card p {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 20px;
+    margin: 4px 0 0;
+}
+.Editorials-card span {
+    color: #6E6E6E;
+    font-size: 12px;
+    font-weight: 500;
+}

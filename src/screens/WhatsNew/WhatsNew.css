@@ -1,0 +1,15 @@
+.what-date a {
+    color: #04AA50 !important;
+    font-weight: 600;
+}
+.what-read-btn {
+    text-align: right;
+}
+.what-read-btn a {
+    font-size: 14px;
+    font-weight: 600;
+    color: #009580 !important;
+}
+.what-date {
+    margin: 20px 0 0;
+}

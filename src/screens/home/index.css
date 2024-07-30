@@ -1,0 +1,393 @@
+.home-area {
+    padding: 50px 40px 0 !important;
+}
+.home-btns {
+    display: flex;
+}
+.home-img img {
+    width: 100%;
+    height: auto;
+}
+
+.home-content button {
+    margin-right: 10px;
+    background: #04AA50;
+    border: none;
+    border-radius: 3px;
+    font-size: 14px;
+    width: 25%;
+    height: 50px;
+    white-space: nowrap;
+}
+
+.home-content button:hover {
+    background: #04AA50;
+}
+
+.home-banner {
+    padding: 50px 0;
+}
+
+.home-content h3 {
+    font-weight: 600;
+    font-size: 35px;
+    /* white-space: nowrap; */
+}
+
+.home-content h6 {
+    font-weight: 500;
+    font-size: 20px;
+    /* white-space: nowrap; */
+    line-height: 30px;
+}
+
+.home-content p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 27px;
+    margin: 30px 0px 30px 0px;
+}
+
+.home-banner img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.react-multiple-carousel__arrow {
+    display: none;
+}
+
+.custom-dot-list-style button {
+    background-color: #04AA50;
+    border: none !important;
+}
+
+.react-multi-carousel-dot--active button {
+    background: #88d7ac !important;
+    border: none !important;
+}
+
+.carousel-item-padding-40-px {
+    margin-bottom: 30px;
+}
+
+/* Recent Updates On Crazy GK Trick Area css */
+.Trick-card {
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    border-radius: 15px 15px 0 0;
+}
+
+.trick-head {
+    display: flex;
+    justify-content: space-between;
+    background-color: #04AA50;
+    color: #fff;
+    padding: 30px 30px 20px;
+    border-radius: 15px 15px 0 0;
+}
+
+.trick-list h5 span {
+    margin: 0 22px 0 4px;
+}
+
+.trick-head h2 {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 20px;
+}
+
+.trick-list {
+    padding: 24px 30px;
+    border-bottom: 1px solid #D8D8D8;
+}
+
+.trick-list h6 {
+    margin: 0 0 10px;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.trick-list p {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+p.latest-des {
+    font-weight: 400 !important;
+    font-size: 18px;
+    line-height: 34px;
+}
+
+.trick-list h6 i {
+    font-weight: bold;
+}
+
+.trick-list p {
+    margin: 0;
+}
+
+.trick-scroll {
+    overflow-y: scroll;
+    height: 570px;
+}
+
+.trick-scroll::-webkit-scrollbar {
+    width: 6px;
+    background-color: #88d7ac;
+}
+
+.trick-scroll::-webkit-scrollbar-thumb {
+    background-color: #04AA50;
+}
+
+.trick-list h5 {
+    color: #04AA50;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+
+/* testimonial area css */
+.testimonial {
+    margin: 0 10px;
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    position: relative;
+}
+.testimonial-icon {
+    position: absolute;
+}
+
+.testimonial-icon i {
+    border-radius: 50%;
+    color: #fff;
+    font-size: 30px;
+    border: 4px solid #fff;
+    padding: 24px 30px;
+}
+.testimonial img {
+    width: 100%;
+    height: 201px;
+    object-fit: cover;
+border-radius: 15px;
+}
+
+
+/* Topic wise videos area css */
+.topic-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 32px;
+}
+@media (min-width: 1440px) {
+    .topic-box {
+        grid-template-columns: repeat(5, minmax(200px, 1fr));
+    }
+}
+.Topic-card {
+    /* height: 100%;
+    background: #04AA5033;
+    box-shadow: 0px 4px 12px 0px #00000026;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px; */
+    background: #04AA5033;
+    box-shadow: 0px 4px 12px 0px #00000026;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+}
+.taxonomy-image {
+    padding: 50px 40px;
+    background: #FFFFFF80;
+    border-radius: 10px;
+}
+.taxonomy-image img {
+    width: 100%;
+}
+
+.Topic-card h5 {
+    color: #04AA50;
+    font-weight: 600;
+    margin: 20px 0 0;
+    font-size: 19px;
+    text-transform: capitalize;
+}
+
+
+/* Daily Current Affairs and GK | Live Quiz area css */
+.live-quiz {
+    box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+    padding: 36px;
+    border-radius: 3px;
+}
+
+.live-quiz span {
+    margin: 0 30px 0 0;
+    color: #86A1AE;
+}
+
+.live-quiz span i {
+    margin-right: 5px;
+}
+
+.live-quiz button {
+    background: #04AA50;
+    border: none;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 12px 35px 12px 35px;
+    border-radius: 3px;
+}
+
+.live-quiz p {
+    font-size: 18px;
+    color: #000;
+    font-weight: 500;
+    margin: 0 0 10px;
+}
+
+/* ==== E - Books area Css ======== */
+.book-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 20px !important;
+    box-shadow: 15px 15px 10px 0px rgba(0, 0, 0, 0.25098039215686274);
+}
+
+/* ==== WORD OF THE DAY area Css ======== */
+.workday-bg {
+    background: url(../../assets/images/img/img1.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 75px 0;
+}
+
+.work-content {
+    background: #D6F0ECD9;
+    padding: 20px;
+    text-align: center;
+    border-radius: 15px;
+}
+
+.work-content h4 {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0em;
+}
+
+.work-content p {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+
+/* ==== Happy Crazy gk Users area Css ======== */
+.Happy-Crazy {
+    display: flex;
+}
+
+.Happy-Crazy img {
+    margin: 0 15px 0 0;
+}
+
+.Happy-Crazy h6 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.Happy-Crazy p {
+    margin: 0 0 8px;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 28px;
+}
+
+/* website area  */
+.website-list {
+    box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+    padding: 14px;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.website-list button {
+    margin: 30px 0 14px;
+    font-family: "Roboto", Sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 25px;
+    padding: 12px 35px 12px 35px;
+    background-color: #04AA50;
+}
+
+.Trending-Videos .react-multi-carousel-track {
+    padding: 0 0 30px;
+}
+
+/*  */
+.job-bg {
+    background: url(../../assets/images/img/job-bg.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+}
+
+.job-list {
+    background-color: rgb(255 255 255 / 70%);
+    padding: 24px;
+    margin: 50px;
+    height: 300px;
+    overflow-x: hidden;
+}
+
+.job-content {
+    display: flex;
+    /* margin: 20px 0 0; */
+    margin-bottom: 15px;
+    justify-content: center;
+}
+
+.job-content a {
+    color: #04aa50 !important;
+    font-weight: 400;
+    font-size: 18px;
+    align-self: center;
+}
+
+.job-content h4 {
+    margin: 0 20px 0;
+    align-self: center;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 28px;
+}
+
+.job-icon {
+    margin: 0 6px 0 0;
+}
+
+.job-list::-webkit-scrollbar {
+    width: 10px;
+}
+
+.job-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.job-list::-webkit-scrollbar-thumb {
+    background: #04aa50;
+    border-radius: 5px;
+}
+
+.Editorials-content h6 {
+    margin: 20px 0;
+    font-weight: bold;
+    font-size: 20px;
+}
+.Editorials-card img {
+    height: 280px;
+    object-fit: cover;
+}

@@ -1,0 +1,106 @@
+.about-card img {
+    width: 55px;
+    height: 55px;
+}
+
+.about-card h5 {
+    margin: 20px 0;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.team-card img {
+    width: 100%;
+}
+
+.team-card {
+    position: relative;
+}
+
+.team-content {
+    position: absolute;
+    bottom: 0;
+    padding: 20px 20px 0;
+    z-index: 1;
+}
+
+.team-content h6 {
+    font-weight: 500;
+    color: #fff;
+    margin: 0;
+}
+
+.team-content p {
+    font-size: 12px;
+    font-weight: 400;
+    color: #fff;
+    z-index: 1;
+}
+
+.About-Subject p {
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.about-shodow {
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.25098039215686274);
+    padding: 50px 35px;
+}
+
+.image-overlay {
+    position: relative;
+    display: inline-block;
+    z-index: 0;
+}
+
+.image-overlay img {
+    max-width: 100%;
+    height: auto;
+}
+
+.image-overlay::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0 0 0 / 42%);
+    z-index: 1;
+}
+
+.section-padding-top {
+    padding-top: 80px;
+    padding-bottom: 20px;
+}
+
+.section-padding {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.section-padding {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.main-heading-bottom {
+    text-align: center;
+    margin: 0 0 20px;
+}
+
+.main-heading-bottom-h6 {
+    color: #121212 !important;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.main-heading-h4 {
+    font-size: 40px;
+    font-weight: 600;
+    letter-spacing: 0px;
+}
+.see-members-link{
+    align-self: end;
+    text-align: center;
+}

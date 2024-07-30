@@ -1,0 +1,62 @@
+/* Science And Technology css start */
+.other-sub ul {
+    padding: 0;
+}
+.other-sub ul li {
+    background: #04AA5033;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: center;
+    color: #04AA50;
+    margin: 10px;
+    border-left: 3px solid #009580;
+    list-style-type: none;
+    padding: 10px;
+    border-radius: 0 5px 5px 0;
+}
+.other-sub {
+    box-shadow: 0px 0px 5px 0px #00000040;
+    padding: 24px;
+    border-radius: 3px;
+    text-align: center;
+}
+.About-Subject {
+    box-shadow: 0px 0px 5px 0px #00000040;
+    padding: 24px;
+    border-radius: 3px;
+}
+.sub-topic {
+    background: #04AA5033;
+    font-size: 13px;
+    font-weight: 400;
+    text-align: center;
+    color: #04AA50;
+    border-left: 3px solid #009580;
+    padding: 13px;
+    border-radius: 5px;
+}
+.sub-topic a  {
+    font-size: 16px;
+    font-weight: 400;
+    color: #04aa50!important;
+}
+.sub-topic a i {
+    margin: 0 10px;
+    font-size: 12px;
+}
+.Content-head {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 22px;
+    margin: 0 0 20px;
+    color: #121212CC;
+}
+.Content-head i {
+    font-size: 12px;
+    color: #04AA50;
+    margin: 0 10px 0 0;
+}
+.pre-next {
+    display: flex;
+    justify-content: space-between;
+}

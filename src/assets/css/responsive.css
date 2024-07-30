@@ -1,0 +1,405 @@
+/* @media only screen and (max-width: 1025px) {
+.nav-menus a {
+  margin:  0 !important;
+}
+} */
+@media only screen and (max-width: 1024px) {
+    .dropbtn {
+        padding: 0 !important;
+    }
+    .live-quiz button {
+        padding: 12px 20px !important;
+    }
+
+    .nav-area form button {
+        margin: 0 3px;
+    }
+    .welcard .taxonomy-image {
+    padding: 15px !important;
+    }
+    .welcard {
+    padding: 10px !important;
+    }
+    .welcard h5 {
+    margin: 10px 0 0 !important;
+    font-size: 15px !important;
+}
+.home-content button {
+    width: 100% !important;
+    height: 35px !important;
+}
+.home-content h3 {
+    font-size: 30px !important;
+    }
+    .home-content h6 {
+        font-size: 17px !important;
+    }
+    .home-content p {
+        margin: 16px 0px !important;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .home-img {
+        margin: 20px 0;
+    }
+
+    .topic-box {
+        grid-template-columns: repeat(3, minmax(200px, 1fr));
+    }
+    
+    .job-content h4 {
+        margin: 0 5px;
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    .job-content a {
+        font-size: 13px;
+    }
+
+    .job-list {
+        padding: 10px;
+        margin: 20px;
+    }
+
+    .btn-green {
+        font-size: 12px !important;
+        padding: 6px 10px 6px 10px !important;
+    }
+
+    .main-heading h4 {
+        font-size: 30px;
+    }
+
+    .nav-area .navbar-brand img {
+        width: 70px;
+    }
+
+    .nav-menus {
+        align-items: baseline !important;
+    }
+
+    .nav-area form span i {
+        margin: 12px 27px !important;
+    }
+
+    .dropdown-content.userprofile {
+        left: 0;
+    }
+
+    .profile-header {
+        display: block !important;
+        padding: 4px;
+    }
+
+    a.linkA-view {
+        margin: 0 18px !important;
+    }
+
+    .live-quiz button {
+        margin: 15px 0 0;
+    }
+
+    .Trick-card {
+        margin-bottom: 20px;
+    }
+
+    .other-sub {
+        padding: 10px 0 !important;
+    }
+
+    .sub-topic a {
+        font-size: 12px !important;
+    }
+
+    .sub-topic {
+        padding: 5px !important;
+    }
+
+    .About-Subject {
+        padding: 8px !important;
+    }
+
+    .topic-area .accordion-body {
+        padding: 0 !important;
+    }
+
+    .topic-area .accordion-header button {
+        padding: 10px !important;
+    }
+
+    .Content-head {
+        font-size: 14px !important;
+        line-height: 4px !important;
+    }
+
+    .Content-head i {
+        margin: 0 !important;
+    }
+
+    .topic-area .accordion-body ul li {
+        font-size: 15px !important;
+    }
+
+    .react-calendar {
+        width: 100% !important;
+    }
+
+    .calendar-area {
+        margin: 0 0 20px;
+    }
+
+    .About-Subject {
+        margin: 0 0 20px;
+    }
+
+    .see-members-link {
+        align-self: center !important;
+    }
+    .sub-pay-card {
+        padding: 12px !important;
+    }
+    .sub-card-plan {
+        display: block !important;
+    }
+    .sub-card-plan h5 {
+        width: 100px;
+    }
+    .testimonial img {
+        height: 145px !important;
+    }
+    h4.inner-head {
+        font-size: 15px;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .topic-box {
+        grid-template-columns: repeat(3, 1fr);
+        /* On desktop, show 3 cards per row */
+    }
+
+    .all-banner-content {
+        padding: 70px 0;
+    }
+}
+
+@media only screen and (max-width: 540px) {
+    .top-nav {
+        position: relative !important;
+    }
+
+    .members-imgs img {
+        width: 100% !important;
+    }
+
+    .nav-area .navbar-brand img {
+        width: 52px !important;
+    }
+
+    .home-btns {
+        display: block !important;
+    }
+
+    .home-content button {
+        width: 45% !important;
+        margin-bottom: 20px;
+    }
+
+    .Topic-card img {
+        width: 100px !important;
+        padding: 15px !important;
+    }
+
+    .topic-box {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
+    }
+    .wel-btn {
+        padding: 6px 0 !important;
+        width: 250px;
+    }
+    .Topic-card h5 {
+        margin: 8px 0 0 !important;
+        font-size: 12px !important;
+    }
+
+    .job-list {
+        padding: 12px !important;
+        margin: 15px !important;
+    }
+
+    .job-content {
+        display: block !important;
+    }
+
+    .Topic-card {
+        padding: 6px !important;
+        margin: 20px 0 0 !important;
+    }
+    .all-banner-content button img {
+        margin-left: 0px;
+    }
+    .job-content h4 {
+        font-size: 13px !important;
+        line-height: 18px !important;
+    }
+
+    .job-content button {
+        margin: 5px 20px !important;
+    }
+    a.linkA-view {
+        margin: 0 8px !important;
+    }
+    .dropdown {
+        margin: 0 0 10px !important;
+    }
+    .nav-area form span i {
+        margin: 12px 16px !important;
+    }
+    .dropbtn a img {
+        width: 50px;
+        margin: 2px 12px !important;
+    }
+    .subscription-card ul li {
+        font-size: 16px;
+    }
+    .subscription-card ul li i {
+        padding: 9px;
+        font-size: 16px;
+    }
+    .subscription-card {
+        margin: 0 0 30px;
+    }
+    button.sub-btn {
+        font-size: 10px;
+        padding: 6px;
+    }
+    .sub-pay-card {
+        margin: 0 0 20px;
+    }
+    .sub-pay-Successful {
+        padding: 12px !important;
+    }
+    .sub-pay-Successful img {
+        width: 70px!important;
+        margin: 0 0 4px!important;
+    }
+    .all-banner-content h3 {
+        font-size: 30px;
+    }
+    .taxonomy-image {
+        padding: 25px 0 !important;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    .home-content h3 {
+        white-space: normal !important;
+    }
+
+    .home-content h6 {
+        white-space: normal !important;
+    }
+
+    .subscription-card ul li i {
+        padding: 3px !important;
+        font-size: 20px !important;
+    }
+    .subscription-card h2 {
+        font-size: 23px !important;
+    }
+    .subscription-card ul li {
+        font-size: 14px;
+    }
+    .main-heading h4 {
+        font-size: 22px;
+    }
+
+    .trick-head {
+        padding: 20px 10px 10px !important;
+    }
+
+    .trick-head h2 {
+        font-size: 15px !important;
+    }
+
+    .trick-list {
+        padding: 10px !important;
+    }
+
+    .trick-list p {
+        font-size: 14px !important;
+    }
+
+    .Trick-card {
+        margin-bottom: 20px;
+    }
+
+    .trick-list h5 {
+        font-size: 12px !important;
+    }
+
+    p.latest-des {
+        line-height: 24px !important;
+    }
+
+    .live-quiz {
+        padding: 10px !important;
+    }
+
+    .live-quiz p {
+        font-size: 14px !important;
+    }
+
+    .live-quiz span {
+        margin: 0 14px 0 0 !important;
+    }
+
+    .live-quiz button {
+        padding: 6px 15px !important;
+        margin: 10px 0;
+    }
+
+    .job-content h4 {
+        font-size: 13px !important;
+        line-height: 22px !important;
+    }
+
+    .btn-green {
+        font-size: 12px !important;
+        padding: 6px 15px !important;
+        margin: 0 20px;
+    }
+
+    .work-content p {
+        font-size: 11px !important;
+    }
+
+    .Happy-Crazy {
+        display: block !important;
+    }
+
+    .top-nav {
+        position: relative !important;
+    }
+
+    .home-content h3 {
+        font-size: 28px !important;
+    }
+
+    .home-content h6 {
+        font-size: 16px !important;
+        line-height: 24px !important;
+    }
+
+    .all-banner-content h3 {
+        font-size: 22px !important;
+    }
+
+    .pre-next button {
+        padding: 5px;
+        margin: 0 0 20px;
+    }
+}
