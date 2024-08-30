@@ -36,7 +36,13 @@ import IframeLightbox from "../../components/Lightbox/MyLightboxComponent";
 import ReactImageVideoLightbox from "react-image-video-lightbox";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSubject } from "../../reduxx/action/SubjectAction";
-import { fetcEBooks, fetchBlog, fetchDaliyVocab, fetchJobs, fetchWhatsNew } from "../../reduxx/action/BlogAction";
+import {
+  fetcEBooks,
+  fetchBlog,
+  fetchDaliyVocab,
+  fetchJobs,
+  fetchWhatsNew,
+} from "../../reduxx/action/BlogAction";
 import moment from "moment";
 import { fetchVideos } from "../../reduxx/action/VideoAction";
 
@@ -73,50 +79,66 @@ const Lightbox = () => {
 };
 
 function Index(props) {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const { getsubject } = useSelector(state => state.subject)
-  const { getBlog, getWhatsNew, getEBook, getDaliyVocab, getJobs } = useSelector(state => state.blog)
-  const { getvideo } = useSelector(state => state.video)
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { getsubject } = useSelector((state) => state.subject);
+  const { getBlog, getWhatsNew, getEBook, getDaliyVocab, getJobs } =
+    useSelector((state) => state.blog);
+  const { getvideo } = useSelector((state) => state.video);
   const [openLightBox, setOpenLightBox] = useState(false);
-  console.log('getDaliyVocab', getDaliyVocab);
+  console.log("getDaliyVocab", getDaliyVocab);
 
   useEffect(() => {
-    dispatch(fetchSubject({
-      offset: 0,
-      limit: 100
-    }))
-    dispatch(fetchBlog({
-      limit: 100,
-      offset: 0
-    }))
-    dispatch(fetchWhatsNew({
-      limit: 100,
-      offset: 0
-    }))
-    dispatch(fetchVideos({
-      limit: 100,
-      offset: 0,
-      is_trending: true
-    }))
-    dispatch(fetcEBooks({
-      limit: 100,
-      offset: 0,
-    }))
-    dispatch(fetchDaliyVocab({
-      limit: 1,
-      offset: 0,
-    }))
-    dispatch(fetchJobs({
-      limit: 100,
-      offset: 0,
-    }))
-  }, [])
-
+    dispatch(
+      fetchSubject({
+        offset: 0,
+        limit: 100,
+      })
+    );
+    dispatch(
+      fetchBlog({
+        limit: 100,
+        offset: 0,
+      })
+    );
+    dispatch(
+      fetchWhatsNew({
+        limit: 100,
+        offset: 0,
+      })
+    );
+    dispatch(
+      fetchVideos({
+        limit: 100,
+        offset: 0,
+        is_trending: true,
+      })
+    );
+    dispatch(
+      fetcEBooks({
+        limit: 100,
+        offset: 0,
+      })
+    );
+    dispatch(
+      fetchDaliyVocab({
+        limit: 1,
+        offset: 0,
+      })
+    );
+    dispatch(
+      fetchJobs({
+        limit: 100,
+        offset: 0,
+      })
+    );
+  }, []);
 
   const extractVideoId = (videoUrl) => {
     // Regular expression to match YouTube video ID from various URL formats
-    const match = videoUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|shorts\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+    const match = videoUrl.match(
+      /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|shorts\/|watch\?v=|watch\?.+&v=))([\w-]{11})/
+    );
     if (match && match[1]) {
       return match[1];
     } else {
@@ -144,7 +166,9 @@ function Index(props) {
                 </p>
                 <div className="home-btns">
                   <Button>Exam Note</Button>
-                  <Button onClick={() => navigate('/topic-current-affairs')}>Current Affairs</Button>
+                  <Button onClick={() => navigate("/topic-current-affairs")}>
+                    Current Affairs
+                  </Button>
                   <Button>MCQ</Button>
                   <Button>Online Store</Button>
                 </div>
@@ -186,13 +210,29 @@ function Index(props) {
                   </Link>
                 </div>
                 <div className="trick-scroll">
-                  {getWhatsNew?.data?.length > 0 ? getWhatsNew?.data.map(item => (
-                    <div className="trick-list">
-                      <h6>
-                        <i className="fa fa-calendar-check-o" /> {moment(item?.createdDate).format('DD MMMM YY')}
-                      </h6>
-                      <p className="fw-bold" onClick={() => navigate(`/whats-details`, { state: { whatsData: item, base_url: getWhatsNew?.base_url } })}>{item?.title}</p>
-                    </div>)) : null}
+                  {getWhatsNew?.data?.length > 0
+                    ? getWhatsNew?.data.map((item) => (
+                        <div className="trick-list">
+                          <h6>
+                            <i className="fa fa-calendar-check-o" />{" "}
+                            {moment(item?.createdDate).format("DD MMMM YY")}
+                          </h6>
+                          <p
+                            className="fw-bold"
+                            onClick={() =>
+                              navigate(`/whats-details`, {
+                                state: {
+                                  whatsData: item,
+                                  base_url: getWhatsNew?.base_url,
+                                },
+                              })
+                            }
+                          >
+                            {item?.title}
+                          </p>
+                        </div>
+                      ))
+                    : null}
                 </div>
               </div>
             </Col>
@@ -217,21 +257,39 @@ function Index(props) {
                   </Link>
                 </div>
                 <div className="trick-scroll">
-                  {getBlog?.data?.length > 0 ? getBlog?.data.map(item => (
-                    <div className="trick-list">
-                      <p className="fw-bold mb-3" onClick={() => navigate(`/blog-details`, { state: { blogData: item, base_url: getBlog?.base_url } })}>
-                        {item?.title}
-                      </p>
-                      <h5>
-                        <i className="fa fa-calendar-check-o" />{" "}
-                        <span>{moment(item?.createdDate).format('DD MMMM YY')}</span>{" "}
-                        <i className="fa fa-user-circle" />{" "}
-                        <span>Admin</span>
-                      </h5>
-                      <p className="latest-des">
-                        {item?.description ? item?.description.substring(0, 250) : ''}...
-                      </p>
-                    </div>)) : null}
+                  {getBlog?.data?.length > 0
+                    ? getBlog?.data.map((item) => (
+                        <div className="trick-list">
+                          <p
+                            className="fw-bold mb-3"
+                            onClick={() =>
+                              navigate(`/blog-details`, {
+                                state: {
+                                  blogData: item,
+                                  base_url: getBlog?.base_url,
+                                },
+                              })
+                            }
+                          >
+                            {item?.title}
+                          </p>
+                          <h5>
+                            <i className="fa fa-calendar-check-o" />{" "}
+                            <span>
+                              {moment(item?.createdDate).format("DD MMMM YY")}
+                            </span>{" "}
+                            <i className="fa fa-user-circle" />{" "}
+                            <span>Admin</span>
+                          </h5>
+                          <p className="latest-des">
+                            {item?.description
+                              ? item?.description.substring(0, 250)
+                              : ""}
+                            ...
+                          </p>
+                        </div>
+                      ))
+                    : null}
                 </div>
               </div>
             </Col>
@@ -262,17 +320,25 @@ function Index(props) {
             dotListClass="custom-dot-list-style"
             itemClass="carousel-item-padding-40-px"
           >
-            {getvideo?.length > 0 && getvideo.map(item => {
-              const id = extractVideoId(item?.video_url)
-              return (
-                <div onClick={() => setOpenLightBox(true)} className="testimonial">
-                  {/* <img src={testimonial1} /> */}
-                  <img src={`https://img.youtube.com/vi/${id}/hqdefault.jpg`} />
-                  <div className="testimonial-icon">
-                    <i className="fa fa-play" />
+            {getvideo?.length > 0 &&
+              getvideo.map((item) => {
+                const id = extractVideoId(item?.video_url);
+                return (
+                  <div
+                    onClick={() => setOpenLightBox(true)}
+                    className="testimonial"
+                  >
+                    {/* <img src={testimonial1} /> */}
+                    <img
+                      src={`https://img.youtube.com/vi/${id}/hqdefault.jpg`}
+                      alt="img"
+                    />
+                    <div className="testimonial-icon">
+                      <i className="fa fa-play" />
+                    </div>
                   </div>
-                </div>)
-            })}
+                );
+              })}
           </Carousel>
           {openLightBox && (
             <ReactImageVideoLightbox
@@ -316,17 +382,32 @@ function Index(props) {
             <h4>Topic wise videos</h4>
           </div>
           <div className="topic-box">
-            {getsubject?.data?.length > 0 && getsubject?.data.map((item) => (
-              <div className="Topic-card">
-                <div className="taxonomy-image">
-                  {/* <img src={Topic1} /> */}
-                  <img src={item?.image ? getsubject?.base_url + item?.image : Topic1} />
+            {getsubject?.data?.length > 0 &&
+              getsubject?.data.map((item) => (
+                <div className="Topic-card">
+                  <div className="taxonomy-image">
+                    {/* <img src={Topic1} /> */}
+                    <img
+                      src={
+                        item?.image
+                          ? getsubject?.base_url + item?.image
+                          : Topic1
+                      }
+                    />
+                  </div>
+                  <div>
+                    <h5
+                      onClick={() =>
+                        navigate(`/trending-on-youtube`, {
+                          state: { subject: item },
+                        })
+                      }
+                    >
+                      {item?.subject_name}
+                    </h5>
+                  </div>
                 </div>
-                <div>
-                  <h5 onClick={() => navigate(`/trending-on-youtube`, { state: { subject: item } })}>{item?.subject_name}</h5>
-                </div>
-              </div>
-            ))}
+              ))}
           </div>
           <Link to="/subject-wise-video" className="all-view">
             View More
@@ -469,12 +550,25 @@ function Index(props) {
             <h4>E - Books</h4>
           </div>
           <div className="topic-box">
-            {getEBook?.data?.length > 0 && getEBook?.data.slice(0, 5).map(item => (
-              <div className="book-card" onClick={() => window.open(item?.pdf_link)}>
-                <img src={item?.image !== '' ? getEBook?.base_url + item?.image : Book1} />
-              </div>))}
+            {getEBook?.data?.length > 0 &&
+              getEBook?.data.slice(0, 5).map((item) => (
+                <div
+                  className="book-card"
+                  onClick={() => window.open(item?.pdf_link)}
+                >
+                  <img
+                    src={
+                      item?.image !== ""
+                        ? getEBook?.base_url + item?.image
+                        : Book1
+                    }
+                  />
+                </div>
+              ))}
           </div>
-          <Link to={'/allEBook'} className="all-view">View More</Link>
+          <Link to={"/allEBook"} className="all-view">
+            View More
+          </Link>
         </Container>
       </section>
       {/* Recent Job Updates */}
@@ -488,17 +582,21 @@ function Index(props) {
               <Col lg={3}></Col>
               <Col lg={9}>
                 <div className="job-list">
-                  {getJobs?.data?.length > 0 && getJobs?.data?.map(item => (
-                    <div className="job-content">
-                      <a>
-                        <span className="job-icon">
-                          <i className="fa fa-calendar-check-o" />
-                        </span>
-                        <span className="job-date">{moment(item?.createdDate).format('DD MMMM YYYY')}</span>
-                      </a>
-                      <h4>UPSSSC PET Notification 2023 Available</h4>
-                      <Button className="btn-green">Apply Now</Button>
-                    </div>))}
+                  {getJobs?.data?.length > 0 &&
+                    getJobs?.data?.map((item) => (
+                      <div className="job-content">
+                        <div>
+                          <span className="job-icon">
+                            <i className="fa fa-calendar-check-o" />
+                          </span>
+                          <span className="job-date">
+                            {moment(item?.createdDate).format("DD MMMM YYYY")}
+                          </span>
+                        </div>
+                        <h4>{item.title}</h4>
+                        <Button className="btn-green">Apply Now</Button>
+                      </div>
+                    ))}
                 </div>
               </Col>
             </Row>
@@ -513,7 +611,9 @@ function Index(props) {
               <Col lg={7} sm={9} xs={9}>
                 <div className="work-content">
                   <h4>WORD OF THE DAY</h4>
-                  {getDaliyVocab?.data?.length > 0 && (<p>{getDaliyVocab?.data[0]?.description}</p>)}
+                  {getDaliyVocab?.data?.length > 0 && (
+                    <p>{getDaliyVocab?.data[0]?.description}</p>
+                  )}
                   <Button className="btn-green">Daily Vocab</Button>
                 </div>
               </Col>
