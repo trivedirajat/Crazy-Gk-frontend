@@ -45,6 +45,7 @@ import {
 } from "../../reduxx/action/BlogAction";
 import moment from "moment";
 import { fetchVideos } from "../../reduxx/action/VideoAction";
+import { stripHtmlTags } from "../../utils/stripHtmlTags";
 
 const testimonialSlider = {
   desktop: {
@@ -283,7 +284,9 @@ function Index(props) {
                           </h5>
                           <p className="latest-des">
                             {item?.description
-                              ? item?.description.substring(0, 250)
+                              ? stripHtmlTags(
+                                  item?.description.substring(0, 250)
+                                )
                               : ""}
                             ...
                           </p>
@@ -388,6 +391,7 @@ function Index(props) {
                   <div className="taxonomy-image">
                     {/* <img src={Topic1} /> */}
                     <img
+                      alt={item?.subject_name}
                       src={
                         item?.image
                           ? getsubject?.base_url + item?.image
