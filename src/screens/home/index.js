@@ -4,38 +4,19 @@ import "../../components/Lightbox/lightbox.css";
 import Header from "../../directives/header/header";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import Home1 from "../../assets/images/img/home1.png";
-import Banner1 from "../../assets/images/img/banner1.png";
-import testimonial1 from "../../assets/images/img/Testimonial1.png";
-import testimonial2 from "../../assets/images/img/Testimonial2.png";
-import testimonial3 from "../../assets/images/img/Testimonial3.png";
 import Topic1 from "../../assets/images/img/science 2.png";
-import Topic2 from "../../assets/images/img/molecular 1.png";
-import Topic3 from "../../assets/images/img/anthropology 2.png";
-import Topic4 from "../../assets/images/img/question 1.png";
-import Topic5 from "../../assets/images/img/sprout 1.png";
-import Topic6 from "../../assets/images/img/court 2.png";
-import Topic7 from "../../assets/images/img/history-book (1) 1.png";
-import Topic8 from "../../assets/images/img/globe 2.png";
-import Topic9 from "../../assets/images/img/economics 1.png";
-import Topic10 from "../../assets/images/img/math 2.png";
 import Book1 from "../../assets/images/img/book1.png";
-import Book2 from "../../assets/images/img/book2.png";
-import Book3 from "../../assets/images/img/book3.png";
-import Book4 from "../../assets/images/img/book4.png";
-import Book5 from "../../assets/images/img/book5.png";
 import BG1 from "../../assets/images/img/BG.png";
 import BG2 from "../../assets/images/img/BG (1).png";
 import BG3 from "../../assets/images/img/BG (2).png";
 import BG4 from "../../assets/images/img/BG (3).png";
-import Img1 from "../../assets/images/img/img1.png";
-import allBaanner from "../../assets/images/img/allbaanner.png";
 import Carousel from "react-multi-carousel";
 import Footer from "../../directives/footer/footer";
 import { Link, useNavigate } from "react-router-dom";
-import IframeLightbox from "../../components/Lightbox/MyLightboxComponent";
 import ReactImageVideoLightbox from "react-image-video-lightbox";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSubject } from "../../reduxx/action/SubjectAction";
+import placeholder from "../../assets/images/placeholder.png";
 import {
   fetcEBooks,
   fetchBlog,
@@ -46,6 +27,8 @@ import {
 import moment from "moment";
 import { fetchVideos } from "../../reduxx/action/VideoAction";
 import { stripHtmlTags } from "../../utils/stripHtmlTags";
+import axios from "axios";
+import { BaseURL } from "../../Config";
 
 const testimonialSlider = {
   desktop: {
@@ -83,11 +66,11 @@ function Index(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { getsubject } = useSelector((state) => state.subject);
+  const [quizsubject, setQuizSubject] = useState([]);
   const { getBlog, getWhatsNew, getEBook, getDaliyVocab, getJobs } =
     useSelector((state) => state.blog);
   const { getvideo } = useSelector((state) => state.video);
   const [openLightBox, setOpenLightBox] = useState(false);
-  console.log("getDaliyVocab", getDaliyVocab);
 
   useEffect(() => {
     dispatch(
@@ -133,6 +116,13 @@ function Index(props) {
         offset: 0,
       })
     );
+    const getquize = async () => {
+      const res = await axios.get(`${BaseURL}/quiz/getQuizs`);
+      if (res.data?.data.length > 0) {
+        setQuizSubject(res.data.data);
+      }
+    };
+    getquize();
   }, []);
 
   const extractVideoId = (videoUrl) => {
@@ -397,6 +387,10 @@ function Index(props) {
                           ? getsubject?.base_url + item?.image
                           : Topic1
                       }
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = placeholder;
+                      }}
                     />
                   </div>
                   <div>
@@ -418,135 +412,46 @@ function Index(props) {
           </Link>
         </Container>
       </section>
-      {/* Daily Current Affairs */}
       <section className="section-padding">
         <Container fluid className="container-space">
           <div className="main-heading">
+            <div></div>
             <h4>Daily Current Affairs and GK | Live Quiz</h4>
           </div>
-          <div className="live-quiz">
-            <Row>
-              <Col lg={10}>
-                <p>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting | June 30,2024
-                </p>
-                <div>
-                  <span>
-                    <i className="fa fa-question-circle-o" /> 50 Questions
-                  </span>
-                  <span>
-                    <i className="fa fa-file-text-o" /> 50 Marks
-                  </span>
-                  <span>
-                    <i className="fa fa-clock-o" /> 60 Mins
-                  </span>
+          <div className="topic-box">
+            {quizsubject.length > 0 &&
+              quizsubject.map((item) => (
+                <div className="Topic-card">
+                  <div className="taxonomy-image">
+                    {/* <img src={Topic1} /> */}
+                    <img
+                      alt={item?.subject_name}
+                      src={
+                        item?.image
+                          ? getsubject?.base_url + item?.image
+                          : Topic1
+                      }
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = placeholder;
+                      }}
+                    />
+                  </div>
+                  <div>
+                    <h5 onClick={() => navigate(`/quiz/${item?._id}`)}>
+                      {item?.subject_name}
+                    </h5>
+                  </div>
                 </div>
-              </Col>
-              <Col lg={2} className="align-self-center">
-                <Button>Start Now</Button>
-              </Col>
-            </Row>
+              ))}
           </div>
-          <div className="live-quiz">
-            <Row>
-              <Col lg={10}>
-                <p>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting | June 30,2024
-                </p>
-                <div>
-                  <span>
-                    <i className="fa fa-question-circle-o" /> 50 Questions
-                  </span>
-                  <span>
-                    <i className="fa fa-file-text-o" /> 50 Marks
-                  </span>
-                  <span>
-                    <i className="fa fa-clock-o" /> 60 Mins
-                  </span>
-                </div>
-              </Col>
-              <Col lg={2} className="align-self-center">
-                <Button>Start Now</Button>
-              </Col>
-            </Row>
-          </div>
-          <div className="live-quiz">
-            <Row>
-              <Col lg={10}>
-                <p>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting | June 30,2024
-                </p>
-                <div>
-                  <span>
-                    <i className="fa fa-question-circle-o" /> 50 Questions
-                  </span>
-                  <span>
-                    <i className="fa fa-file-text-o" /> 50 Marks
-                  </span>
-                  <span>
-                    <i className="fa fa-clock-o" /> 60 Mins
-                  </span>
-                </div>
-              </Col>
-              <Col lg={2} className="align-self-center">
-                <Button>Start Now</Button>
-              </Col>
-            </Row>
-          </div>
-          <div className="live-quiz">
-            <Row>
-              <Col lg={10}>
-                <p>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting | June 30,2024
-                </p>
-                <div>
-                  <span>
-                    <i className="fa fa-question-circle-o" /> 50 Questions
-                  </span>
-                  <span>
-                    <i className="fa fa-file-text-o" /> 50 Marks
-                  </span>
-                  <span>
-                    <i className="fa fa-clock-o" /> 60 Mins
-                  </span>
-                </div>
-              </Col>
-              <Col lg={2} className="align-self-center">
-                <Button>Start Now</Button>
-              </Col>
-            </Row>
-          </div>
-          <div className="live-quiz">
-            <Row>
-              <Col lg={10}>
-                <p>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting | June 30,2024
-                </p>
-                <div>
-                  <span>
-                    <i className="fa fa-question-circle-o" /> 50 Questions
-                  </span>
-                  <span>
-                    <i className="fa fa-file-text-o" /> 50 Marks
-                  </span>
-                  <span>
-                    <i className="fa fa-clock-o" /> 60 Mins
-                  </span>
-                </div>
-              </Col>
-              <Col lg={2} className="align-self-center">
-                <Button>Start Now</Button>
-              </Col>
-            </Row>
-          </div>
-          <Link className="all-view">Watch More</Link>
+          <Link to="/" className="all-view">
+            View More
+          </Link>
         </Container>
       </section>
+      {/* Daily Current Affairs */}
+
       {/* E - Books */}
       <section className="section-padding">
         <Container fluid className="container-space">

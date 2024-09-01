@@ -15,16 +15,36 @@ import "../header/header.css";
 import GoogleIcon from "../../assets/images/icon/google.png";
 import FacebookIcon from "../../assets/images/icon/facebook.png";
 import welcome3 from "../../assets/images/icon/welcome3.png";
-import en from "../../assets/images/icon/en.png";
 import userProfile from "../../assets/images/img/Avata.png";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { checkUserMobile, removeAuthResponse, resetPassword, updateProfile, userLogin, userReSendOTP, userRegister, userVerfiyOTP } from "../../reduxx/action/AuthAction";
+import {
+  checkUserMobile,
+  removeAuthResponse,
+  resetPassword,
+  updateProfile,
+  userLogin,
+  userReSendOTP,
+  userRegister,
+  userVerfiyOTP,
+} from "../../reduxx/action/AuthAction";
 import { logout, userForgotPassword } from "../../reduxx/action/actionCreators";
+import GlobalSearch from "../../components/shared/GlobalSearch";
 
 function Header(props) {
-  const dispatch = useDispatch()
-  const { isAuthenticated = false, userData, responseLogin, responseSignup, responseCheckMobile, responseOtpVerify, resendotp, forgotpassword, updateprofile, updatepassword } = useSelector(state => state.auth) || {}
+  const dispatch = useDispatch();
+  const {
+    isAuthenticated = false,
+    userData,
+    responseLogin,
+    responseSignup,
+    responseCheckMobile,
+    responseOtpVerify,
+    resendotp,
+    forgotpassword,
+    updateprofile,
+    updatepassword,
+  } = useSelector((state) => state.auth) || {};
   const [show, setShow] = useState(false);
   const [signUpModal, setSignUpModal] = useState(false);
   const [userNameModal, setUserNameModal] = useState(false);
@@ -35,124 +55,150 @@ function Header(props) {
   // forgot password
   const [emailOrMobile, setEmailOrMobile] = useState("");
   // register acount
-  const [mobileNo, setMobileNo] = useState("")
+  const [mobileNo, setMobileNo] = useState("");
   const [user_name, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [otp, setOtp] = useState(['', '', '', '', '', '']);
-  const [forgotOtp, setForgotOtp] = useState(['', '', '', '', '', '']);
+  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+  const [forgotOtp, setForgotOtp] = useState(["", "", "", "", "", ""]);
   const [userNameData, setUserNameData] = useState({
-    name: '',
-    password: '',
-    confirmPassword: ''
-  })
+    name: "",
+    password: "",
+    confirmPassword: "",
+  });
   const [resetPasswordData, setResetPasswordData] = useState({
-    password: '',
-    confirmPassword: ''
-  })
-  const [userDetails, setUserDetails] = useState(null)
-  console.log('userDetails', userDetails);
-  console.log('responseOtpVerify', responseOtpVerify);
-  console.log('resendotp', resendotp);
-  console.log('isAuthenticated', isAuthenticated);
-  console.log('password', password);
+    password: "",
+    confirmPassword: "",
+  });
+  const [userDetails, setUserDetails] = useState(null);
+
   useEffect(() => {
-    if (responseSignup || responseCheckMobile || responseOtpVerify || resendotp || responseLogin || forgotpassword || updateprofile || userData || updatepassword) {
+    if (
+      responseSignup ||
+      responseCheckMobile ||
+      responseOtpVerify ||
+      resendotp ||
+      responseLogin ||
+      forgotpassword ||
+      updateprofile ||
+      userData ||
+      updatepassword
+    ) {
       if (responseCheckMobile?.status === 200) {
-        toast.success(responseSignup?.data?.message)
-        dispatch(removeAuthResponse())
-        dispatch(userRegister({
-          mobile: mobileNo,
-          user_type: 'user'
-        }))
-      }
-      else if (responseSignup?.status === 200) {
-        toast.success(responseSignup?.data?.message)
-        dispatch(removeAuthResponse())
+        toast.success(responseSignup?.data?.message);
+        dispatch(removeAuthResponse());
+        dispatch(
+          userRegister({
+            mobile: mobileNo,
+            user_type: "user",
+          })
+        );
+      } else if (responseSignup?.status === 200) {
+        toast.success(responseSignup?.data?.message);
+        dispatch(removeAuthResponse());
         setSignOtpmodal(true);
         setSignUpModal(false);
-      }
-      else if (responseOtpVerify?.status === 200) {
-        toast.success(responseOtpVerify?.data?.message)
-        localStorage.setItem('userData', JSON.stringify(responseOtpVerify?.data?.data));
-        localStorage.setItem('token', responseOtpVerify?.data?.token);
+      } else if (responseOtpVerify?.status === 200) {
+        toast.success(responseOtpVerify?.data?.message);
+        localStorage.setItem(
+          "userData",
+          JSON.stringify(responseOtpVerify?.data?.data)
+        );
+        localStorage.setItem("token", responseOtpVerify?.data?.token);
         setSignOtpmodal(false);
         setSignUpModal(false);
         if (otpmodal) {
-          setOtpmodal(false)
-          setResetPasswordmodal(true)
+          setOtpmodal(false);
+          setResetPasswordmodal(true);
         } else {
-          setUserNameModal(true)
+          setUserNameModal(true);
         }
-        dispatch(removeAuthResponse())
-      }
-      else if (resendotp?.status === 200) {
-        toast.success(resendotp?.data?.message)
-        dispatch(removeAuthResponse())
-      }
-      else if (responseLogin?.status === 200) {
-        toast.success(resendotp?.data?.message)
-        toast.success(responseLogin?.data?.message)
+        dispatch(removeAuthResponse());
+      } else if (resendotp?.status === 200) {
+        toast.success(resendotp?.data?.message);
+        dispatch(removeAuthResponse());
+      } else if (responseLogin?.status === 200) {
+        toast.success(resendotp?.data?.message);
+        toast.success(responseLogin?.data?.message);
         // Close the modal
         setShow(false);
         // Save user data and token in local storage
-        localStorage.setItem('userData', JSON.stringify(responseLogin?.data?.data?.userDetail));
-        localStorage.setItem('token', responseLogin?.data?.data?.token);
-        dispatch(removeAuthResponse())
-      }
-      else if (responseLogin?.status === 203) {
-        toast.success(responseLogin?.data?.message)
+        localStorage.setItem(
+          "userData",
+          JSON.stringify(responseLogin?.data?.data?.userDetail)
+        );
+        localStorage.setItem("token", responseLogin?.data?.data?.token);
+        dispatch(removeAuthResponse());
+      } else if (responseLogin?.status === 203) {
+        toast.success(responseLogin?.data?.message);
         setShow(false);
-        setUserNameModal(true)
-        dispatch(removeAuthResponse())
-      }
-      else if (forgotpassword?.status === 200) {
-        toast.success(forgotpassword?.data?.message)
-        setForgotPasswordmodal(false)
-        setOtpmodal(true)
-        dispatch(removeAuthResponse())
-      }
-      else if (forgotpassword?.status === 203) {
-        toast.success(forgotpassword?.data?.message)
-        setForgotPasswordmodal(false)
-        setUserNameModal(true)
-        dispatch(removeAuthResponse())
-      }
-      else if (updatepassword?.status === 200) {
-        toast.success(updatepassword?.data?.message)
-        setForgotPasswordmodal(false)
-        setResetPasswordmodal(false)
-        dispatch(removeAuthResponse())
-        setResetPasswordData(null)
+        setUserNameModal(true);
+        dispatch(removeAuthResponse());
+      } else if (forgotpassword?.status === 200) {
+        toast.success(forgotpassword?.data?.message);
+        setForgotPasswordmodal(false);
+        setOtpmodal(true);
+        dispatch(removeAuthResponse());
+      } else if (forgotpassword?.status === 203) {
+        toast.success(forgotpassword?.data?.message);
+        setForgotPasswordmodal(false);
+        setUserNameModal(true);
+        dispatch(removeAuthResponse());
+      } else if (updatepassword?.status === 200) {
+        toast.success(updatepassword?.data?.message);
+        setForgotPasswordmodal(false);
+        setResetPasswordmodal(false);
+        dispatch(removeAuthResponse());
+        setResetPasswordData(null);
       }
       // else if (userData?.status === 200) {
       //   setUserDetails(userData?.data?.data?.userDetail)
       // }
       else if (updateprofile?.status === 200) {
-        toast.success(updateprofile?.data?.message)
-        localStorage.setItem('userData', JSON.stringify(updateprofile?.data?.data));
-        setUserNameModal(false)
-        dispatch(removeAuthResponse())
-      }
-      else {
-        toast.error(responseSignup?.data?.message || responseCheckMobile?.data?.message || responseOtpVerify?.data?.message || resendotp?.data?.message || responseLogin?.data?.message || forgotpassword?.data?.message || updateprofile?.data?.message || updatepassword?.data?.message)
+        toast.success(updateprofile?.data?.message);
+        localStorage.setItem(
+          "userData",
+          JSON.stringify(updateprofile?.data?.data)
+        );
+        setUserNameModal(false);
+        dispatch(removeAuthResponse());
+      } else {
+        toast.error(
+          responseSignup?.data?.message ||
+            responseCheckMobile?.data?.message ||
+            responseOtpVerify?.data?.message ||
+            resendotp?.data?.message ||
+            responseLogin?.data?.message ||
+            forgotpassword?.data?.message ||
+            updateprofile?.data?.message ||
+            updatepassword?.data?.message
+        );
         // alert(responseSignup?.data?.message)
-        dispatch(removeAuthResponse())
+        dispatch(removeAuthResponse());
       }
     }
-
-  }, [responseSignup, responseOtpVerify, resendotp, responseLogin, responseCheckMobile, forgotpassword, updateprofile, userData, updatepassword])
+  }, [
+    responseSignup,
+    responseOtpVerify,
+    resendotp,
+    responseLogin,
+    responseCheckMobile,
+    forgotpassword,
+    updateprofile,
+    userData,
+    updatepassword,
+  ]);
 
   useEffect(() => {
     const fetchUserDetails = async () => {
-      const userData = await localStorage.getItem('userData');
-      const data = JSON.parse(userData)
+      const userData = await localStorage.getItem("userData");
+      const data = JSON.parse(userData);
       if (data) {
-        setUserDetails(data)
+        setUserDetails(data);
       }
-    }
-    fetchUserDetails()
-  }, [])
+    };
+    fetchUserDetails();
+  }, []);
 
   const handleChangeSignup = (e) => {
     setUserName(e.target.value);
@@ -168,7 +214,7 @@ function Header(props) {
   };
 
   const validateInput = () => {
-    const isValidInput = /^\d{10}$/.test(mobileNo)
+    const isValidInput = /^\d{10}$/.test(mobileNo);
 
     if (!isValidInput) {
       // setErrorMessage("Please enter a valid 10-digit number or email address.");
@@ -179,40 +225,42 @@ function Header(props) {
     return true;
   };
   const validation = () => {
-    let isValidate = true
-    let isError1 = ''
-    let isError2 = ''
-    const isValidInput = /^\d{10}$/.test(mobileNo)
+    let isValidate = true;
+    let isError1 = "";
+    let isError2 = "";
+    const isValidInput = /^\d{10}$/.test(mobileNo);
     if (!isValidInput) {
-      isValidate = false
-      isError1 = 'Please enter a valid 10-digit number'
+      isValidate = false;
+      isError1 = "Please enter a valid 10-digit number";
+    } else if (password == "" || password == undefined) {
+      isValidate = false;
+      isError2 = "Please enter The Password";
     }
-    else if (password == '' || password == undefined) {
-      isValidate = false
-      isError2 = 'Please enter The Password'
+    if (isError1 !== "" || isError2 !== "") {
+      setErrorMessage(!isValidInput ? isError1 : isError2);
+      toast.error(!isValidInput ? isError1 : isError2);
     }
-    if (isError1 !== '' || isError2 !== '') {
-      setErrorMessage(!isValidInput ? isError1 : isError2)
-      toast.error(!isValidInput ? isError1 : isError2)
-    }
-    return isValidate
-  }
+    return isValidate;
+  };
 
   const checkMobile = () => {
     if (validateInput()) {
-      dispatch(checkUserMobile({
-        mobile: mobileNo
-      }))
+      dispatch(
+        checkUserMobile({
+          mobile: mobileNo,
+        })
+      );
     }
-  }
+  };
 
   const handleSignOtpmodalShow = () => {
     if (validateInput()) {
-      dispatch(userRegister({
-        user_name: user_name,
-        user_type: 'user'
-      }))
-
+      dispatch(
+        userRegister({
+          user_name: user_name,
+          user_type: "user",
+        })
+      );
     }
   };
   // logout start
@@ -231,7 +279,7 @@ function Header(props) {
   };
 
   const handleSignUpModalClose = () => {
-    dispatch(removeAuthResponse())
+    dispatch(removeAuthResponse());
     setSignUpModal(false);
     setShow(false);
   };
@@ -243,10 +291,12 @@ function Header(props) {
   // Forgot password start
   const handleForgotPassword = async () => {
     if (validateInput()) {
-      dispatch(userForgotPassword({
-        mobile: mobileNo,
-        user_type: 'user'
-      }));
+      dispatch(
+        userForgotPassword({
+          mobile: mobileNo,
+          user_type: "user",
+        })
+      );
     }
   };
 
@@ -262,25 +312,28 @@ function Header(props) {
   };
 
   const handleOtpmodalClose = () => {
-    dispatch(userVerfiyOTP({
-      mobile: mobileNo,
-      otp: Number(forgotOtp.join(''))
-    }))
-    setForgotOtp(['', '', '', '', '', ''])
+    dispatch(
+      userVerfiyOTP({
+        mobile: mobileNo,
+        otp: Number(forgotOtp.join("")),
+      })
+    );
+    setForgotOtp(["", "", "", "", "", ""]);
     // setOtpmodal(false);
     // setShow(false);
   };
 
-
   const handleOtpmodalShow = async () => {
     if (validation()) {
       try {
-        await dispatch(userLogin({
-          mobile: mobileNo,
-          password: password,
-          user_type: 'user'
-        }));
-        setPassword('')
+        await dispatch(
+          userLogin({
+            mobile: mobileNo,
+            password: password,
+            user_type: "user",
+          })
+        );
+        setPassword("");
       } catch (error) {
         toast.error("Login failed");
       }
@@ -288,11 +341,13 @@ function Header(props) {
   };
 
   const handleSignOtpmodalClose = () => {
-    dispatch(userVerfiyOTP({
-      mobile: mobileNo,
-      otp: Number(otp.join(''))
-    }))
-    setOtp(['', '', '', '', '', ''])
+    dispatch(
+      userVerfiyOTP({
+        mobile: mobileNo,
+        otp: Number(otp.join("")),
+      })
+    );
+    setOtp(["", "", "", "", "", ""]);
     // setSignOtpmodal(false);
     // setSignUpModal(false);
   };
@@ -303,25 +358,31 @@ function Header(props) {
   // };
 
   const resetPasswordValidation = () => {
-    let isValidate = true
-    let isError = ''
-    if (resetPasswordData?.password == '' || resetPasswordData?.password == undefined) {
-      isValidate = false
-      isError = 'Please enter The Password'
+    let isValidate = true;
+    let isError = "";
+    if (
+      resetPasswordData?.password == "" ||
+      resetPasswordData?.password == undefined
+    ) {
+      isValidate = false;
+      isError = "Please enter The Password";
+    } else if (
+      resetPasswordData?.confirmPassword == "" ||
+      resetPasswordData?.confirmPassword == undefined
+    ) {
+      isValidate = false;
+      isError = "Please enter The confirm Password";
+    } else if (
+      resetPasswordData?.confirmPassword !== resetPasswordData?.password
+    ) {
+      isValidate = false;
+      isError = "Your password and confirmation password do not match.";
     }
-    else if (resetPasswordData?.confirmPassword == '' || resetPasswordData?.confirmPassword == undefined) {
-      isValidate = false
-      isError = 'Please enter The confirm Password'
+    if (isError !== "") {
+      toast.error(isError);
     }
-    else if (resetPasswordData?.confirmPassword !== resetPasswordData?.password) {
-      isValidate = false
-      isError = 'Your password and confirmation password do not match.'
-    }
-    if (isError !== '') {
-      toast.error(isError)
-    }
-    return isValidate
-  }
+    return isValidate;
+  };
 
   const handleResetPasswordmodalClose = () => {
     setResetPasswordmodal(false);
@@ -330,10 +391,12 @@ function Header(props) {
 
   const onPressResetPassword = () => {
     if (resetPasswordValidation()) {
-      dispatch(resetPassword({
-        mobile: mobileNo,
-        password: resetPasswordData.password
-      }))
+      dispatch(
+        resetPassword({
+          mobile: mobileNo,
+          password: resetPasswordData.password,
+        })
+      );
     }
   };
   const [showOverlay, setShowOverlay] = useState(false);
@@ -347,14 +410,13 @@ function Header(props) {
   };
 
   const handleStateChnage = (e) => {
-    const { name, value } = e.target
-    if (name === 'mobile') {
+    const { name, value } = e.target;
+    if (name === "mobile") {
       setMobileNo(e.target.value);
     } else {
-      setPassword(e.target.value)
+      setPassword(e.target.value);
     }
-
-  }
+  };
 
   const inputRefs1 = useRef([]);
 
@@ -379,13 +441,13 @@ function Header(props) {
     setOtp(newOtp);
 
     // Move to the next input box if a value is entered
-    if (value !== '') {
+    if (value !== "") {
       if (index < otp.length - 1) {
         focusNextInput1(index);
       }
     } else {
       // If value is removed, check if we should move to the previous input box
-      if (index > 0 && newOtp[index - 1] === '') {
+      if (index > 0 && newOtp[index - 1] === "") {
         focusPrevInput1(index);
       }
     }
@@ -393,13 +455,13 @@ function Header(props) {
 
   // Function to handle key presses for navigation and backspace
   const handleKeyPress1 = (e, index) => {
-    if (e.key === 'ArrowLeft') {
+    if (e.key === "ArrowLeft") {
       focusPrevInput1(index);
-    } else if (e.key === 'ArrowRight') {
+    } else if (e.key === "ArrowRight") {
       focusNextInput1(index);
-    } else if (e.key === 'Backspace') {
+    } else if (e.key === "Backspace") {
       // If backspace is pressed and the current input box is empty, move to the previous box
-      if (otp[index] === '') {
+      if (otp[index] === "") {
         focusPrevInput1(index);
       }
     }
@@ -433,13 +495,13 @@ function Header(props) {
     setForgotOtp(newOtp);
 
     // Move to the next input box if a value is entered
-    if (value !== '') {
+    if (value !== "") {
       if (index < forgotOtp.length - 1) {
         focusNextInput(index);
       }
     } else {
       // If value is removed, check if we should move to the previous input box
-      if (index > 0 && newOtp[index - 1] === '') {
+      if (index > 0 && newOtp[index - 1] === "") {
         focusPrevInput(index);
       }
     }
@@ -447,13 +509,13 @@ function Header(props) {
 
   // Handle key press events for navigation and backspace
   const handleKeyPress = (e, index) => {
-    if (e.key === 'ArrowLeft') {
+    if (e.key === "ArrowLeft") {
       focusPrevInput(index);
-    } else if (e.key === 'ArrowRight') {
+    } else if (e.key === "ArrowRight") {
       focusNextInput(index);
-    } else if (e.key === 'Backspace') {
+    } else if (e.key === "Backspace") {
       // If backspace is pressed and the current input box is empty, move to the previous box
-      if (forgotOtp[index] === '') {
+      if (forgotOtp[index] === "") {
         focusPrevInput(index);
       }
     }
@@ -464,57 +526,62 @@ function Header(props) {
     inputRefs.current = inputRefs.current.slice(0, forgotOtp.length);
   }, [forgotOtp]);
 
-
   const handleResendOtp = () => {
-    dispatch(removeAuthResponse())
-    dispatch(userReSendOTP({
-      mobile: mobileNo
-    }))
-  }
+    dispatch(removeAuthResponse());
+    dispatch(
+      userReSendOTP({
+        mobile: mobileNo,
+      })
+    );
+  };
 
   const handleUserNameChnage = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setUserNameData({
-      ...userNameData, [name]: value
-    })
-  }
+      ...userNameData,
+      [name]: value,
+    });
+  };
 
   const UserNameValidation = () => {
-    let isValidate = true
-    let isError = ''
-    if (userNameData?.name === '' || userNameData?.name === undefined) {
-      isValidate = false
-      isError = 'Please enter the username'
-    }
-    else if (userNameData?.password == '' || userNameData?.password == undefined) {
-      isValidate = false
-      isError = 'Please enter The Password'
-    }
-    else if (userNameData?.confirmPassword == '' || userNameData?.confirmPassword == undefined) {
-      isValidate = false
-      isError = 'Please enter The confirm Password'
-    }
-    else if (userNameData?.confirmPassword !== userNameData?.password) {
-      isValidate = false
-      isError = 'Your password and confirmation password do not match.'
+    let isValidate = true;
+    let isError = "";
+    if (userNameData?.name === "" || userNameData?.name === undefined) {
+      isValidate = false;
+      isError = "Please enter the username";
+    } else if (
+      userNameData?.password == "" ||
+      userNameData?.password == undefined
+    ) {
+      isValidate = false;
+      isError = "Please enter The Password";
+    } else if (
+      userNameData?.confirmPassword == "" ||
+      userNameData?.confirmPassword == undefined
+    ) {
+      isValidate = false;
+      isError = "Please enter The confirm Password";
+    } else if (userNameData?.confirmPassword !== userNameData?.password) {
+      isValidate = false;
+      isError = "Your password and confirmation password do not match.";
     }
     if (isError) {
-      toast.error(isError)
+      toast.error(isError);
     }
-    return isValidate
-  }
+    return isValidate;
+  };
 
   const CreateUserName = async () => {
-    const userId = await localStorage.getItem('userData')
+    const userId = await localStorage.getItem("userData");
     if (UserNameValidation()) {
       const data = new URLSearchParams();
       data.append("user_name", userNameData?.name);
       data.append("mobile", mobileNo);
       data.append("password", userNameData?.password);
-      data.append("user_id", '');
-      dispatch(updateProfile(data))
+      data.append("user_id", "");
+      dispatch(updateProfile(data));
     }
-  }
+  };
 
   return (
     <>
@@ -577,11 +644,15 @@ function Header(props) {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="m-auto nav-menus">
-              <Nav.Link >
-                <Link className="linkA-view" to="/home">Home</Link>
+              <Nav.Link>
+                <Link className="linkA-view" to="/home">
+                  Home
+                </Link>
               </Nav.Link>
-              <Nav.Link >
-                <Link className="linkA-view" to="/study-material">Study Material</Link>
+              <Nav.Link>
+                <Link className="linkA-view" to="/study-material">
+                  Study Material
+                </Link>
               </Nav.Link>
               {/* <div className="dropdown">
                 <button className="dropbtn">
@@ -665,40 +736,47 @@ function Header(props) {
             )}
             <>
               {showOverlay && (
-                <div className="overlay-header">
-                  <div className="search-container">
-                    <input type="text" placeholder="Search..." />
-                    <i className="fa fa-close" onClick={handleHideOverlay} />
-                  </div>
-                </div>
+                <GlobalSearch handleHideOverlay={handleHideOverlay} />
               )}
               <Form className="d-flex">
                 <span onClick={handleSearchClick}>
                   <i className="fa fa-search" />
                 </span>
-                {!isAuthenticated && (<Button variant="outline-success" onClick={handleShow}>
-                  Login
-                </Button>)}
+                {!isAuthenticated && (
+                  <Button variant="outline-success" onClick={handleShow}>
+                    Login
+                  </Button>
+                )}
               </Form>
-              {isAuthenticated && (<div className="dropdown">
-                <div className="dropbtn">
-                  <Link>
-                    <img src={userProfile} />
-                  </Link>
-                </div>
-                <div className="dropdown-content userprofile">
-                  <div className="profile-header">
-                    <img src={userProfile} />
-                    <div>
-                      <h4>{userDetails?.user_name ? userDetails?.user_name : 'jhon Doe'}</h4>
-                      <p>{userDetails?.email ? userDetails?.email : 'jhon@gmail.com'}</p>
-                    </div>
+              {isAuthenticated && (
+                <div className="dropdown">
+                  <div className="dropbtn">
+                    <Link>
+                      <img src={userProfile} />
+                    </Link>
                   </div>
-                  <hr className="m-0" />
-                  <Link to="/my-profile">Profile</Link>
-                  <Link onClick={handleLogout}>Logout</Link>
+                  <div className="dropdown-content userprofile">
+                    <div className="profile-header">
+                      <img src={userProfile} />
+                      <div>
+                        <h4>
+                          {userDetails?.user_name
+                            ? userDetails?.user_name
+                            : "jhon Doe"}
+                        </h4>
+                        <p>
+                          {userDetails?.email
+                            ? userDetails?.email
+                            : "jhon@gmail.com"}
+                        </p>
+                      </div>
+                    </div>
+                    <hr className="m-0" />
+                    <Link to="/my-profile">Profile</Link>
+                    <Link onClick={handleLogout}>Logout</Link>
+                  </div>
                 </div>
-              </div>)}
+              )}
             </>
           </Navbar.Collapse>
         </Container>
@@ -721,9 +799,9 @@ function Header(props) {
                 name="mobile"
                 value={mobileNo}
                 onChange={(val) => {
-                  const mobile = val?.target?.value
+                  const mobile = val?.target?.value;
                   if (mobile?.length <= 10) {
-                    handleStateChnage(val)
+                    handleStateChnage(val);
                   }
                 }}
               />
@@ -775,9 +853,9 @@ function Header(props) {
                 name="mobile"
                 value={mobileNo}
                 onChange={(val) => {
-                  const mobile = val?.target?.value
+                  const mobile = val?.target?.value;
                   if (mobile?.length <= 10) {
-                    handleStateChnage(val)
+                    handleStateChnage(val);
                   }
                 }}
               />
@@ -808,11 +886,14 @@ function Header(props) {
       </Modal>
 
       {/* ================================ login OTP Modal =============================== */}
-      <Modal show={otpmodal} onHide={() => {
-        dispatch(removeAuthResponse())
-        setOtpmodal(false);
-        setForgotPasswordmodal(false);
-      }}>
+      <Modal
+        show={otpmodal}
+        onHide={() => {
+          dispatch(removeAuthResponse());
+          setOtpmodal(false);
+          setForgotPasswordmodal(false);
+        }}
+      >
         <Modal.Body className="login-area">
           <div className="text-center">
             <h6>Welcome to</h6>
@@ -839,7 +920,9 @@ function Header(props) {
             </Form.Group>
           </Form>
           <div className="Forgottext">
-            <Button onClick={() => handleResendOtp()} to="">Resend OTP</Button>
+            <Button onClick={() => handleResendOtp()} to="">
+              Resend OTP
+            </Button>
           </div>
           <div className="text-center">
             <Button onClick={handleOtpmodalClose}>Verify OTP</Button>
@@ -848,11 +931,14 @@ function Header(props) {
       </Modal>
 
       {/* ================================ Signup OTP Modal =============================== */}
-      <Modal show={signotpmodal} onHide={() => {
-        dispatch(removeAuthResponse())
-        setSignOtpmodal(false);
-        setSignUpModal(false);
-      }}>
+      <Modal
+        show={signotpmodal}
+        onHide={() => {
+          dispatch(removeAuthResponse());
+          setSignOtpmodal(false);
+          setSignUpModal(false);
+        }}
+      >
         <Modal.Body className="login-area">
           <div className="text-center">
             <h6>Welcome to</h6>
@@ -879,7 +965,9 @@ function Header(props) {
             </Form.Group>
           </Form>
           <div className="Forgottext">
-            <Link to="" onClick={() => handleResendOtp()}>Resend OTP</Link>
+            <Link to="" onClick={() => handleResendOtp()}>
+              Resend OTP
+            </Link>
           </div>
           <div className="text-center">
             <Button onClick={handleSignOtpmodalClose}>Verify OTP</Button>
@@ -903,7 +991,7 @@ function Header(props) {
                 value={mobileNo}
                 onChange={(e) => {
                   if (e.target.value?.length <= 10) {
-                    setMobileNo(e.target.value)
+                    setMobileNo(e.target.value);
                   }
                 }}
               />
@@ -986,8 +1074,8 @@ function Header(props) {
                 onChange={(val) => {
                   setResetPasswordData({
                     ...resetPasswordData,
-                    password: val.target.value
-                  })
+                    password: val.target.value,
+                  });
                 }}
               />
             </Form.Group>
@@ -1004,15 +1092,17 @@ function Header(props) {
                 onChange={(val) => {
                   setResetPasswordData({
                     ...resetPasswordData,
-                    confirmPassword: val.target.value
-                  })
+                    confirmPassword: val.target.value,
+                  });
                 }}
               />
             </Form.Group>
           </Form>
 
           <div className="text-center">
-            <Button onClick={() => onPressResetPassword()}>Reset Password</Button>
+            <Button onClick={() => onPressResetPassword()}>
+              Reset Password
+            </Button>
           </div>
         </Modal.Body>
       </Modal>
