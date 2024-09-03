@@ -57,7 +57,6 @@ function App() {
           <Root />
         </PersistGate>
       </Provider>
-      <ToastContainer />
     </>
   );
 }
