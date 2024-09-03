@@ -4,41 +4,31 @@ import "../../components/Lightbox/lightbox.css";
 import Header from "../../directives/header/header";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import Home1 from "../../assets/images/img/home1.png";
-import Banner1 from "../../assets/images/img/banner1.png";
-import testimonial1 from "../../assets/images/img/Testimonial1.png";
-import testimonial2 from "../../assets/images/img/Testimonial2.png";
-import testimonial3 from "../../assets/images/img/Testimonial3.png";
 import Topic1 from "../../assets/images/img/science 2.png";
-import Topic2 from "../../assets/images/img/molecular 1.png";
-import Topic3 from "../../assets/images/img/anthropology 2.png";
-import Topic4 from "../../assets/images/img/question 1.png";
-import Topic5 from "../../assets/images/img/sprout 1.png";
-import Topic6 from "../../assets/images/img/court 2.png";
-import Topic7 from "../../assets/images/img/history-book (1) 1.png";
-import Topic8 from "../../assets/images/img/globe 2.png";
-import Topic9 from "../../assets/images/img/economics 1.png";
-import Topic10 from "../../assets/images/img/math 2.png";
 import Book1 from "../../assets/images/img/book1.png";
-import Book2 from "../../assets/images/img/book2.png";
-import Book3 from "../../assets/images/img/book3.png";
-import Book4 from "../../assets/images/img/book4.png";
-import Book5 from "../../assets/images/img/book5.png";
 import BG1 from "../../assets/images/img/BG.png";
 import BG2 from "../../assets/images/img/BG (1).png";
 import BG3 from "../../assets/images/img/BG (2).png";
 import BG4 from "../../assets/images/img/BG (3).png";
-import Img1 from "../../assets/images/img/img1.png";
-import allBaanner from "../../assets/images/img/allbaanner.png";
 import Carousel from "react-multi-carousel";
 import Footer from "../../directives/footer/footer";
 import { Link, useNavigate } from "react-router-dom";
-import IframeLightbox from "../../components/Lightbox/MyLightboxComponent";
 import ReactImageVideoLightbox from "react-image-video-lightbox";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSubject } from "../../reduxx/action/SubjectAction";
-import { fetcEBooks, fetchBlog, fetchDaliyVocab, fetchJobs, fetchWhatsNew } from "../../reduxx/action/BlogAction";
+import placeholder from "../../assets/images/placeholder.png";
+import {
+  fetcEBooks,
+  fetchBlog,
+  fetchDaliyVocab,
+  fetchJobs,
+  fetchWhatsNew,
+} from "../../reduxx/action/BlogAction";
 import moment from "moment";
 import { fetchVideos } from "../../reduxx/action/VideoAction";
+import { stripHtmlTags } from "../../utils/stripHtmlTags";
+import axios from "axios";
+import { BaseURL } from "../../Config";
 
 const testimonialSlider = {
   desktop: {
@@ -73,50 +63,73 @@ const Lightbox = () => {
 };
 
 function Index(props) {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const { getsubject } = useSelector(state => state.subject)
-  const { getBlog, getWhatsNew, getEBook, getDaliyVocab, getJobs } = useSelector(state => state.blog)
-  const { getvideo } = useSelector(state => state.video)
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { getsubject } = useSelector((state) => state.subject);
+  const [quizsubject, setQuizSubject] = useState([]);
+  const { getBlog, getWhatsNew, getEBook, getDaliyVocab, getJobs } =
+    useSelector((state) => state.blog);
+  const { getvideo } = useSelector((state) => state.video);
   const [openLightBox, setOpenLightBox] = useState(false);
-  console.log('getDaliyVocab', getDaliyVocab);
 
   useEffect(() => {
-    dispatch(fetchSubject({
-      offset: 0,
-      limit: 100
-    }))
-    dispatch(fetchBlog({
-      limit: 100,
-      offset: 0
-    }))
-    dispatch(fetchWhatsNew({
-      limit: 100,
-      offset: 0
-    }))
-    dispatch(fetchVideos({
-      limit: 100,
-      offset: 0,
-      is_trending: true
-    }))
-    dispatch(fetcEBooks({
-      limit: 100,
-      offset: 0,
-    }))
-    dispatch(fetchDaliyVocab({
-      limit: 1,
-      offset: 0,
-    }))
-    dispatch(fetchJobs({
-      limit: 100,
-      offset: 0,
-    }))
-  }, [])
-
+    dispatch(
+      fetchSubject({
+        offset: 0,
+        limit: 100,
+      })
+    );
+    dispatch(
+      fetchBlog({
+        limit: 100,
+        offset: 0,
+      })
+    );
+    dispatch(
+      fetchWhatsNew({
+        limit: 100,
+        offset: 0,
+      })
+    );
+    dispatch(
+      fetchVideos({
+        limit: 100,
+        offset: 0,
+        is_trending: true,
+      })
+    );
+    dispatch(
+      fetcEBooks({
+        limit: 100,
+        offset: 0,
+      })
+    );
+    dispatch(
+      fetchDaliyVocab({
+        limit: 1,
+        offset: 0,
+      })
+    );
+    dispatch(
+      fetchJobs({
+        limit: 100,
+        offset: 0,
+      })
+    );
+    const getquize = async () => {
+      const res = await axios.get(`${BaseURL}/quiz/getQuizs`);
+      if (res.data?.data.length > 0) {
+        setQuizSubject(res.data.data);
+      }
+    };
+    getquize();
+  }, []);
 
   const extractVideoId = (videoUrl) => {
     // Regular expression to match YouTube video ID from various URL formats
-    const match = videoUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|shorts\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+    const match = videoUrl.match(
+      /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|shorts\/|watch\?v=|watch\?.+&v=))([\w-]{11})/
+    );
     if (match && match[1]) {
       return match[1];
     } else {
@@ -144,7 +157,9 @@ function Index(props) {
                 </p>
                 <div className="home-btns">
                   <Button>Exam Note</Button>
-                  <Button onClick={() => navigate('/topic-current-affairs')}>Current Affairs</Button>
+                  <Button onClick={() => navigate("/topic-current-affairs")}>
+                    Current Affairs
+                  </Button>
                   <Button>MCQ</Button>
                   <Button>Online Store</Button>
                 </div>
@@ -186,13 +201,29 @@ function Index(props) {
                   </Link>
                 </div>
                 <div className="trick-scroll">
-                  {getWhatsNew?.data?.length > 0 ? getWhatsNew?.data.map(item => (
-                    <div className="trick-list">
-                      <h6>
-                        <i className="fa fa-calendar-check-o" /> {moment(item?.createdDate).format('DD MMMM YY')}
-                      </h6>
-                      <p className="fw-bold" onClick={() => navigate(`/whats-details`, { state: { whatsData: item, base_url: getWhatsNew?.base_url } })}>{item?.title}</p>
-                    </div>)) : null}
+                  {getWhatsNew?.data?.length > 0
+                    ? getWhatsNew?.data.map((item) => (
+                        <div className="trick-list">
+                          <h6>
+                            <i className="fa fa-calendar-check-o" />{" "}
+                            {moment(item?.createdDate).format("DD MMMM YY")}
+                          </h6>
+                          <p
+                            className="fw-bold"
+                            onClick={() =>
+                              navigate(`/whats-details`, {
+                                state: {
+                                  whatsData: item,
+                                  base_url: getWhatsNew?.base_url,
+                                },
+                              })
+                            }
+                          >
+                            {item?.title}
+                          </p>
+                        </div>
+                      ))
+                    : null}
                 </div>
               </div>
             </Col>
@@ -217,21 +248,41 @@ function Index(props) {
                   </Link>
                 </div>
                 <div className="trick-scroll">
-                  {getBlog?.data?.length > 0 ? getBlog?.data.map(item => (
-                    <div className="trick-list">
-                      <p className="fw-bold mb-3" onClick={() => navigate(`/blog-details`, { state: { blogData: item, base_url: getBlog?.base_url } })}>
-                        {item?.title}
-                      </p>
-                      <h5>
-                        <i className="fa fa-calendar-check-o" />{" "}
-                        <span>{moment(item?.createdDate).format('DD MMMM YY')}</span>{" "}
-                        <i className="fa fa-user-circle" />{" "}
-                        <span>Admin</span>
-                      </h5>
-                      <p className="latest-des">
-                        {item?.description ? item?.description.substring(0, 250) : ''}...
-                      </p>
-                    </div>)) : null}
+                  {getBlog?.data?.length > 0
+                    ? getBlog?.data.map((item) => (
+                        <div className="trick-list">
+                          <p
+                            className="fw-bold mb-3"
+                            onClick={() =>
+                              navigate(`/blog-details`, {
+                                state: {
+                                  blogData: item,
+                                  base_url: getBlog?.base_url,
+                                },
+                              })
+                            }
+                          >
+                            {item?.title}
+                          </p>
+                          <h5>
+                            <i className="fa fa-calendar-check-o" />{" "}
+                            <span>
+                              {moment(item?.createdDate).format("DD MMMM YY")}
+                            </span>{" "}
+                            <i className="fa fa-user-circle" />{" "}
+                            <span>Admin</span>
+                          </h5>
+                          <p className="latest-des">
+                            {item?.description
+                              ? stripHtmlTags(
+                                  item?.description.substring(0, 250)
+                                )
+                              : ""}
+                            ...
+                          </p>
+                        </div>
+                      ))
+                    : null}
                 </div>
               </div>
             </Col>
@@ -262,17 +313,25 @@ function Index(props) {
             dotListClass="custom-dot-list-style"
             itemClass="carousel-item-padding-40-px"
           >
-            {getvideo?.length > 0 && getvideo.map(item => {
-              const id = extractVideoId(item?.video_url)
-              return (
-                <div onClick={() => setOpenLightBox(true)} className="testimonial">
-                  {/* <img src={testimonial1} /> */}
-                  <img src={`https://img.youtube.com/vi/${id}/hqdefault.jpg`} />
-                  <div className="testimonial-icon">
-                    <i className="fa fa-play" />
+            {getvideo?.length > 0 &&
+              getvideo.map((item) => {
+                const id = extractVideoId(item?.video_url);
+                return (
+                  <div
+                    onClick={() => setOpenLightBox(true)}
+                    className="testimonial"
+                  >
+                    {/* <img src={testimonial1} /> */}
+                    <img
+                      src={`https://img.youtube.com/vi/${id}/hqdefault.jpg`}
+                      alt="img"
+                    />
+                    <div className="testimonial-icon">
+                      <i className="fa fa-play" />
+                    </div>
                   </div>
-                </div>)
-            })}
+                );
+              })}
           </Carousel>
           {openLightBox && (
             <ReactImageVideoLightbox
@@ -316,152 +375,83 @@ function Index(props) {
             <h4>Topic wise videos</h4>
           </div>
           <div className="topic-box">
-            {getsubject?.data?.length > 0 && getsubject?.data.map((item) => (
-              <div className="Topic-card">
-                <div className="taxonomy-image">
-                  {/* <img src={Topic1} /> */}
-                  <img src={item?.image ? getsubject?.base_url + item?.image : Topic1} />
+            {getsubject?.data?.length > 0 &&
+              getsubject?.data.map((item) => (
+                <div className="Topic-card">
+                  <div className="taxonomy-image">
+                    {/* <img src={Topic1} /> */}
+                    <img
+                      alt={item?.subject_name}
+                      src={
+                        item?.image
+                          ? getsubject?.base_url + item?.image
+                          : Topic1
+                      }
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = placeholder;
+                      }}
+                    />
+                  </div>
+                  <div>
+                    <h5
+                      onClick={() =>
+                        navigate(`/trending-on-youtube`, {
+                          state: { subject: item },
+                        })
+                      }
+                    >
+                      {item?.subject_name}
+                    </h5>
+                  </div>
                 </div>
-                <div>
-                  <h5 onClick={() => navigate(`/trending-on-youtube`, { state: { subject: item } })}>{item?.subject_name}</h5>
-                </div>
-              </div>
-            ))}
+              ))}
           </div>
           <Link to="/subject-wise-video" className="all-view">
             View More
           </Link>
         </Container>
       </section>
-      {/* Daily Current Affairs */}
       <section className="section-padding">
         <Container fluid className="container-space">
           <div className="main-heading">
+            <div></div>
             <h4>Daily Current Affairs and GK | Live Quiz</h4>
           </div>
-          <div className="live-quiz">
-            <Row>
-              <Col lg={10}>
-                <p>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting | June 30,2024
-                </p>
-                <div>
-                  <span>
-                    <i className="fa fa-question-circle-o" /> 50 Questions
-                  </span>
-                  <span>
-                    <i className="fa fa-file-text-o" /> 50 Marks
-                  </span>
-                  <span>
-                    <i className="fa fa-clock-o" /> 60 Mins
-                  </span>
+          <div className="topic-box">
+            {quizsubject.length > 0 &&
+              quizsubject.map((item) => (
+                <div className="Topic-card">
+                  <div className="taxonomy-image">
+                    {/* <img src={Topic1} /> */}
+                    <img
+                      alt={item?.subject_name}
+                      src={
+                        item?.image
+                          ? getsubject?.base_url + item?.image
+                          : Topic1
+                      }
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = placeholder;
+                      }}
+                    />
+                  </div>
+                  <div>
+                    <h5 onClick={() => navigate(`/quiz/${item?._id}`)}>
+                      {item?.subject_name}
+                    </h5>
+                  </div>
                 </div>
-              </Col>
-              <Col lg={2} className="align-self-center">
-                <Button>Start Now</Button>
-              </Col>
-            </Row>
+              ))}
           </div>
-          <div className="live-quiz">
-            <Row>
-              <Col lg={10}>
-                <p>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting | June 30,2024
-                </p>
-                <div>
-                  <span>
-                    <i className="fa fa-question-circle-o" /> 50 Questions
-                  </span>
-                  <span>
-                    <i className="fa fa-file-text-o" /> 50 Marks
-                  </span>
-                  <span>
-                    <i className="fa fa-clock-o" /> 60 Mins
-                  </span>
-                </div>
-              </Col>
-              <Col lg={2} className="align-self-center">
-                <Button>Start Now</Button>
-              </Col>
-            </Row>
-          </div>
-          <div className="live-quiz">
-            <Row>
-              <Col lg={10}>
-                <p>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting | June 30,2024
-                </p>
-                <div>
-                  <span>
-                    <i className="fa fa-question-circle-o" /> 50 Questions
-                  </span>
-                  <span>
-                    <i className="fa fa-file-text-o" /> 50 Marks
-                  </span>
-                  <span>
-                    <i className="fa fa-clock-o" /> 60 Mins
-                  </span>
-                </div>
-              </Col>
-              <Col lg={2} className="align-self-center">
-                <Button>Start Now</Button>
-              </Col>
-            </Row>
-          </div>
-          <div className="live-quiz">
-            <Row>
-              <Col lg={10}>
-                <p>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting | June 30,2024
-                </p>
-                <div>
-                  <span>
-                    <i className="fa fa-question-circle-o" /> 50 Questions
-                  </span>
-                  <span>
-                    <i className="fa fa-file-text-o" /> 50 Marks
-                  </span>
-                  <span>
-                    <i className="fa fa-clock-o" /> 60 Mins
-                  </span>
-                </div>
-              </Col>
-              <Col lg={2} className="align-self-center">
-                <Button>Start Now</Button>
-              </Col>
-            </Row>
-          </div>
-          <div className="live-quiz">
-            <Row>
-              <Col lg={10}>
-                <p>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting | June 30,2024
-                </p>
-                <div>
-                  <span>
-                    <i className="fa fa-question-circle-o" /> 50 Questions
-                  </span>
-                  <span>
-                    <i className="fa fa-file-text-o" /> 50 Marks
-                  </span>
-                  <span>
-                    <i className="fa fa-clock-o" /> 60 Mins
-                  </span>
-                </div>
-              </Col>
-              <Col lg={2} className="align-self-center">
-                <Button>Start Now</Button>
-              </Col>
-            </Row>
-          </div>
-          <Link className="all-view">Watch More</Link>
+          <Link to="/" className="all-view">
+            View More
+          </Link>
         </Container>
       </section>
+      {/* Daily Current Affairs */}
+
       {/* E - Books */}
       <section className="section-padding">
         <Container fluid className="container-space">
@@ -469,12 +459,25 @@ function Index(props) {
             <h4>E - Books</h4>
           </div>
           <div className="topic-box">
-            {getEBook?.data?.length > 0 && getEBook?.data.slice(0, 5).map(item => (
-              <div className="book-card" onClick={() => window.open(item?.pdf_link)}>
-                <img src={item?.image !== '' ? getEBook?.base_url + item?.image : Book1} />
-              </div>))}
+            {getEBook?.data?.length > 0 &&
+              getEBook?.data.slice(0, 5).map((item) => (
+                <div
+                  className="book-card"
+                  onClick={() => window.open(item?.pdf_link)}
+                >
+                  <img
+                    src={
+                      item?.image !== ""
+                        ? getEBook?.base_url + item?.image
+                        : Book1
+                    }
+                  />
+                </div>
+              ))}
           </div>
-          <Link to={'/allEBook'} className="all-view">View More</Link>
+          <Link to={"/allEBook"} className="all-view">
+            View More
+          </Link>
         </Container>
       </section>
       {/* Recent Job Updates */}
@@ -488,17 +491,21 @@ function Index(props) {
               <Col lg={3}></Col>
               <Col lg={9}>
                 <div className="job-list">
-                  {getJobs?.data?.length > 0 && getJobs?.data?.map(item => (
-                    <div className="job-content">
-                      <a>
-                        <span className="job-icon">
-                          <i className="fa fa-calendar-check-o" />
-                        </span>
-                        <span className="job-date">{moment(item?.createdDate).format('DD MMMM YYYY')}</span>
-                      </a>
-                      <h4>UPSSSC PET Notification 2023 Available</h4>
-                      <Button className="btn-green">Apply Now</Button>
-                    </div>))}
+                  {getJobs?.data?.length > 0 &&
+                    getJobs?.data?.map((item) => (
+                      <div className="job-content">
+                        <div>
+                          <span className="job-icon">
+                            <i className="fa fa-calendar-check-o" />
+                          </span>
+                          <span className="job-date">
+                            {moment(item?.createdDate).format("DD MMMM YYYY")}
+                          </span>
+                        </div>
+                        <h4>{item.title}</h4>
+                        <Button className="btn-green">Apply Now</Button>
+                      </div>
+                    ))}
                 </div>
               </Col>
             </Row>
@@ -513,7 +520,9 @@ function Index(props) {
               <Col lg={7} sm={9} xs={9}>
                 <div className="work-content">
                   <h4>WORD OF THE DAY</h4>
-                  {getDaliyVocab?.data?.length > 0 && (<p>{getDaliyVocab?.data[0]?.description}</p>)}
+                  {getDaliyVocab?.data?.length > 0 && (
+                    <p>{getDaliyVocab?.data[0]?.description}</p>
+                  )}
                   <Button className="btn-green">Daily Vocab</Button>
                 </div>
               </Col>

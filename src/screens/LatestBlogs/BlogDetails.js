@@ -1,17 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import "../WhatsNew/WhatsNew.css";
 import Header from "../../directives/header/header";
-import { Col, Container, Form, InputGroup, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
-import Banner1 from "../../assets/images/img/banner1.png";
-import Carousel from "react-multi-carousel";
 import Footer from "../../directives/footer/footer";
-import Editorials from "../../assets/images/img/Editorials.png";
 import moment from "moment";
+import placeholder from "../../assets/images/placeholder.png";
+import { stripHtmlTags } from "../../utils/stripHtmlTags";
 
 function BlogDetails(props) {
-  const location = useLocation()
-  const { blogData, base_url } = location.state || {}
+  const location = useLocation();
+  const { blogData, base_url } = location.state || {};
   return (
     <>
       <Header />
@@ -44,14 +43,29 @@ function BlogDetails(props) {
               <div className="About-Subject">
                 <div className="Editorials-card">
                   {/* <img src={Editorials} /> */}
-                  <img src={base_url + blogData?.image} />
+                  <img
+                    style={{
+                      maxWidth: "300px",
+                    }}
+                    src={base_url + blogData?.image}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = placeholder;
+                    }}
+                    alt="Editorials"
+                  />
                 </div>
-                <div className="Editorials-content">
+                <div
+                  className="Editorials-content"
+                  style={{ marginTop: "10px" }}
+                >
                   <h6> {blogData?.title} </h6>
-                  <p>{blogData?.description}</p>
+                  <p>{stripHtmlTags(blogData?.description)}</p>
                 </div>
                 <div className="what-date">
-                  <Link to="">{moment(blogData?.createdDate).format('DD MMM YYYY')} :</Link>
+                  <span className="blog-date">
+                    {moment(blogData?.createdDate).format("DD MMM YYYY")} :
+                  </span>
                   <span> {blogData?.title} </span>
                 </div>
               </div>
