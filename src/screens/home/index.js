@@ -494,16 +494,24 @@ function Index(props) {
                   {getJobs?.data?.length > 0 &&
                     getJobs?.data?.map((item) => (
                       <div className="job-content">
-                        <div>
+                        <div style={{ display: "flex",justifyContent:'center',alignItems:'center' }}>
                           <span className="job-icon">
                             <i className="fa fa-calendar-check-o" />
                           </span>
                           <span className="job-date">
-                            {moment(item?.createdDate).format("DD MMMM YYYY")}
+                            {moment(item?.apply_date).format("DD MMMM YYYY")}
                           </span>
                         </div>
                         <h4>{item.title}</h4>
-                        <Button className="btn-green">Apply Now</Button>
+                        <Button
+                          as="a"
+                          target="_blank"
+                          href={`${item.job_link}`}
+                          className="btn-green"
+                          disabled={item.job_link === ""}
+                        >
+                          Apply Now
+                        </Button>
                       </div>
                     ))}
                 </div>
