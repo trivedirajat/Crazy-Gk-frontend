@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from "react";
 import Loader from "../components/Loader/Loader";
 
 const Index = lazy(() => import("../screens/home"));
+const Welcome = lazy(() => import("../screens/Welcome/Welcome"));
 const StudyMaterial = lazy(() =>
   import("../screens/StudyMaterial/StudyMaterial")
 );
@@ -58,7 +59,7 @@ const routesConfig = [
     label: "Welcome",
     component: (
       <Suspense fallback={<Loader />}>
-        <Index />
+        <Welcome />
       </Suspense>
     ),
   },
