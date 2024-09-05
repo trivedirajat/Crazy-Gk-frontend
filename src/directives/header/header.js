@@ -93,8 +93,8 @@ function Header(props) {
             user_type: "user",
           })
         );
-      } else if (responseSignup?.status === 200) {
-        toast.success(responseSignup?.data?.message);
+      } else if (responseSignup?.status === 201) {
+        // toast.success(responseSignup?.data?.message);
         dispatch(removeAuthResponse());
         setSignOtpmodal(true);
         setSignUpModal(false);
