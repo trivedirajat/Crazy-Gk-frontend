@@ -8,10 +8,11 @@ import Carousel from "react-multi-carousel";
 import Footer from "../../directives/footer/footer";
 import Editorials from "../../assets/images/img/Editorials.png";
 import moment from "moment";
+import { stripHtmlTags } from "../../utils/stripHtmlTags";
 
 function WhatsNewDetails(props) {
-  const location = useLocation()
-  const { whatsData,base_url } = location.state || {}
+  const location = useLocation();
+  const { whatsData, base_url } = location.state || {};
   return (
     <>
       <Header />
@@ -23,7 +24,8 @@ function WhatsNewDetails(props) {
                 <h3>What's New Details</h3>
                 <Link to="/home">Home </Link>
                 <span>
-                  <i className="fa fa-angle-double-right" />What's New Details
+                  <i className="fa fa-angle-double-right" />
+                  What's New Details
                 </span>
                 {/* Search Bar */}
                 {/* <InputGroup className="mb-3">
@@ -44,14 +46,19 @@ function WhatsNewDetails(props) {
               <div className="About-Subject">
                 <div className="Editorials-card">
                   {/* <img src={Editorials} /> */}
-                  <img src={base_url + whatsData?.image} />
+                  <img
+                    src={base_url + whatsData?.image}
+                    alt={whatsData?.title || ""}
+                  />
                 </div>
                 <div className="Editorials-content">
                   <h6> {whatsData?.title} </h6>
-                  <p>{whatsData?.description}</p>
+                  <p>{stripHtmlTags(whatsData?.description || "")}</p>
                 </div>
                 <div className="what-date">
-                  <Link to="">{moment(whatsData?.createdDate).format('DD MMM YYYY')} :</Link>
+                  <Link to="">
+                    {moment(whatsData?.createdDate).format("DD MMM YYYY")} :
+                  </Link>
                   <span> {whatsData?.title} </span>
                 </div>
               </div>

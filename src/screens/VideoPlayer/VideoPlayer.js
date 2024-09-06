@@ -9,6 +9,7 @@ import Carousel from "react-multi-carousel";
 import testimonial1 from "../../assets/images/img/Testimonial1.png";
 import testimonial2 from "../../assets/images/img/Testimonial2.png";
 import testimonial3 from "../../assets/images/img/Testimonial3.png";
+import { stripHtmlTags } from "../../utils/stripHtmlTags";
 const testimonialSlider = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -30,22 +31,23 @@ const testimonialSlider = {
 function VideoPlayer(props) {
   const [showNotes, setShowNotes] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation()
-  const { videoData, getvideo } = location.state || {}
-  const [videoId, setVideoId] = useState('')
-  console.log('videoData', videoData);
+  const location = useLocation();
+  const { videoData, getvideo } = location.state || {};
+  const [videoId, setVideoId] = useState("");
+  console.log("videoData", videoData);
   useEffect(() => {
-    if (videoData?.video_url !== '') {
-      const id = extractVideoId(videoData?.video_url)
-      setVideoId(id)
-      console.log('id', id);
-
+    if (videoData?.video_url !== "") {
+      const id = extractVideoId(videoData?.video_url);
+      setVideoId(id);
+      console.log("id", id);
     }
-  }, [videoData])
+  }, [videoData]);
 
   const extractVideoId = (videoUrl) => {
     // Regular expression to match YouTube video ID from various URL formats
-    const match = videoUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|shorts\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+    const match = videoUrl.match(
+      /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|shorts\/|watch\?v=|watch\?.+&v=))([\w-]{11})/
+    );
     if (match && match[1]) {
       return match[1];
     } else {
@@ -126,14 +128,16 @@ function VideoPlayer(props) {
                     </div>
                     {showNotes && (
                       <div>
-                        {videoData?.description?.length > 0 ? videoData?.description.map(item => (
-                          <>
-                            <h4 className="Content-head">
-                              <i className="fa fa-circle" /> {item?.title}
-                            </h4>
-                            <p>{item?.description}</p>
-                          </>
-                        )) : null}
+                        {videoData?.description?.length > 0
+                          ? videoData?.description.map((item) => (
+                              <>
+                                <h4 className="Content-head">
+                                  <i className="fa fa-circle" /> {item?.title}
+                                </h4>
+                                <p>{stripHtmlTags(item?.description || " ")}</p>
+                              </>
+                            ))
+                          : null}
                       </div>
                     )}
                   </Col>
@@ -163,16 +167,25 @@ function VideoPlayer(props) {
                     dotListClass="custom-dot-list-style"
                     itemClass="carousel-item-padding-40-px"
                   >
-                    {getvideo?.length > 0 && getvideo.map((item, index) => {
-                      const id = extractVideoId(item?.video_url)
-                      return (
-                        <div className="testimonial" key={index}>
-                          <img
-                            onClick={() => navigate(`/video-player`, { state: { videoData: item, getvideo: getvideo } })}
-                            src={`https://img.youtube.com/vi/${id}/hqdefault.jpg`} />
-                        </div>
-                      )
-                    })}
+                    {getvideo?.length > 0 &&
+                      getvideo.map((item, index) => {
+                        const id = extractVideoId(item?.video_url);
+                        return (
+                          <div className="testimonial" key={index}>
+                            <img
+                              onClick={() =>
+                                navigate(`/video-player`, {
+                                  state: {
+                                    videoData: item,
+                                    getvideo: getvideo,
+                                  },
+                                })
+                              }
+                              src={`https://img.youtube.com/vi/${id}/hqdefault.jpg`}
+                            />
+                          </div>
+                        );
+                      })}
                   </Carousel>
                 </Container>
               </section>
