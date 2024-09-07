@@ -29,6 +29,8 @@ import { fetchVideos } from "../../reduxx/action/VideoAction";
 import { stripHtmlTags } from "../../utils/stripHtmlTags";
 import axios from "axios";
 import { BaseURL } from "../../Config";
+import AddReviewModal from "../../components/modal/AddReviewModal";
+import { toast } from "react-toastify";
 
 const testimonialSlider = {
   desktop: {
@@ -137,7 +139,20 @@ function Index(props) {
       return null;
     }
   };
+  const [showModal, setShowModal] = useState(false);
 
+  const handleShow = () => setShowModal(true);
+  const handleClose = () => setShowModal(false);
+
+  const handleSubmitReview = async (data) => {
+    const res = await axios.post(`${BaseURL}/review/addReview`, {
+      rating: data.rating,
+      review: data.review,
+    });
+    if (res.data?.status === 201) {
+      toast.success("Review Submitted Successfully");
+    }
+  };
   return (
     <>
       <Header openLightBox={openLightBox} />
@@ -538,7 +553,7 @@ function Index(props) {
                 <div className="work-content">
                   <h4>WORD OF THE DAY</h4>
                   {getDaliyVocab?.data?.length > 0 && (
-                    <p>{getDaliyVocab?.data[0]?.description}</p>
+                    <p> {stripHtmlTags(getDaliyVocab?.data[0]?.description)}</p>
                   )}
                   <Button className="btn-green">Daily Vocab</Button>
                 </div>
@@ -835,9 +850,22 @@ function Index(props) {
               </div>
             </Col>
           </Row>
+          <div style={{ textAlign: "center" }}>
+            <Button
+              onClick={handleShow}
+              style={{ backgroundColor: "#04aa50", border: "none" }}
+            >
+              Add Review
+            </Button>
+          </div>
         </Container>
       </section>
       <Footer />
+      <AddReviewModal
+        show={showModal}
+        handleClose={handleClose}
+        handleSubmitReview={handleSubmitReview}
+      />
     </>
   );
 }

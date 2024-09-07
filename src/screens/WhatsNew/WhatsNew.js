@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "../WhatsNew/WhatsNew.css"
+import "../WhatsNew/WhatsNew.css";
 import Header from "../../directives/header/header";
 import { Col, Container, Form, InputGroup, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,20 +8,22 @@ import Editorials from "../../assets/images/img/Editorials.png";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchWhatsNew } from "../../reduxx/action/BlogAction";
 import moment from "moment/moment";
-
+import { stripHtmlTags } from "../../utils/stripHtmlTags";
 
 function WhatsNew(props) {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const { getWhatsNew } = useSelector(state => state.blog)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { getWhatsNew } = useSelector((state) => state.blog);
 
-  console.log('getWhatsNew', getWhatsNew);
+  console.log("getWhatsNew", getWhatsNew);
   useEffect(() => {
-    dispatch(fetchWhatsNew({
-      limit: 100,
-      offset: 0
-    }))
-  }, [dispatch])
+    dispatch(
+      fetchWhatsNew({
+        limit: 100,
+        offset: 0,
+      })
+    );
+  }, [dispatch]);
 
   return (
     <>
@@ -54,34 +56,49 @@ function WhatsNew(props) {
         <Container fluid className="container-space">
           <Row>
             <Col lg={9} sm={12}>
-              {getWhatsNew?.data?.length > 0 ? getWhatsNew?.data.map(item => (
-                <div className="About-Subject">
-                  <div className="About-Subject">
-                    <Row>
-                      <Col lg={5} sm={5} className="mb-4">
-                        <div className="Editorials-card">
-                          {/* <img src={Editorials} /> */}
-                          <img src={getWhatsNew?.base_url + item?.image} />
-                        </div>
-                      </Col>
-                      <Col lg={7} sm={7} className="mb-4">
-                        <div className="Editorials-content">
-                          <h6> {item?.title} </h6>
-                          <p>
-                            {item?.description}
-                          </p>
-                        </div>
-                        <div className="what-read-btn">
-                          <span style={{ color: '#04aa50' }} onClick={() => navigate(`/whats-details`, { state: { whatsData: item, base_url: getWhatsNew?.base_url } })}>Read More</span>
-                        </div>
-                      </Col>
-                    </Row>
-                  </div>
-                  <div className="what-date">
-                    <Link to="">{moment(item?.createdDate).format('DD MMM YYYY')} :</Link>
-                    <span> {item?.title} </span>
-                  </div>
-                </div>)) : null}
+              {getWhatsNew?.data?.length > 0
+                ? getWhatsNew?.data.map((item) => (
+                    <div className="About-Subject">
+                      <div className="About-Subject">
+                        <Row>
+                          <Col lg={5} sm={5} className="mb-4">
+                            <div className="Editorials-card">
+                              {/* <img src={Editorials} /> */}
+                              <img src={getWhatsNew?.base_url + item?.image} />
+                            </div>
+                          </Col>
+                          <Col lg={7} sm={7} className="mb-4">
+                            <div className="Editorials-content">
+                              <h6> {item?.title} </h6>
+                              <p>{stripHtmlTags(item?.description || "")}</p>
+                            </div>
+                            <div className="what-read-btn">
+                              <span
+                                style={{ color: "#04aa50" }}
+                                onClick={() =>
+                                  navigate(`/whats-details`, {
+                                    state: {
+                                      whatsData: item,
+                                      base_url: getWhatsNew?.base_url,
+                                    },
+                                  })
+                                }
+                              >
+                                Read More
+                              </span>
+                            </div>
+                          </Col>
+                        </Row>
+                      </div>
+                      <div className="what-date">
+                        <Link to="">
+                          {moment(item?.createdDate).format("DD MMM YYYY")} :
+                        </Link>
+                        <span> {item?.title} </span>
+                      </div>
+                    </div>
+                  ))
+                : null}
               {/* Adds code */}
               <div></div>
 
