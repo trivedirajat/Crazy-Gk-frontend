@@ -1,13 +1,12 @@
 import React from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import GoogleIcon from "../../assets/images/icon/google.png";
-import FacebookIcon from "../../assets/images/icon/facebook.png";
 
 function Otp({ show, handleClose }) {
   return (
     <>
       <Modal show={show} onHide={handleClose}>
+        {/* <Modal.Header closeButton /> */}
         <Modal.Body className="login-area">
           <div className="text-center">
             <h6>Welcome to</h6>

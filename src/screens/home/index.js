@@ -412,7 +412,7 @@ function Index(props) {
           </Link>
         </Container>
       </section>
-      <section className="section-padding">
+      <section className="section-padding" id="quiz">
         <Container fluid className="container-space">
           <div className="main-heading">
             <div></div>

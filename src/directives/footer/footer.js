@@ -110,7 +110,7 @@ function Footer() {
                   </div>
                 </Col> */}
                 <Col lg={4} sm={6} xs={12} className="p-0">
-                  <div className="footer-head contact-footer">
+                  <div className="footer-head contact-footer" id="footer">
                     <h4>Contact Us</h4>
                     <ul>
                       <li>

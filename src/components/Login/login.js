@@ -5,7 +5,7 @@ import Signup from "../Signup/sign-up";
 import Otp from "../OTP/otp";
 import ForgotPassword from "../ForgotPassword/ForgotPassword";
 
-function Login({ show}) {
+function Login({ show, handleLoginClose }) {
   const [modalShow, setModalShow] = React.useState(false);
   const [otpmodalShow, setotpModalShow] = React.useState(false);
   const [ForgotPasswordmodal, setForgotPasswordmodal] = React.useState(false);
@@ -22,7 +22,7 @@ function Login({ show}) {
 
   return (
     <>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleLoginClose} centered>
         <Modal.Body className="login-area">
           <div className="text-center">
             <h6>Welcome to </h6>
@@ -50,21 +50,34 @@ function Login({ show}) {
             </Form.Group>
           </Form>
           <div className="Forgottext">
-            <Link onClick={() => setForgotPasswordmodal(true)}>Forgot Password?</Link>
+            <Link onClick={() => setForgotPasswordmodal(true)}>
+              Forgot Password?
+            </Link>
           </div>
           <div className="text-center">
             <Button onClick={() => setotpModalShow(true)}>Login</Button>
             <p>
               Don't have an account?{" "}
-              <Link onClick={() => setModalShow(true)} handleClose={handleClose} >Create account</Link>
+              <Link
+                onClick={() => setModalShow(true)}
+                handleClose={handleClose}
+              >
+                Create account
+              </Link>
             </p>
           </div>
         </Modal.Body>
       </Modal>
-      <Signup show={modalShow} handleClose={handleClose} />
-      <Otp show={otpmodalShow} otphandleClose={otphandleClose} />
-      <ForgotPassword show={ForgotPasswordmodal} ForgotPasswordhandle={ForgotPasswordhandle} />
-
+      <Signup
+        show={modalShow}
+        handleClose={handleClose}
+        onloginClick={() => setModalShow(false)}
+      />
+      <Otp show={otpmodalShow} handleClose={otphandleClose} />
+      <ForgotPassword
+        show={ForgotPasswordmodal}
+        ForgotPasswordhandle={ForgotPasswordhandle}
+      />
     </>
   );
 }

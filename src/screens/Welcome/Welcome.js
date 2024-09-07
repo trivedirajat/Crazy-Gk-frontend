@@ -7,9 +7,19 @@ import welcome3 from "../../assets/images/icon/welcome3.png";
 import Study from "../../assets/images/img/studying 1.png";
 import reporter from "../../assets/images/img/news-reporter 1.png";
 import test from "../../assets/images/img/test 2.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Welcome = () => {
+  const navigate = useNavigate();
+  const goToQuiz = () => {
+    navigate("/home");
+    setTimeout(() => {
+      const footerElement = document.getElementById("quiz");
+      if (footerElement) {
+        footerElement.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 0);
+  };
   return (
     <>
       <WelcomeHeader />
@@ -20,13 +30,13 @@ const Welcome = () => {
               <div className="all-banner-content">
                 <h3>Sowing Seeds for better Tomorrow</h3>
                 <button className="wel-btn">
-                  Online Store <img src={welcome1} />
+                  Online Store <img src={welcome1} alt="welcome" />
                 </button>
                 <button className="wel-btn">
-                  Crazy GK Trick App <img src={welcome2} />
+                  Crazy GK Trick App <img src={welcome2} alt="welcome" />
                 </button>
                 <button className="wel-btn">
-                  Root App <img src={welcome3} />
+                  Root App <img src={welcome3} alt="welcome" />
                 </button>
               </div>
             </Col>
@@ -42,22 +52,22 @@ const Welcome = () => {
                   <Col sm={4} xs={12}>
                     <div className="Topic-card welcard">
                       <div className="taxonomy-image">
-                        <img src={Study} />
+                        <img src={Study} alt="img" />
                       </div>
                       <div>
                         <Link>
                           <h5>Exam Notes</h5>
                         </Link>
                       </div>
-                    </div>  
+                    </div>
                   </Col>
                   <Col sm={4} xs={12}>
                     <div className="Topic-card welcard">
                       <div className="taxonomy-image">
-                        <img src={reporter} />
+                        <img src={reporter} alt="img" />
                       </div>
                       <div>
-                        <Link to={""}>
+                        <Link to={"/daily-current-affairs"}>
                           <h5>Current Affairs</h5>
                         </Link>
                       </div>
@@ -66,9 +76,9 @@ const Welcome = () => {
                   <Col sm={4} xs={12}>
                     <div className="Topic-card welcard">
                       <div className="taxonomy-image">
-                        <img src={test} />
+                        <img src={test} alt="img" />
                       </div>
-                      <div>
+                      <div onClick={goToQuiz}>
                         <Link to={""}>
                           <h5>MCQ</h5>
                         </Link>
@@ -87,7 +97,7 @@ const Welcome = () => {
                   <Col sm={4} xs={12}>
                     <div className="Topic-card welcard">
                       <div className="taxonomy-image">
-                        <img src={Study} />
+                        <img src={Study} alt="img" />
                       </div>
                       <div>
                         <Link to={""}>
@@ -99,7 +109,7 @@ const Welcome = () => {
                   <Col sm={4} xs={12}>
                     <div className="Topic-card welcard">
                       <div className="taxonomy-image">
-                        <img src={reporter} />
+                        <img src={reporter} alt="img" />
                       </div>
                       <div>
                         <Link to={""}>
@@ -111,7 +121,7 @@ const Welcome = () => {
                   <Col sm={4} xs={12}>
                     <div className="Topic-card welcard">
                       <div className="taxonomy-image">
-                        <img src={test} />
+                        <img src={test} alt="img" />
                       </div>
                       <div>
                         <Link to={""}>

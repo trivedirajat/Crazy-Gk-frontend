@@ -783,7 +783,7 @@ function Header(props) {
       </Navbar>
 
       {/*================================= Login Modal ============================= */}
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} centered>
         <Modal.Body className="login-area">
           <div className="text-center">
             <h6>Welcome to</h6>
@@ -836,7 +836,7 @@ function Header(props) {
       </Modal>
 
       {/*================================= Sign Up Modal ============================= */}
-      <Modal show={signUpModal} onHide={handleSignUpModalClose}>
+      <Modal show={signUpModal} onHide={handleSignUpModalClose} centered>
         <Modal.Body className="login-area">
           <div className="text-center">
             <h6>Let’s Sign Up To</h6>
@@ -887,6 +887,7 @@ function Header(props) {
 
       {/* ================================ login OTP Modal =============================== */}
       <Modal
+        centered
         show={otpmodal}
         onHide={() => {
           dispatch(removeAuthResponse());
@@ -932,6 +933,7 @@ function Header(props) {
 
       {/* ================================ Signup OTP Modal =============================== */}
       <Modal
+        centered
         show={signotpmodal}
         onHide={() => {
           dispatch(removeAuthResponse());
@@ -976,7 +978,11 @@ function Header(props) {
       </Modal>
 
       {/*================================= Forgot Password Modal ============================= */}
-      <Modal show={ForgotPasswordmodal} onHide={handleForgotPasswordmodalClose}>
+      <Modal
+        centered
+        show={ForgotPasswordmodal}
+        onHide={handleForgotPasswordmodalClose}
+      >
         <Modal.Body className="login-area">
           <div className="text-center">
             <h6>Don’t Worry It Happens.</h6>
@@ -1004,7 +1010,11 @@ function Header(props) {
       </Modal>
 
       {/*================================= User Name Modal ============================= */}
-      <Modal show={userNameModal} onHide={() => setUserNameModal(false)}>
+      <Modal
+        centered
+        show={userNameModal}
+        onHide={() => setUserNameModal(false)}
+      >
         <Modal.Body className="login-area">
           <div className="text-center">
             <h6>Welcome to</h6>
@@ -1056,7 +1066,11 @@ function Header(props) {
       </Modal>
 
       {/* ========================== Reset Password ========================== */}
-      <Modal show={resetPasswordmodal} onHide={handleResetPasswordmodalClose}>
+      <Modal
+        centered
+        show={resetPasswordmodal}
+        onHide={handleResetPasswordmodalClose}
+      >
         <Modal.Body className="login-area">
           <div className="text-center">
             <h6>Change Your Password</h6>
