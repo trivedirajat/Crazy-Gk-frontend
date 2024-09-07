@@ -209,6 +209,7 @@ function Index(props) {
                             {moment(item?.createdDate).format("DD MMMM YY")}
                           </h6>
                           <p
+                            style={{ cursor: "pointer" }}
                             className="fw-bold"
                             onClick={() =>
                               navigate(`/whats-details`, {
@@ -241,6 +242,7 @@ function Index(props) {
                         fontSize: "16px",
                         fontWeight: "600",
                         lineHeight: "16px",
+                        cursor: "pointer",
                       }}
                     >
                       View All
@@ -253,6 +255,7 @@ function Index(props) {
                         <div className="trick-list">
                           <p
                             className="fw-bold mb-3"
+                            style={{ cursor: "pointer" }}
                             onClick={() =>
                               navigate(`/blog-details`, {
                                 state: {

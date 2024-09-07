@@ -94,12 +94,12 @@ function MyProfile() {
                 <span>
                   <i className="fa fa-angle-double-right" /> Plans
                 </span>
-                <InputGroup className="mb-3">
+                {/* <InputGroup className="mb-3">
                   <Form.Control placeholder="Search Features" />
                   <InputGroup.Text id="basic-addon2">
                     <i className="fa fa-search" />
                   </InputGroup.Text>
-                </InputGroup>
+                </InputGroup> */}
               </div>
             </Col>
           </Row>
