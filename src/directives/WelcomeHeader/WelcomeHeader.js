@@ -757,7 +757,16 @@ function WelcomeHeader(props) {
             <h2>Crazy GK Trick</h2>
           </div>
           <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Group
+              className="mb-3"
+              controlId="exampleForm.ControlInput1"
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
               <Form.Label>
                 Enter the six digit passcode sent to {mobileNo}
               </Form.Label>
@@ -776,7 +785,7 @@ function WelcomeHeader(props) {
               </div>
             </Form.Group>
           </Form>
-          <div className="Forgottext">
+          <div className="Forgottext" style={{ marginRight: "68px" }}>
             <Button onClick={() => handleResendOtp()} to="">
               Resend OTP
             </Button>
@@ -798,36 +807,52 @@ function WelcomeHeader(props) {
         }}
       >
         <Modal.Body className="login-area">
-          <div className="text-center">
+          <div style={{ textAlign: "center" }}>
             <h6>Welcome to</h6>
             <h2>Crazy GK Trick</h2>
           </div>
           <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>
+            <Form.Group
+              controlId="exampleForm.ControlInput1"
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
+              <Form.Label style={{ display: "block", textAlign: "center" }}>
                 Enter the six digit passcode sent to {mobileNo}
               </Form.Label>
-              <div className="otp-input-fields">
-                {otp.map((value, index) => (
-                  <input
-                    key={index}
-                    ref={(el) => (inputRefs1.current[index] = el)}
-                    type="text"
-                    maxLength="1"
-                    value={value}
-                    onChange={(e) => handleChange(index, e.target.value)}
-                    onKeyDown={(e) => handleKeyPress1(e, index)}
-                  />
-                ))}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <div style={{ display: "flex", gap: "10px" }}>
+                  {otp.map((value, index) => (
+                    <input
+                      key={index}
+                      ref={(el) => (inputRefs1.current[index] = el)}
+                      type="text"
+                      maxLength="1"
+                      value={value}
+                      onChange={(e) => handleChange(index, e.target.value)}
+                      onKeyDown={(e) => handleKeyPress1(e, index)}
+                    />
+                  ))}
+                </div>
+                <div style={{ marginLeft: "auto", marginRight: "68px" }}>
+                  <Link to="" onClick={() => handleResendOtp()}>
+                    Resend OTP
+                  </Link>
+                </div>
               </div>
             </Form.Group>
           </Form>
-          <div className="Forgottext">
-            <Link to="" onClick={() => handleResendOtp()}>
-              Resend OTP
-            </Link>
-          </div>
-          <div className="text-center">
+          <div style={{ textAlign: "center" }}>
             <Button onClick={handleSignOtpmodalClose}>Verify OTP</Button>
           </div>
         </Modal.Body>

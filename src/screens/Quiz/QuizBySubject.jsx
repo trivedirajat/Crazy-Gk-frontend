@@ -12,7 +12,6 @@ function QuizBySubject(props) {
   const { subjectId } = useParams();
   const navigate = useNavigate();
   const [quizList, setQuizList] = useState([]);
-  console.log("🚀 ~ QuizBySubject ~ quizList:", quizList);
   useEffect(() => {
     const getquize = async () => {
       const res = await axios.get(
@@ -49,7 +48,7 @@ function QuizBySubject(props) {
           </div>
           {quizList?.map((quiz, index) => {
             return (
-              <div className="live-quiz">
+              <div className="live-quiz" style={{ marginTop: "20px" }}>
                 <Row>
                   <Col lg={10}>
                     <p>

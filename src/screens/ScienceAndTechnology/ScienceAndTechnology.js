@@ -10,28 +10,31 @@ import Footer from "../../directives/footer/footer";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSubjectTopics } from "../../reduxx/action/SubjectAction";
 import NotFound from "../../assets/images/img/notfound.png";
+import { stripHtmlTags } from "../../utils/stripHtmlTags";
 
 function ScienceAndTechnology(props) {
-  const dispatch = useDispatch()
-  const location = useLocation()
-  const navigate = useNavigate()
-  const { subjectData } = location.state || {}
-  const { subjectTopics } = useSelector(state => state.subject)
-  const [searchTxt, setSearchTxt] = useState('')
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { subjectData } = location.state || {};
+  const { subjectTopics } = useSelector((state) => state.subject);
+  const [searchTxt, setSearchTxt] = useState("");
   useEffect(() => {
-    fetchSubjectTopic()
-  }, [subjectData])
+    fetchSubjectTopic();
+  }, [subjectData]);
 
   const fetchSubjectTopic = () => {
-    if (subjectData?._id !== '') {
-      dispatch(fetchSubjectTopics({
-        limit: 100,
-        offset: 0,
-        subject_id: subjectData?._id,
-        topic_name: searchTxt ?? ''
-      }))
+    if (subjectData?._id !== "") {
+      dispatch(
+        fetchSubjectTopics({
+          limit: 100,
+          offset: 0,
+          subject_id: subjectData?._id,
+          topic_name: searchTxt ?? "",
+        })
+      );
     }
-  }
+  };
 
   return (
     <>
@@ -41,12 +44,27 @@ function ScienceAndTechnology(props) {
           <Row className="justify-content-center">
             <Col lg={6} sm={6}>
               <div className="all-banner-content">
-                <h3>{subjectData?.subject_name ? subjectData?.subject_name : 'Science And Technology'}</h3>
+                <h3>
+                  {subjectData?.subject_name
+                    ? subjectData?.subject_name
+                    : "Science And Technology"}
+                </h3>
                 <Link to="/study-material">Study Material </Link>
-                <span><i className="fa fa-angle-double-right" /> {subjectData?.subject_name ? subjectData?.subject_name : 'Science And Technology'} </span>
+                <span>
+                  <i className="fa fa-angle-double-right" />{" "}
+                  {subjectData?.subject_name
+                    ? subjectData?.subject_name
+                    : "Science And Technology"}{" "}
+                </span>
                 <InputGroup className="mb-3">
-                  <Form.Control placeholder="Search Subject" onChange={(val) => setSearchTxt(val?.target?.value)} />
-                  <InputGroup.Text id="basic-addon2" onClick={() => fetchSubjectTopic()}>
+                  <Form.Control
+                    placeholder="Search Subject"
+                    onChange={(val) => setSearchTxt(val?.target?.value)}
+                  />
+                  <InputGroup.Text
+                    id="basic-addon2"
+                    onClick={() => fetchSubjectTopic()}
+                  >
                     <i className="fa fa-search" />
                   </InputGroup.Text>
                 </InputGroup>
@@ -64,25 +82,35 @@ function ScienceAndTechnology(props) {
             <Col lg={9} sm={9}>
               <div className="About-Subject">
                 <h4 className="inner-head">About Subject</h4>
-                <p>{subjectData?.description ?? 'Not Found'}</p>
+                <p>{stripHtmlTags(subjectData?.description) ?? "Not Found"}</p>
               </div>
 
               <div className="About-Subject">
                 <h4 className="inner-head">Subject Topics</h4>
                 <Row>
-                  {subjectTopics && subjectTopics?.data?.length > 0 ?
-                    subjectTopics?.data.map(item => {
-                      return (<Col lg={3} sm={3} xs={6} className="mb-4">
-                        <div className="sub-topic">
-                          <span onClick={() => navigate(`/science-technology-topic`, { state: { topicData: item } })}>
-                            {item?.topic_name ?? ''}
-                          </span>
-                        </div>
-                      </Col>)
+                  {subjectTopics && subjectTopics?.data?.length > 0 ? (
+                    subjectTopics?.data.map((item) => {
+                      return (
+                        <Col lg={3} sm={3} xs={6} className="mb-4">
+                          <div className="sub-topic">
+                            <span
+                              onClick={() =>
+                                navigate(`/science-technology-topic`, {
+                                  state: { topicData: item },
+                                })
+                              }
+                            >
+                              {item?.topic_name ?? ""}
+                            </span>
+                          </div>
+                        </Col>
+                      );
                     })
-                    : <div className="justify-content-center d-flex align-items-center mb-3">
+                  ) : (
+                    <div className="justify-content-center d-flex align-items-center mb-3">
                       <img src={NotFound} />
-                    </div>}
+                    </div>
+                  )}
                 </Row>
                 <div className="viewmore">
                   <Button variant="success">Other Relevant Links</Button>

@@ -6,6 +6,7 @@ const Welcome = lazy(() => import("../screens/Welcome/Welcome"));
 const StudyMaterial = lazy(() =>
   import("../screens/StudyMaterial/StudyMaterial")
 );
+const AllQuiz = lazy(() => import("../screens/Quiz/Quiz"));
 const QuizBySubject = lazy(() => import("../screens/Quiz/QuizBySubject"));
 const StartQuiz = lazy(() => import("../screens/Quiz/StartQuiz"));
 const ScienceAndTechnology = lazy(() =>
@@ -262,11 +263,20 @@ const routesConfig = [
     ),
   },
   {
-    path: "/quiz/:subjectId",
+    path: "/subjectwisequiz/:subjectId",
     label: "All quiz",
     component: (
       <Suspense fallback={<Loader />}>
         <QuizBySubject />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/quiz",
+    label: "All quiz",
+    component: (
+      <Suspense fallback={<Loader />}>
+        <AllQuiz />
       </Suspense>
     ),
   },
