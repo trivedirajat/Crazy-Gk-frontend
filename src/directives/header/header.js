@@ -683,18 +683,12 @@ function Header(props) {
                   <Link to="/editorial-section">Editorial Section</Link>
                 </div>
               </div>
-              <div className="dropdown">
-                <button className="dropbtn">
-                  <Link>
-                    Quiz <i className="fa fa-angle-down" />
-                  </Link>
-                </button>
-                <div className="dropdown-content">
-                  <Link to="">Link 1</Link>
-                  <Link to="">Link 2</Link>
-                  <Link to="">Link 3</Link>
-                </div>
-              </div>
+              <Nav.Link>
+                <Link className="linkA-view" to="/quiz">
+                  Quiz
+                </Link>
+              </Nav.Link>
+
               <div className="dropdown">
                 <button className="dropbtn">
                   <Link>
@@ -901,7 +895,16 @@ function Header(props) {
             <h2>Crazy GK Trick</h2>
           </div>
           <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Group
+              className="mb-3"
+              controlId="exampleForm.ControlInput1"
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
               <Form.Label>
                 Enter the six digit passcode sent to {mobileNo}
               </Form.Label>
@@ -920,7 +923,7 @@ function Header(props) {
               </div>
             </Form.Group>
           </Form>
-          <div className="Forgottext">
+          <div className="Forgottext" style={{ marginRight: "68px" }}>
             <Button onClick={() => handleResendOtp()} to="">
               Resend OTP
             </Button>
@@ -947,7 +950,16 @@ function Header(props) {
             <h2>Crazy GK Trick</h2>
           </div>
           <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Group
+              className="mb-3"
+              controlId="exampleForm.ControlInput1"
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
               <Form.Label>
                 Enter the six digit passcode sent to {mobileNo}
               </Form.Label>
@@ -966,7 +978,7 @@ function Header(props) {
               </div>
             </Form.Group>
           </Form>
-          <div className="Forgottext">
+          <div className="Forgottext" style={{ marginRight: "68px" }}>
             <Link to="" onClick={() => handleResendOtp()}>
               Resend OTP
             </Link>
