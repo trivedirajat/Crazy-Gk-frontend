@@ -4,11 +4,10 @@ import Header from "../../directives/header/header";
 import { Col, Container, Form, InputGroup, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../../directives/footer/footer";
-import Editorials from "../../assets/images/img/Editorials.png";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchWhatsNew } from "../../reduxx/action/BlogAction";
 import moment from "moment/moment";
-import { stripHtmlTags } from "../../utils/stripHtmlTags";
+import HtmlRenderer from "../../utils/stripHtmlTags";
 
 function WhatsNew(props) {
   const dispatch = useDispatch();
@@ -70,7 +69,7 @@ function WhatsNew(props) {
                           <Col lg={7} sm={7} className="mb-4">
                             <div className="Editorials-content">
                               <h6> {item?.title} </h6>
-                              <p>{stripHtmlTags(item?.description || "")}</p>
+                              <HtmlRenderer htmlContent={item?.description} />
                             </div>
                             <div className="what-read-btn">
                               <span

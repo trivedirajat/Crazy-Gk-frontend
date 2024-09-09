@@ -2,15 +2,13 @@ import React, { useEffect, useState } from "react";
 import "../ScienceAndTechnology/ScienceAndTech.css";
 import Header from "../../directives/header/header";
 import { Button, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
-import Carousel from "react-multi-carousel";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import OtherSubjects from "../../components/OtherSubjects/OtherSubjects";
-import Banner1 from "../../assets/images/img/banner1.png";
 import Footer from "../../directives/footer/footer";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSubjectTopics } from "../../reduxx/action/SubjectAction";
 import NotFound from "../../assets/images/img/notfound.png";
-import { stripHtmlTags } from "../../utils/stripHtmlTags";
+import HtmlRenderer from "../../utils/stripHtmlTags";
 
 function ScienceAndTechnology(props) {
   const dispatch = useDispatch();
@@ -82,7 +80,7 @@ function ScienceAndTechnology(props) {
             <Col lg={9} sm={9}>
               <div className="About-Subject">
                 <h4 className="inner-head">About Subject</h4>
-                <p>{stripHtmlTags(subjectData?.description) ?? "Not Found"}</p>
+                <HtmlRenderer html={subjectData?.description || ""} />
               </div>
 
               <div className="About-Subject">

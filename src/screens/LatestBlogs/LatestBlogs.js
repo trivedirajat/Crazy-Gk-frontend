@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import placeholder from "../../assets/images/placeholder.png";
 import { fetchBlog } from "../../reduxx/action/BlogAction";
 import moment from "moment";
-import { stripHtmlTags } from "../../utils/stripHtmlTags";
+import HtmlRenderer from "../../utils/stripHtmlTags";
 
 function LatestBlogs(props) {
   const dispatch = useDispatch();
@@ -79,7 +79,9 @@ function LatestBlogs(props) {
                           <Col lg={7} sm={7} className="mb-4">
                             <div className="Editorials-content">
                               <h6> {item?.title} </h6>
-                              <p>{stripHtmlTags(item?.description)}</p>
+                              <HtmlRenderer
+                                htmlContent={item?.description || ""}
+                              />
                             </div>
                             <div className="what-read-btn">
                               <span

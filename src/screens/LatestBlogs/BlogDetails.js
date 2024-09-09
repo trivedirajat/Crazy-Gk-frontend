@@ -6,7 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 import Footer from "../../directives/footer/footer";
 import moment from "moment";
 import placeholder from "../../assets/images/placeholder.png";
-import { stripHtmlTags } from "../../utils/stripHtmlTags";
+import HtmlRenderer from "../../utils/stripHtmlTags";
 
 function BlogDetails(props) {
   const location = useLocation();
@@ -60,7 +60,7 @@ function BlogDetails(props) {
                   style={{ marginTop: "10px" }}
                 >
                   <h6> {blogData?.title} </h6>
-                  <p>{stripHtmlTags(blogData?.description)}</p>
+                  <HtmlRenderer htmlContent={blogData?.description} />
                 </div>
                 <div className="what-date">
                   <span className="blog-date">
