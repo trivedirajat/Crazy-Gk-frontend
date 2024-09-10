@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "../home/index.css";
-import "../../components/Lightbox/lightbox.css";
 import Header from "../../directives/header/header";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import Home1 from "../../assets/images/img/home1.png";

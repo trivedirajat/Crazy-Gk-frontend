@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from "react";
 import Loader from "../components/Loader/Loader";
-
+import "../screens/home/index.css";
+import "../components/Lightbox/lightbox.css";
 const Index = lazy(() => import("../screens/home"));
 const Welcome = lazy(() => import("../screens/Welcome/Welcome"));
 const StudyMaterial = lazy(() =>
