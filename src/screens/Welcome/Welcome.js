@@ -8,6 +8,7 @@ import Study from "../../assets/images/img/studying 1.png";
 import reporter from "../../assets/images/img/news-reporter 1.png";
 import test from "../../assets/images/img/test 2.png";
 import { Link, useNavigate } from "react-router-dom";
+import { COURSES, EXAM_NOTES, ROOT_APP, TRICK_APP } from "../../Config";
 
 const Welcome = () => {
   const navigate = useNavigate();
@@ -29,13 +30,22 @@ const Welcome = () => {
             <Col lg={12}>
               <div className="all-banner-content">
                 <h3>Sowing Seeds for better Tomorrow</h3>
-                <button className="wel-btn">
+                <button
+                  className="wel-btn"
+                  onClick={() => window.open(COURSES, "_blank")}
+                >
                   Online Store <img src={welcome1} alt="welcome" />
                 </button>
-                <button className="wel-btn">
+                <button
+                  className="wel-btn"
+                  onClick={() => window.open(TRICK_APP, "_blank")}
+                >
                   Crazy GK Trick App <img src={welcome2} alt="welcome" />
                 </button>
-                <button className="wel-btn">
+                <button
+                  className="wel-btn"
+                  onClick={() => window.open(ROOT_APP, "_blank")}
+                >
                   Root App <img src={welcome3} alt="welcome" />
                 </button>
               </div>
@@ -55,9 +65,13 @@ const Welcome = () => {
                         <img src={Study} alt="img" />
                       </div>
                       <div>
-                        <Link>
+                        <a
+                          href={EXAM_NOTES}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <h5>Exam Notes</h5>
-                        </Link>
+                        </a>
                       </div>
                     </div>
                   </Col>
