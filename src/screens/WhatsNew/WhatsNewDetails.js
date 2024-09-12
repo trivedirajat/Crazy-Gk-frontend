@@ -1,14 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import "../WhatsNew/WhatsNew.css";
 import Header from "../../directives/header/header";
-import { Col, Container, Form, InputGroup, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
-import Banner1 from "../../assets/images/img/banner1.png";
-import Carousel from "react-multi-carousel";
 import Footer from "../../directives/footer/footer";
-import Editorials from "../../assets/images/img/Editorials.png";
 import moment from "moment";
-import { stripHtmlTags } from "../../utils/stripHtmlTags";
+import HtmlRenderer  from "../../utils/stripHtmlTags";
 
 function WhatsNewDetails(props) {
   const location = useLocation();
@@ -53,7 +50,7 @@ function WhatsNewDetails(props) {
                 </div>
                 <div className="Editorials-content">
                   <h6> {whatsData?.title} </h6>
-                  <p>{stripHtmlTags(whatsData?.description || "")}</p>
+                  <HtmlRenderer htmlContent={whatsData?.description || ""} />
                 </div>
                 <div className="what-date">
                   <Link to="">

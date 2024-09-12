@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "../home/index.css";
-import "../../components/Lightbox/lightbox.css";
 import Header from "../../directives/header/header";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import Home1 from "../../assets/images/img/home1.png";
@@ -26,11 +24,12 @@ import {
 } from "../../reduxx/action/BlogAction";
 import moment from "moment";
 import { fetchVideos } from "../../reduxx/action/VideoAction";
-import { stripHtmlTags } from "../../utils/stripHtmlTags";
+import HtmlRenderer from "../../utils/stripHtmlTags";
 import axios from "axios";
 import { BaseURL } from "../../Config";
 import AddReviewModal from "../../components/modal/AddReviewModal";
 import { toast } from "react-toastify";
+import StarRatingComponent from "react-star-rating-component";
 
 const testimonialSlider = {
   desktop: {
@@ -64,11 +63,13 @@ const Lightbox = () => {
   );
 };
 
+const RendomeImage = () => [BG1, BG2, BG3, BG4][Math.floor(Math.random() * 4)];
 function Index(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { getsubject } = useSelector((state) => state.subject);
   const [quizsubject, setQuizSubject] = useState([]);
+  const [userRewiew, setUserRewiew] = useState([]);
   const { getBlog, getWhatsNew, getEBook, getDaliyVocab, getJobs } =
     useSelector((state) => state.blog);
   const { getvideo } = useSelector((state) => state.video);
@@ -124,7 +125,14 @@ function Index(props) {
         setQuizSubject(res.data.data);
       }
     };
+    const getReview = async () => {
+      const res = await axios.get(`${BaseURL}/review/getReviews`);
+      if (res.data?.reviews.length > 0) {
+        setUserRewiew(res?.data?.reviews);
+      }
+    };
     getquize();
+    getReview();
   }, []);
 
   const extractVideoId = (videoUrl) => {
@@ -291,11 +299,9 @@ function Index(props) {
                             <span>Admin</span>
                           </h5>
                           <p className="latest-des">
-                            {item?.description
-                              ? stripHtmlTags(
-                                  item?.description.substring(0, 250)
-                                )
-                              : ""}
+                            <HtmlRenderer
+                              htmlContent={item?.description || ""}
+                            />
                             ...
                           </p>
                         </div>
@@ -564,7 +570,9 @@ function Index(props) {
                 <div className="work-content">
                   <h4>WORD OF THE DAY</h4>
                   {getDaliyVocab?.data?.length > 0 && (
-                    <p> {stripHtmlTags(getDaliyVocab?.data[0]?.description)}</p>
+                    <HtmlRenderer
+                      htmlContent={getDaliyVocab?.data[0]?.content}
+                    />
                   )}
                   <Button className="btn-green">Daily Vocab</Button>
                 </div>
@@ -581,285 +589,43 @@ function Index(props) {
             <h4>What our Students say about us</h4>
           </div>
           <Row>
-            <Col lg={4} sm={6} xs={12} className="mb-4">
-              <div className="Happy-Crazy">
-                <div>
-                  <img src={BG1} />
-                </div>
-                <div className="align-self-center">
-                  <div className="star-icon">
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                  </div>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry.
-                  </p>
-                  <h6>I am a Name</h6>
-                </div>
-              </div>
-            </Col>
-            <Col lg={4} sm={6} xs={12} className="mb-4">
-              <div className="Happy-Crazy">
-                <div>
-                  <img src={BG2} />
-                </div>
-                <div className="align-self-center">
-                  <div className="star-icon">
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                  </div>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry.
-                  </p>
-                  <h6>I am a Name</h6>
-                </div>
-              </div>
-            </Col>
-            <Col lg={4} sm={6} xs={12} className="mb-4">
-              <div className="Happy-Crazy">
-                <div>
-                  <img src={BG3} />
-                </div>
-                <div className="align-self-center">
-                  <div className="star-icon">
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                  </div>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry.
-                  </p>
-                  <h6>I am a Name</h6>
-                </div>
-              </div>
-            </Col>
-            <Col lg={4} sm={6} xs={12} className="mb-4">
-              <div className="Happy-Crazy">
-                <div>
-                  <img src={BG4} />
-                </div>
-                <div className="align-self-center">
-                  <div className="star-icon">
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                  </div>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry.
-                  </p>
-                  <h6>I am a Name</h6>
-                </div>
-              </div>
-            </Col>
-            <Col lg={4} sm={6} xs={12} className="mb-4">
-              <div className="Happy-Crazy">
-                <div>
-                  <img src={BG4} />
-                </div>
-                <div className="align-self-center">
-                  <div className="star-icon">
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                  </div>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry.
-                  </p>
-                  <h6>I am a Name</h6>
-                </div>
-              </div>
-            </Col>
-            <Col lg={4} sm={6} xs={12} className="mb-4">
-              <div className="Happy-Crazy">
-                <div>
-                  <img src={BG1} />
-                </div>
-                <div className="align-self-center">
-                  <div className="star-icon">
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                  </div>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry.
-                  </p>
-                  <h6>I am a Name</h6>
-                </div>
-              </div>
-            </Col>
-            <Col lg={4} sm={6} xs={12} className="mb-4">
-              <div className="Happy-Crazy">
-                <div>
-                  <img src={BG2} />
-                </div>
-                <div className="align-self-center">
-                  <div className="star-icon">
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                  </div>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry.
-                  </p>
-                  <h6>I am a Name</h6>
-                </div>
-              </div>
-            </Col>
-            <Col lg={4} sm={6} xs={12} className="mb-4">
-              <div className="Happy-Crazy">
-                <div>
-                  <img src={BG3} />
-                </div>
-                <div className="align-self-center">
-                  <div className="star-icon">
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                  </div>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry.
-                  </p>
-                  <h6>I am a Name</h6>
-                </div>
-              </div>
-            </Col>
-            <Col lg={4} sm={6} xs={12} className="mb-4">
-              <div className="Happy-Crazy">
-                <div>
-                  <img src={BG4} />
-                </div>
-                <div className="align-self-center">
-                  <div className="star-icon">
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                    <a>
-                      <i className="fa fa-star" />
-                    </a>
-                  </div>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry.
-                  </p>
-                  <h6>I am a Name</h6>
-                </div>
-              </div>
-            </Col>
+            {userRewiew?.length > 0
+              ? userRewiew.slice(0, 10).map((item) => (
+                  <Col lg={4} sm={6} xs={12} className="mb-4">
+                    <div className="Happy-Crazy">
+                      <div>
+                        <img
+                          src={item?.user_profile || RendomeImage()}
+                          alt={item?.name}
+                        />
+                      </div>
+                      <div className="align-self-center">
+                        <StarRatingComponent
+                          name="rate1"
+                          starCount={5}
+                          value={item?.rating}
+                          editing={false}
+                          starColor="#04aa50"
+                          emptyStarColor="#ddd"
+                        />
+                        <div className="star-icon"></div>
+                        <p
+                          style={{
+                            wordWrap: "break-word",
+                            whiteSpace: "normal",
+                            overflowWrap: "break-word",
+                            wordBreak: "break-word",
+                            marginBottom: "1rem",
+                          }}
+                        >
+                          {item?.review}
+                        </p>
+                        <h6>{item?.name}</h6>
+                      </div>
+                    </div>
+                  </Col>
+                ))
+              : null}
           </Row>
           <div style={{ textAlign: "center" }}>
             <Button

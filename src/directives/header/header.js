@@ -30,6 +30,7 @@ import {
 } from "../../reduxx/action/AuthAction";
 import { logout, userForgotPassword } from "../../reduxx/action/actionCreators";
 import GlobalSearch from "../../components/shared/GlobalSearch";
+import { COURSES, EXAM_NOTES, ROOT_APP, TEST_SERIES } from "../../Config";
 
 function Header(props) {
   const dispatch = useDispatch();
@@ -592,14 +593,18 @@ function Header(props) {
               <div className="">
                 <Row>
                   <Col sm={2} className="align-self-center p-0">
-                    <Link>Courses</Link>
+                    <a href={COURSES} target="_blank" rel="noreferrer">
+                      Courses
+                    </a>
                   </Col>
                   <Col sm={3} className="align-self-center p-0">
-                    <Link>Test series</Link>
+                    <a href={TEST_SERIES} target="_blank" rel="noreferrer">
+                      Test series
+                    </a>
                   </Col>
                   <Col sm={7} className="p-0">
-                    <button>
-                      Root App <img src={welcome3} />
+                    <button onClick={() => window.open(ROOT_APP, "_blank")}>
+                      Root App <img src={welcome3} alt="welcome" />
                     </button>
                   </Col>
                 </Row>
@@ -688,8 +693,17 @@ function Header(props) {
                   Quiz
                 </Link>
               </Nav.Link>
-
-              <div className="dropdown">
+              <div style={{ padding: "0 10px" }}>
+                <a
+                  className="linkA-view"
+                  href={EXAM_NOTES}
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  Exam
+                </a>
+              </div>
+              {/* <div className="dropdown">
                 <button className="dropbtn">
                   <Link>
                     Exam <i className="fa fa-angle-down" />
@@ -700,8 +714,18 @@ function Header(props) {
                   <Link to="">Link 2</Link>
                   <Link to="">Link 3</Link>
                 </div>
+              </div> */}
+              <div style={{ padding: "0 10px" }}>
+                <a
+                  className="linkA-view"
+                  href={TEST_SERIES}
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  Test Series
+                </a>
               </div>
-              <div className="dropdown">
+              {/* <div className="dropdown">
                 <button className="dropbtn">
                   <Link>
                     Test Series <i className="fa fa-angle-down" />
@@ -712,7 +736,7 @@ function Header(props) {
                   <Link to="">Link 2</Link>
                   <Link to="">Link 3</Link>
                 </div>
-              </div>
+              </div> */}
               <div className="dropdown">
                 <button className="dropbtn">
                   <Link to={"/subject-wise-video"}>

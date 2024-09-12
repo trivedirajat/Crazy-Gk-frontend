@@ -2,14 +2,10 @@ import React, { useEffect, useState } from "react";
 import Header from "../../directives/header/header";
 import { Button, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import Editorials from "../../assets/images/img/Editorials.png";
 import OtherTopics from "../../components/OtherTopics/OtherTopics";
 import Footer from "../../directives/footer/footer";
 import Carousel from "react-multi-carousel";
-import testimonial1 from "../../assets/images/img/Testimonial1.png";
-import testimonial2 from "../../assets/images/img/Testimonial2.png";
-import testimonial3 from "../../assets/images/img/Testimonial3.png";
-import { stripHtmlTags } from "../../utils/stripHtmlTags";
+import HtmlRenderer from "../../utils/stripHtmlTags";
 const testimonialSlider = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -134,7 +130,7 @@ function VideoPlayer(props) {
                                 <h4 className="Content-head">
                                   <i className="fa fa-circle" /> {item?.title}
                                 </h4>
-                                <p>{stripHtmlTags(item?.description || " ")}</p>
+                                <HtmlRenderer html={item?.description || ""} />
                               </>
                             ))
                           : null}
