@@ -56,15 +56,7 @@ function SubjectWiseVideo(props) {
                   <div className="taxonomy-image">
                     {/* <img src={Topic1} /> */}
                     <img
-                      src={
-                        item?.image
-                          ? getsubject?.base_url + item?.image
-                          : Topic1
-                      }
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = placeholder;
-                      }}
+                      src={item?.image_url ? item?.image_url : placeholder}
                       alt={item?.subject_name}
                     />
                   </div>

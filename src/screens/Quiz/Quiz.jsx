@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "../home/index.css";
 import Header from "../../directives/header/header";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import Footer from "../../directives/footer/footer";
 import { Link, useNavigate } from "react-router-dom";
 import Topic1 from "../../assets/images/img/science 2.png";
 import axios from "axios";
 import { BaseURL } from "../../Config";
 import placeholder from "../../assets/images/placeholder.png";
-import moment from "moment";
 import { useSelector } from "react-redux";
 
 function Quiz(props) {

@@ -1,37 +1,36 @@
 // action creator file
 import axios from "axios";
 import {
-SET_AUTH_TOKEN,
-REMOVE_AUTH_TOKEN,
-REGISTER_ADD_USERS_SUCCESS,
-REGISTER_ADD_FAILURE,
-USER_LOGOUT_SUCCESS,
-USER_LOGOUT_FAILURE,
-UPDATE_PROFILE_SUCCESS,
-UPDATE_PROFILE_FAILURE,
-RESENT_OTP_SUCCESS,
-RESENT_OTP_FAILURE,
-FORGOT_PASSWORD_SUCCESS,
-FORGOT_PASSWORD_FAILURE,
-UPDATE_PASSWORD_SUCCESS,
-UPDATE_PASSWORD_FAILURE,
-CHANGE_PASSWORD_SUCCESS,
-CHANGE_PASSWORD_FAILURE,
-USER_LIST_SUCCESS,
-USER_LIST_FAILURE,
-GET_SUBJECTS_SUCCESS,
-GET_SUBJECTS_FAILURE,
-ADD_PLAN_SUCCESS,
-ADD_PLAN_FAILURE,
-GET_PLAN_SUCCESS,
-GET_PLAN_FAILURE,
-ADD_VIDEO_SUCCESS,
-ADD_VIDEO_FAILURE,
-GET_VIDEO_SUCCESS,
-GET_VIDEO_FAILURE,
-VERFIY_OTP_FAILURE,
-VERFIY_OTP_SUCCESS,
-
+  SET_AUTH_TOKEN,
+  REMOVE_AUTH_TOKEN,
+  REGISTER_ADD_USERS_SUCCESS,
+  REGISTER_ADD_FAILURE,
+  USER_LOGOUT_SUCCESS,
+  USER_LOGOUT_FAILURE,
+  UPDATE_PROFILE_SUCCESS,
+  UPDATE_PROFILE_FAILURE,
+  RESENT_OTP_SUCCESS,
+  RESENT_OTP_FAILURE,
+  FORGOT_PASSWORD_SUCCESS,
+  FORGOT_PASSWORD_FAILURE,
+  UPDATE_PASSWORD_SUCCESS,
+  UPDATE_PASSWORD_FAILURE,
+  CHANGE_PASSWORD_SUCCESS,
+  CHANGE_PASSWORD_FAILURE,
+  USER_LIST_SUCCESS,
+  USER_LIST_FAILURE,
+  GET_SUBJECTS_SUCCESS,
+  GET_SUBJECTS_FAILURE,
+  ADD_PLAN_SUCCESS,
+  ADD_PLAN_FAILURE,
+  GET_PLAN_SUCCESS,
+  GET_PLAN_FAILURE,
+  ADD_VIDEO_SUCCESS,
+  ADD_VIDEO_FAILURE,
+  GET_VIDEO_SUCCESS,
+  GET_VIDEO_FAILURE,
+  VERFIY_OTP_FAILURE,
+  VERFIY_OTP_SUCCESS,
 } from "./actionTypes";
 import { BaseURL } from "../../Config";
 import apiEndPoints from "../../utils/apiEndPoints";
@@ -75,10 +74,10 @@ export const userRegister = (user_name) => async (dispatch) => {
   }
 };
 // RESENTOTP_API SECTION END
-export const userVerfiyOTP= () => async (dispatch) => {
+export const userVerfiyOTP = () => async (dispatch) => {
   try {
     await axios
-      .post(`${BaseURL}${apiEndPoints.VERFIYOTP_API}`, )
+      .post(`${BaseURL}${apiEndPoints.VERFIYOTP_API}`)
       .then((response) => {
         console.log("response", response);
         dispatch({
@@ -271,6 +270,10 @@ export const userGetList = (user) => async (dispatch) => {
 export const logout = () => ({
   type: USER_LOGOUT_SUCCESS,
 });
+export const userDetails = (user) => ({
+  type: "USER_DETAILS_SUCCESS",
+  payload: user,
+});
 export const loginFailure = () => ({
   type: USER_LOGOUT_FAILURE,
 });
@@ -301,12 +304,12 @@ export const fetchSubject = (subject) => async (dispatch) => {
     });
   }
 };
-// GETSUBJECTS_API SECTION END 
+// GETSUBJECTS_API SECTION END
 // ADDPLAN_API,GETPLAN_API SECTION START
 export const addPlan = () => async (dispatch) => {
   try {
     await axios
-      .post(`${BaseURL}${apiEndPoints.ADDPLAN_API}`, )
+      .post(`${BaseURL}${apiEndPoints.ADDPLAN_API}`)
       .then((response) => {
         console.log("response", response);
         dispatch({
@@ -359,11 +362,11 @@ export const fetchPlan = (plan) => async (dispatch) => {
   }
 };
 // ADDPLAN_API,GETPLAN_API SECTION END
-// ADDVIDEO_API,GETVIDEO_API SECTION START 
+// ADDVIDEO_API,GETVIDEO_API SECTION START
 export const addVideo = () => async (dispatch) => {
   try {
     await axios
-      .post(`${BaseURL}${apiEndPoints.ADDVIDEO_API}`, )
+      .post(`${BaseURL}${apiEndPoints.ADDVIDEO_API}`)
       .then((response) => {
         console.log("response", response);
         dispatch({
@@ -415,6 +418,4 @@ export const fetchVideo = (plan) => async (dispatch) => {
     });
   }
 };
-// ADDVIDEO_API,GETVIDEO_API SECTION END 
-
-
+// ADDVIDEO_API,GETVIDEO_API SECTION END

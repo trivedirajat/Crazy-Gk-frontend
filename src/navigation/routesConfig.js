@@ -282,7 +282,7 @@ const routesConfig = [
     ),
   },
   {
-    path: "/startquiz/:subjectId",
+    path: "/startquiz",
     label: "Start quiz",
     component: (
       <Suspense fallback={<Loader />}>
