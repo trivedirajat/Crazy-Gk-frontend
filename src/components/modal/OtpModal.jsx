@@ -31,7 +31,7 @@ const OtpModal = ({ show, handleClose, mobileNo, data, type }) => {
   const handleResendOtp = async () => {
     try {
       const res = await axios.post(
-        `${BaseURL}/${apiEndPoints?.RESENTOTP_API}`,
+        `${BaseURL}${apiEndPoints?.RESENTOTP_API}`,
         data
       );
       if (res.status === 200) {
@@ -53,7 +53,7 @@ const OtpModal = ({ show, handleClose, mobileNo, data, type }) => {
     if (type === "forgotPassword") {
       try {
         const res = await axios.post(
-          `${BaseURL}/${apiEndPoints?.UPDATEPASSWORD_API}`,
+          `${BaseURL}${apiEndPoints?.UPDATEPASSWORD_API}`,
           {
             emailOrMobile: mobileNo,
             otp: otpValue,
@@ -70,7 +70,7 @@ const OtpModal = ({ show, handleClose, mobileNo, data, type }) => {
     } else {
       try {
         const res = await axios.post(
-          `${BaseURL}/${apiEndPoints?.VERFIYOTP_API}`,
+          `${BaseURL}${apiEndPoints?.VERFIYOTP_API}`,
           {
             mobile: mobileNo,
             otp: otpValue,
