@@ -2,36 +2,98 @@ import React, { useEffect, useState } from "react";
 import "../home/index.css";
 import Header from "../../directives/header/header";
 import {
+  Alert,
   Button,
   Card,
   Col,
   Container,
   Form,
-  ListGroup,
   Row,
 } from "react-bootstrap";
 import Footer from "../../directives/footer/footer";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import { BaseURL } from "../../Config";
+import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import Axios from "../../utils/Axios";
+import QuizResultModal from "../../components/modal/QuizResultModal";
 
 function StartQuiz(props) {
+  const {
+    auth: { responseLogin: user },
+  } = useSelector((state) => {
+    return state;
+  });
   const [selectedAnswers, setSelectedAnswers] = useState({});
+  const [showResultModal, setShowResultModal] = useState({
+    show: false,
+    result: {},
+  });
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const { subjectId } = useParams();
-  const navigate = useNavigate();
+  const { search } = useLocation();
+  const QuizeId = new URLSearchParams(search).get("qi") || "";
+  const subjectId = new URLSearchParams(search).get("subid") || "";
+  const [userVierfy, setUserVirefy] = useState(false);
   const [quizList, setQuizList] = useState([]);
-
   useEffect(() => {
     const getquize = async () => {
-      const res = await axios.get(`${BaseURL}/quiz/startQuiz/${subjectId}`);
-      if (res.data?.data.length > 0) {
-        setQuizList(res.data.data);
+      try {
+        const res = await axios.get(`${BaseURL}/quiz/startQuiz/${subjectId}`, {
+          params: {
+            QuizeId,
+            subjectId,
+          },
+        });
+        if (res.data?.data.length > 0) {
+          setQuizList(res.data.data);
+        }
+      } catch (error) {
+        toast.error(error?.response?.data?.message || "Something went wrong");
       }
     };
-    getquize();
-  }, [subjectId]);
-
+    if (userVierfy) {
+      getquize();
+    }
+  }, [subjectId, userVierfy, QuizeId]);
+  useEffect(() => {
+    const virefyUser = async () => {
+      try {
+        const res = await axios.get(`${BaseURL}/auth/verify/${user._id}`);
+        if (res.status === 200) {
+          setUserVirefy(true);
+        }
+      } catch (error) {
+        toast.error("Please Login First");
+        setUserVirefy(false);
+      }
+    };
+    if (user?._id) {
+      virefyUser();
+    } else {
+      setUserVirefy(false);
+    }
+  }, [user]);
+  if (!userVierfy) {
+    return (
+      <>
+        <Header />
+        <div
+          style={{
+            height: "400px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Alert variant="warning" className="text-center">
+            Please login first to access this content.
+          </Alert>
+        </div>
+        <Footer />
+      </>
+    );
+  }
   const handleOptionChange = (questionId, optionId) => {
     setSelectedAnswers({ ...selectedAnswers, [questionId]: optionId });
   };
@@ -40,7 +102,7 @@ function StartQuiz(props) {
     setSelectedAnswers({ ...selectedAnswers, [questionId]: value });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setIsSubmitted(true);
 
     const result = quizList.map((quiz) => ({
@@ -51,9 +113,13 @@ function StartQuiz(props) {
         answers: selectedAnswers[question._id] || [],
       })),
     }));
-
-    console.log("Quiz Results:", result);
-    // Send result object to API or further processing here
+    const res = await Axios.post(`quiz/submitQuiz`, result);
+    if (res.status === 200) {
+      setShowResultModal({
+        show: true,
+        result: res.data,
+      });
+    }
   };
   const renderQuestionOptions = (question) => {
     switch (question.questionType) {
@@ -88,15 +154,15 @@ function StartQuiz(props) {
           />
         ));
       case "True/False":
-        return ["True", "False"].map((option, index) => (
+        return question.options.map((option) => (
           <Form.Check
-            key={index}
+            key={option._id}
             type="radio"
-            label={option}
+            label={option.value}
             name={`question-${question._id}`}
-            id={`option-${option}`}
-            checked={selectedAnswers[question._id] === option}
-            onChange={() => handleOptionChange(question._id, option)}
+            id={`option-${option._id}`}
+            checked={selectedAnswers[question._id] === option._id}
+            onChange={() => handleOptionChange(question._id, option._id)}
             disabled={isSubmitted}
           />
         ));
@@ -174,7 +240,7 @@ function StartQuiz(props) {
                   <Button
                     variant="primary"
                     onClick={handleSubmit}
-                    disabled={isSubmitted}
+                    disabled={isSubmitted || !userVierfy}
                   >
                     Submit Quiz
                   </Button>
@@ -185,6 +251,11 @@ function StartQuiz(props) {
         </Container>
       </section>
       <Footer />
+      <QuizResultModal
+        show={showResultModal.show}
+        handleClose={() => setShowResultModal({ show: false, result: {} })}
+        result={showResultModal.result}
+      />
     </>
   );
 }

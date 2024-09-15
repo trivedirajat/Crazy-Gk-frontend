@@ -71,7 +71,9 @@ function QuizBySubject(props) {
                     </div>
                   </Col>
                   <Col lg={2} className="align-self-center">
-                    <Button onClick={() => navigate(`/startquiz/${subjectId}`)}>
+                    <Button
+                      onClick={() => navigate(`/startquiz?qi=${quiz?._id}`)}
+                    >
                       Start Now
                     </Button>
                   </Col>

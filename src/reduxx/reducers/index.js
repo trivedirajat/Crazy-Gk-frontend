@@ -1,6 +1,5 @@
 // index.js file under reducers folder
 import { combineReducers } from "redux";
-import authReducer from "./autoReducer";
 import SubjectReducer from "./subjectReducer";
 import VideoReducer from "./VideoReducer";
 import planReducer from "./addPlanReducer";

@@ -208,7 +208,8 @@ p.latest-des {
 .taxonomy-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: none;
+  object-position: center;
 }
 
 .Topic-card h5 {

@@ -468,9 +468,7 @@ function Index(props) {
                   </Col>
                   <Col lg={2} className="align-self-center">
                     <Button
-                      onClick={() =>
-                        navigate(`/startquiz/${quiz?.subject?._id}`)
-                      }
+                      onClick={() => navigate(`/startquiz?qi=${quiz?._id}`)}
                     >
                       Start Now
                     </Button>
