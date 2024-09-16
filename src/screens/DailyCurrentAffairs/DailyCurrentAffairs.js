@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import Header from "../../directives/header/header";
-import { Button, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
+import { Col, Container, Form, InputGroup, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import CalendarPage from "../../components/Calendar/CalendarPage";
-import Banner1 from "../../assets/images/img/banner1.png";
-import Carousel from "react-multi-carousel";
 import Footer from "../../directives/footer/footer";
 
 function DailyCurrentAffairs(props) {
@@ -157,8 +155,8 @@ function DailyCurrentAffairs(props) {
                   </Col>
                 </Row>
               </div>
-            {/* Adds code */}
-            <div></div>
+              {/* Adds code */}
+              <div></div>
 
               <div className="About-Subject mt-3">
                 <h4 className="inner-head">Important Dates</h4>

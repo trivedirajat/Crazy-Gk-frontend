@@ -106,7 +106,7 @@ function ScienceAndTechnology(props) {
                     })
                   ) : (
                     <div className="justify-content-center d-flex align-items-center mb-3">
-                      <img src={NotFound} />
+                      <img src={NotFound} alt="error"/>
                     </div>
                   )}
                 </Row>

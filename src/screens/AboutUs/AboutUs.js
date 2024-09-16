@@ -6,8 +6,6 @@ import { Link } from "react-router-dom";
 import about1 from "../../assets/images/img/about1.png";
 import about2 from "../../assets/images/img/about2.png";
 import about3 from "../../assets/images/img/about3.png";
-import Banner1 from "../../assets/images/img/banner1.png";
-import Carousel from "react-multi-carousel";
 import Members from "../../assets/images/img/Members.png";
 import Team1 from "../../assets/images/img/team1.png";
 import Team2 from "../../assets/images/img/team2.png";
@@ -133,7 +131,7 @@ function AboutUs(props) {
               </Col>
               <Col lg={5} sm={12}>
                 <div className="members-imgs">
-                <img src={Members} />
+                  <img src={Members} />
                 </div>
               </Col>
             </Row>

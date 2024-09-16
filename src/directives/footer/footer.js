@@ -12,7 +12,7 @@ function Footer() {
           <Row>
             <Col lg={4} className="align-self-center">
               <div className="footer-head">
-                <img src={DarkLogo} />
+                <img src={DarkLogo} alt="error"/>
                 <p>
                   Mere tranquil existence, that I neglect my talents. I should
                   be incapable of drawing a single stroke at the present

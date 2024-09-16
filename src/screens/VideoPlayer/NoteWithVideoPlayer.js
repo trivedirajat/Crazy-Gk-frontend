@@ -1,9 +1,7 @@
 import React from "react";
 import Header from "../../directives/header/header";
-import { Button, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
+import { Col, Container, Form, InputGroup, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import Editorials from "../../assets/images/img/Editorials.png";
-import OtherTopics from "../../components/OtherTopics/OtherTopics";
 import Footer from "../../directives/footer/footer";
 
 function NoteWithVideoPlayer() {
@@ -40,7 +38,15 @@ function NoteWithVideoPlayer() {
                   <Col lg={12} sm={12} className="mb-4">
                     <div className="Editorials-card text-center">
                       {/* <img src={Editorials} /> */}
-                      <iframe width="100%" height="500" src="https://www.youtube.com/embed/Xx-JLzjHuro?si=ZgM54vdBCD27-O_u" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                      <iframe
+                        width="100%"
+                        height="500"
+                        src="https://www.youtube.com/embed/Xx-JLzjHuro?si=ZgM54vdBCD27-O_u"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen
+                      ></iframe>
                     </div>
                     <div className="mt-3">
                       <h4 className="Content-head">

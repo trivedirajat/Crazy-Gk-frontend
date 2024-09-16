@@ -7,6 +7,7 @@ import Footer from "../../directives/footer/footer";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchWhatsNew } from "../../reduxx/action/BlogAction";
 import moment from "moment/moment";
+import placeholder from "../../assets/images/placeholder.png";
 import HtmlRenderer from "../../utils/stripHtmlTags";
 
 function WhatsNew(props) {
@@ -63,7 +64,14 @@ function WhatsNew(props) {
                           <Col lg={5} sm={5} className="mb-4">
                             <div className="Editorials-card">
                               {/* <img src={Editorials} /> */}
-                              <img src={getWhatsNew?.base_url + item?.image} />
+                              <img
+                                src={item?.image || placeholder}
+                                onError={(e) => {
+                                  e.target.onerror = null;
+                                  e.target.src = placeholder;
+                                }}
+                                alt="Editorials"
+                              />
                             </div>
                           </Col>
                           <Col lg={7} sm={7} className="mb-4">

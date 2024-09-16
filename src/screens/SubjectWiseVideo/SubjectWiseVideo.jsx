@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import "../home/index.css";
 import Header from "../../directives/header/header";
 import { Col, Container, Form, InputGroup, Row } from "react-bootstrap";
-import Topic1 from "../../assets/images/img/science 2.png";
 import Footer from "../../directives/footer/footer";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -56,8 +55,12 @@ function SubjectWiseVideo(props) {
                   <div className="taxonomy-image">
                     {/* <img src={Topic1} /> */}
                     <img
-                      src={item?.image_url ? item?.image_url : placeholder}
+                      src={item?.image || placeholder}
                       alt={item?.subject_name}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = placeholder;
+                      }}
                     />
                   </div>
                   <div>

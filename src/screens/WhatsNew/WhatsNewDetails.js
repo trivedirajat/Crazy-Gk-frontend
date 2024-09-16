@@ -5,11 +5,12 @@ import { Col, Container, Row } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 import Footer from "../../directives/footer/footer";
 import moment from "moment";
-import HtmlRenderer  from "../../utils/stripHtmlTags";
+import placeholder from "../../assets/images/placeholder.png";
+import HtmlRenderer from "../../utils/stripHtmlTags";
 
 function WhatsNewDetails(props) {
   const location = useLocation();
-  const { whatsData, base_url } = location.state || {};
+  const { whatsData } = location.state || {};
   return (
     <>
       <Header />
@@ -44,8 +45,12 @@ function WhatsNewDetails(props) {
                 <div className="Editorials-card">
                   {/* <img src={Editorials} /> */}
                   <img
-                    src={base_url + whatsData?.image}
+                    src={whatsData?.image || placeholder}
                     alt={whatsData?.title || ""}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = placeholder;
+                    }}
                   />
                 </div>
                 <div className="Editorials-content">

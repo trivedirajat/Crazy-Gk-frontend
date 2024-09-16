@@ -414,14 +414,10 @@ function Index(props) {
                     {/* <img src={Topic1} /> */}
                     <img
                       alt={item?.subject_name}
-                      src={
-                        item?.image
-                          ? getsubject?.base_url + item?.image
-                          : Topic1
-                      }
+                      src={item?.image ?? Topic1}
                       onError={(e) => {
                         e.target.onerror = null;
-                        e.target.src = placeholder;
+                        e.target.src = Topic1;
                       }}
                     />
                   </div>
@@ -499,11 +495,12 @@ function Index(props) {
                   onClick={() => window.open(item?.pdf_link)}
                 >
                   <img
-                    src={
-                      item?.image !== ""
-                        ? getEBook?.base_url + item?.image
-                        : Book1
-                    }
+                    src={item?.image || Book1}
+                    alt="error"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = Book1;
+                    }}
                   />
                 </div>
               ))}
@@ -595,6 +592,10 @@ function Index(props) {
                         <img
                           src={item?.user_profile || RendomeImage()}
                           alt={item?.name}
+                          onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = RendomeImage();
+                          }}
                         />
                       </div>
                       <div className="align-self-center">

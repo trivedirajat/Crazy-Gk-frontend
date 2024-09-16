@@ -40,7 +40,7 @@ function StandardPackage(props) {
           <Row className="justify-content-center">
             <Col lg={6} sm={9}>
               <div className="sub-pay-Successful">
-                <img src={successful} />
+                <img src={successful} alt="error"/>
                 <h6>Payment Successful !</h6>
               <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, </p>
               </div>

@@ -1,10 +1,8 @@
 import React from "react";
 import Header from "../../directives/header/header";
-import {  Col, Container, Form, InputGroup, Row } from "react-bootstrap";
+import { Col, Container, Form, InputGroup, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import CalendarPage from "../../components/Calendar/CalendarPage";
-import Banner1 from "../../assets/images/img/banner1.png";
-import Carousel from "react-multi-carousel";
 import Footer from "../../directives/footer/footer";
 
 function Topicwisecurrentaffairs(props) {
@@ -19,7 +17,8 @@ function Topicwisecurrentaffairs(props) {
                 <h3>Topic wise current affairs</h3>
                 <Link to="/study-material">Current Affairs </Link>
                 <span>
-                  <i className="fa fa-angle-double-right" /> Topic wise current affairs
+                  <i className="fa fa-angle-double-right" /> Topic wise current
+                  affairs
                 </span>
                 <InputGroup className="mb-3">
                   <Form.Control placeholder="Search topic" />
@@ -45,119 +44,119 @@ function Topicwisecurrentaffairs(props) {
                   <Col lg={3} sm={3} xs={6} className="mb-4">
                     <div className="sub-topic">
                       <Link to="/science-technology-topic">
-                         I am Topic Name{" "}
+                        I am Topic Name{" "}
                       </Link>
                     </div>
                   </Col>
                   <Col lg={3} sm={3} xs={6} className="mb-4">
                     <div className="sub-topic">
                       <Link to="/science-technology-topic">
-                         I am Topic Name{" "}
+                        I am Topic Name{" "}
                       </Link>
                     </div>
                   </Col>
                   <Col lg={3} sm={3} xs={6} className="mb-4">
                     <div className="sub-topic">
                       <Link to="/science-technology-topic">
-                         I am Topic Name{" "}
+                        I am Topic Name{" "}
                       </Link>
                     </div>
                   </Col>
                   <Col lg={3} sm={3} xs={6} className="mb-4">
                     <div className="sub-topic">
                       <Link to="/science-technology-topic">
-                         I am Topic Name{" "}
+                        I am Topic Name{" "}
                       </Link>
                     </div>
                   </Col>
                   <Col lg={3} sm={3} xs={6} className="mb-4">
                     <div className="sub-topic">
                       <Link to="/science-technology-topic">
-                         I am Topic Name{" "}
+                        I am Topic Name{" "}
                       </Link>
                     </div>
                   </Col>
                   <Col lg={3} sm={3} xs={6} className="mb-4">
                     <div className="sub-topic">
                       <Link to="/science-technology-topic">
-                         I am Topic Name{" "}
+                        I am Topic Name{" "}
                       </Link>
                     </div>
                   </Col>
                   <Col lg={3} sm={3} xs={6} className="mb-4">
                     <div className="sub-topic">
                       <Link to="/science-technology-topic">
-                         I am Topic Name{" "}
+                        I am Topic Name{" "}
                       </Link>
                     </div>
                   </Col>
                   <Col lg={3} sm={3} xs={6} className="mb-4">
                     <div className="sub-topic">
                       <Link to="/science-technology-topic">
-                         I am Topic Name{" "}
+                        I am Topic Name{" "}
                       </Link>
                     </div>
                   </Col>
                   <Col lg={3} sm={3} xs={6} className="mb-4">
                     <div className="sub-topic">
                       <Link to="/science-technology-topic">
-                         I am Topic Name{" "}
+                        I am Topic Name{" "}
                       </Link>
                     </div>
                   </Col>
                   <Col lg={3} sm={3} xs={6} className="mb-4">
                     <div className="sub-topic">
                       <Link to="/science-technology-topic">
-                         I am Topic Name{" "}
+                        I am Topic Name{" "}
                       </Link>
                     </div>
                   </Col>
                   <Col lg={3} sm={3} xs={6} className="mb-4">
                     <div className="sub-topic">
                       <Link to="/science-technology-topic">
-                         I am Topic Name{" "}
+                        I am Topic Name{" "}
                       </Link>
                     </div>
                   </Col>
                   <Col lg={3} sm={3} xs={6} className="mb-4">
                     <div className="sub-topic">
                       <Link to="/science-technology-topic">
-                         I am Topic Name{" "}
+                        I am Topic Name{" "}
                       </Link>
                     </div>
                   </Col>
                   <Col lg={3} sm={3} xs={6} className="mb-4">
                     <div className="sub-topic">
                       <Link to="/science-technology-topic">
-                         I am Topic Name{" "}
+                        I am Topic Name{" "}
                       </Link>
                     </div>
                   </Col>
                   <Col lg={3} sm={3} xs={6} className="mb-4">
                     <div className="sub-topic">
                       <Link to="/science-technology-topic">
-                         I am Topic Name{" "}
+                        I am Topic Name{" "}
                       </Link>
                     </div>
                   </Col>
                   <Col lg={3} sm={3} xs={6} className="mb-4">
                     <div className="sub-topic">
                       <Link to="/science-technology-topic">
-                         I am Topic Name{" "}
+                        I am Topic Name{" "}
                       </Link>
                     </div>
                   </Col>
                   <Col lg={3} sm={3} xs={6} className="mb-4">
                     <div className="sub-topic">
                       <Link to="/science-technology-topic">
-                         I am Topic Name{" "}
+                        I am Topic Name{" "}
                       </Link>
                     </div>
                   </Col>
                 </Row>
               </div>
-               {/* Adds code */}
-            <div></div>
+              {/* Adds code */}
+              <div></div>
 
               <div className="About-Subject">
                 <h4 className="inner-head">Important Topic</h4>
@@ -165,112 +164,112 @@ function Topicwisecurrentaffairs(props) {
                   <Col lg={3} sm={3} xs={6} className="mb-4">
                     <div className="sub-topic">
                       <Link to="/science-technology-topic">
-                         I am Topic Name{" "}
+                        I am Topic Name{" "}
                       </Link>
                     </div>
                   </Col>
                   <Col lg={3} sm={3} xs={6} className="mb-4">
                     <div className="sub-topic">
                       <Link to="/science-technology-topic">
-                         I am Topic Name{" "}
+                        I am Topic Name{" "}
                       </Link>
                     </div>
                   </Col>
                   <Col lg={3} sm={3} xs={6} className="mb-4">
                     <div className="sub-topic">
                       <Link to="/science-technology-topic">
-                         I am Topic Name{" "}
+                        I am Topic Name{" "}
                       </Link>
                     </div>
                   </Col>
                   <Col lg={3} sm={3} xs={6} className="mb-4">
                     <div className="sub-topic">
                       <Link to="/science-technology-topic">
-                         I am Topic Name{" "}
+                        I am Topic Name{" "}
                       </Link>
                     </div>
                   </Col>
                   <Col lg={3} sm={3} xs={6} className="mb-4">
                     <div className="sub-topic">
                       <Link to="/science-technology-topic">
-                         I am Topic Name{" "}
+                        I am Topic Name{" "}
                       </Link>
                     </div>
                   </Col>
                   <Col lg={3} sm={3} xs={6} className="mb-4">
                     <div className="sub-topic">
                       <Link to="/science-technology-topic">
-                         I am Topic Name{" "}
+                        I am Topic Name{" "}
                       </Link>
                     </div>
                   </Col>
                   <Col lg={3} sm={3} xs={6} className="mb-4">
                     <div className="sub-topic">
                       <Link to="/science-technology-topic">
-                         I am Topic Name{" "}
+                        I am Topic Name{" "}
                       </Link>
                     </div>
                   </Col>
                   <Col lg={3} sm={3} xs={6} className="mb-4">
                     <div className="sub-topic">
                       <Link to="/science-technology-topic">
-                         I am Topic Name{" "}
+                        I am Topic Name{" "}
                       </Link>
                     </div>
                   </Col>
                   <Col lg={3} sm={3} xs={6} className="mb-4">
                     <div className="sub-topic">
                       <Link to="/science-technology-topic">
-                         I am Topic Name{" "}
+                        I am Topic Name{" "}
                       </Link>
                     </div>
                   </Col>
                   <Col lg={3} sm={3} xs={6} className="mb-4">
                     <div className="sub-topic">
                       <Link to="/science-technology-topic">
-                         I am Topic Name{" "}
+                        I am Topic Name{" "}
                       </Link>
                     </div>
                   </Col>
                   <Col lg={3} sm={3} xs={6} className="mb-4">
                     <div className="sub-topic">
                       <Link to="/science-technology-topic">
-                         I am Topic Name{" "}
+                        I am Topic Name{" "}
                       </Link>
                     </div>
                   </Col>
                   <Col lg={3} sm={3} xs={6} className="mb-4">
                     <div className="sub-topic">
                       <Link to="/science-technology-topic">
-                         I am Topic Name{" "}
+                        I am Topic Name{" "}
                       </Link>
                     </div>
                   </Col>
                   <Col lg={3} sm={3} xs={6} className="mb-4">
                     <div className="sub-topic">
                       <Link to="/science-technology-topic">
-                         I am Topic Name{" "}
+                        I am Topic Name{" "}
                       </Link>
                     </div>
                   </Col>
                   <Col lg={3} sm={3} xs={6} className="mb-4">
                     <div className="sub-topic">
                       <Link to="/science-technology-topic">
-                         I am Topic Name{" "}
+                        I am Topic Name{" "}
                       </Link>
                     </div>
                   </Col>
                   <Col lg={3} sm={3} xs={6} className="mb-4">
                     <div className="sub-topic">
                       <Link to="/science-technology-topic">
-                         I am Topic Name{" "}
+                        I am Topic Name{" "}
                       </Link>
                     </div>
                   </Col>
                   <Col lg={3} sm={3} xs={6} className="mb-4">
                     <div className="sub-topic">
                       <Link to="/science-technology-topic">
-                         I am Topic Name{" "}
+                        I am Topic Name{" "}
                       </Link>
                     </div>
                   </Col>

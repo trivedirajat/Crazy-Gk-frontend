@@ -8,17 +8,18 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetcEBooks } from "../../reduxx/action/BlogAction";
 
-
 function AllEBook(props) {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const { getEBook } = useSelector(state => state.blog)
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { getEBook } = useSelector((state) => state.blog);
   useEffect(() => {
-    dispatch(fetcEBooks({
-      offset: 0,
-      limit: 100
-    }))
-  }, [])
+    dispatch(
+      fetcEBooks({
+        offset: 0,
+        limit: 100,
+      })
+    );
+  }, []);
   return (
     <>
       <Header />
@@ -47,11 +48,22 @@ function AllEBook(props) {
       <section className="section-padding">
         <Container fluid className="container-space">
           <div className="topic-box space-section">
-            {getEBook?.data?.length > 0 && getEBook?.data.map((item) => (
-              <div className="book-card" onClick={() => window.open(item?.pdf_link)}>
-                <img src={item?.image !== '' ? getEBook?.base_url + item?.image : Book1} />
-              </div>
-            ))}
+            {getEBook?.data?.length > 0 &&
+              getEBook?.data.map((item) => (
+                <div
+                  className="book-card"
+                  onClick={() => window.open(item?.pdf_link)}
+                >
+                  <img
+                    src={item?.image || Book1}
+                    alt="error"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = Book1;
+                    }}
+                  />
+                </div>
+              ))}
           </div>
         </Container>
       </section>

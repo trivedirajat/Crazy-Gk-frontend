@@ -65,9 +65,7 @@ function LatestBlogs(props) {
                             <div className="Editorials-card">
                               {/* <img src={Editorials} /> */}
                               <img
-                                src={
-                                  getBlog?.base_url + item?.image || placeholder
-                                }
+                                src={item?.image || placeholder}
                                 alt="Editorials"
                                 onError={(e) => {
                                   e.target.onerror = null;

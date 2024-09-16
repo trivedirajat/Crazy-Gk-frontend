@@ -1,9 +1,7 @@
 import React from "react";
 import Header from "../../directives/header/header";
-import { Col, Container, Form, InputGroup, Row, Button } from "react-bootstrap";
+import { Col, Container, Form, InputGroup, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import Banner1 from "../../assets/images/img/banner1.png";
-import Carousel from "react-multi-carousel";
 import Footer from "../../directives/footer/footer";
 
 function SubscriptionPayment(props) {
@@ -73,9 +71,10 @@ function SubscriptionPayment(props) {
               </div>
             </Col>
             <Col lg={6} sm={6}>
-              <Link to={'/standard-package'}>
+              <Link to={"/standard-package"}>
                 <div className="sub-card-plan dark">
-                  <div><h6>Basic</h6>
+                  <div>
+                    <h6>Basic</h6>
                     <h5>Save 20%</h5>
                   </div>
 
@@ -87,14 +86,14 @@ function SubscriptionPayment(props) {
               </Link>
               <div className="sub-card-plan">
                 <div>Intermediate</div>
-                <div >
+                <div>
                   <h2>$49</h2>
                   <p>Three month, billed anually</p>
                 </div>
               </div>
               <div className="sub-card-plan">
                 <div>Pro</div>
-                <div >
+                <div>
                   <h2>$99</h2>
                   <p>12 Months, billed anually</p>
                 </div>

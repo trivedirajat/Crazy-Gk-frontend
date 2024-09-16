@@ -55,11 +55,7 @@ function Quiz(props) {
                     {/* <img src={Topic1} /> */}
                     <img
                       alt={item?.subject_name}
-                      src={
-                        item?.image
-                          ? getsubject?.base_url + item?.image
-                          : Topic1
-                      }
+                      src={item?.image || placeholder}
                       onError={(e) => {
                         e.target.onerror = null;
                         e.target.src = placeholder;

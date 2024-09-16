@@ -47,7 +47,7 @@ function BlogDetails(props) {
                     style={{
                       maxWidth: "300px",
                     }}
-                    src={base_url + blogData?.image}
+                    src={blogData?.image || placeholder}
                     onError={(e) => {
                       e.target.onerror = null;
                       e.target.src = placeholder;
