@@ -14,7 +14,6 @@ import { Link, useNavigate } from "react-router-dom";
 import ReactImageVideoLightbox from "react-image-video-lightbox";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSubject } from "../../reduxx/action/SubjectAction";
-import placeholder from "../../assets/images/placeholder.png";
 import {
   fetcEBooks,
   fetchBlog,
@@ -73,6 +72,13 @@ function Index(props) {
   const { getBlog, getWhatsNew, getEBook, getDaliyVocab, getJobs } =
     useSelector((state) => state.blog);
   const { getvideo } = useSelector((state) => state.video);
+  const VideoLightboxData = getvideo?.map((item) => {
+    return {
+      url: item?.video_url,
+      type: "video",
+      title: item?.title,
+    };
+  });
   const [openLightBox, setOpenLightBox] = useState(false);
 
   useEffect(() => {
@@ -359,28 +365,7 @@ function Index(props) {
           </Carousel>
           {openLightBox && (
             <ReactImageVideoLightbox
-              data={[
-                {
-                  url: "https://www.youtube.com/embed/rDC8NNcIioU",
-                  type: "video",
-                  altTag: "some image",
-                },
-                {
-                  url: "https://www.youtube.com/embed/rDC8NNcIioU",
-                  type: "video",
-                  title: "Placeholder video",
-                },
-                {
-                  url: "https://www.youtube.com/embed/rDC8NNcIioU",
-                  type: "video",
-                  altTag: "some other image",
-                },
-                {
-                  url: "https://www.youtube.com/embed/rDC8NNcIioU",
-                  type: "video",
-                  title: "some other video",
-                },
-              ]}
+              data={VideoLightboxData || []}
               startIndex={0}
               showResourceCount={true}
               onCloseCallback={() => setOpenLightBox(false)}
@@ -492,7 +477,10 @@ function Index(props) {
               getEBook?.data.slice(0, 5).map((item) => (
                 <div
                   className="book-card"
-                  onClick={() => window.open(item?.pdf_link)}
+                  onClick={() =>
+                    window.open(item?.pdf_link, "_blank", "noopener,noreferrer")
+                  }
+                  style={{ cursor: "pointer" }}
                 >
                   <img
                     src={item?.image || Book1}

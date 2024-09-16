@@ -32,7 +32,7 @@ const Welcome = () => {
                 <h3>Sowing Seeds for better Tomorrow</h3>
                 <button
                   className="wel-btn"
-                  onClick={() => window.open(COURSES, "_blank")}
+                  // onClick={() => window.open(COURSES, "_blank")}
                 >
                   Online Store <img src={welcome1} alt="welcome" />
                 </button>
