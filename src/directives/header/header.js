@@ -30,9 +30,9 @@ function Header(props) {
   const [userDetails, setUserDetails] = useState(null);
 
   useEffect(() => {
-    const fetchUserDetails = async () => {
-      const userData = await localStorage.getItem("user");
-      const data = JSON.parse(userData);
+    const fetchUserDetails = () => {
+      const userData = localStorage.getItem("user") || "";
+      const data = JSON.parse(userData || "{}");
       if (data) {
         setUserDetails(data);
       }

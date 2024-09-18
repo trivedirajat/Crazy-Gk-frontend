@@ -25,7 +25,7 @@ import moment from "moment";
 import { fetchVideos } from "../../reduxx/action/VideoAction";
 import HtmlRenderer from "../../utils/stripHtmlTags";
 import axios from "axios";
-import { BaseURL } from "../../Config";
+import { BaseURL, COURSES } from "../../Config";
 import AddReviewModal from "../../components/modal/AddReviewModal";
 import { toast } from "react-toastify";
 import StarRatingComponent from "react-star-rating-component";
@@ -185,11 +185,13 @@ function Index(props) {
                   erat.
                 </p>
                 <div className="home-btns">
-                  <Button>Exam Note</Button>
+                  <Button onClick={() => window.open(COURSES, "_blank")}>
+                    Exam Note
+                  </Button>
                   <Button onClick={() => navigate("/topic-current-affairs")}>
                     Current Affairs
                   </Button>
-                  <Button>MCQ</Button>
+                  <Button onClick={() => navigate("/quiz")}>MCQ</Button>
                   <Button>Online Store</Button>
                 </div>
               </div>

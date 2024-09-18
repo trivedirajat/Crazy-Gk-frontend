@@ -27,25 +27,25 @@ const LoginModal = ({
 
   const onSubmit = async (data) => {
     try {
-      const res = await axios.post(
-        `${BaseURL}/${apiEndPoints?.LOGIN_API}`,
-        data
-      );
+      const res = await axios.post(`${BaseURL}/${apiEndPoints?.LOGIN_API}`, {
+        user_type: "user",
+        ...data,
+      });
       if (res.status === 200) {
-        const { userfound, accessToken, refreshToken } = res?.data?.data;
-        localStorage.setItem("user", JSON.stringify(userfound));
+        const { user, accessToken, refreshToken } = res?.data?.data;
+        localStorage.setItem("user", JSON.stringify(user));
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
         toast.success(res?.data?.message || "Login successful");
         dispatch({
           type: USER_LOGIN_SUCCESS,
-          payload: userfound,
+          payload: user,
         });
         handleClose();
         if (type === "welcome") {
           navigate("/home");
         } else {
-          setUserDetails(userfound);
+          setUserDetails(user);
         }
       }
     } catch (error) {

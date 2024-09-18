@@ -51,7 +51,15 @@ function SubjectWiseVideo(props) {
           <div className="topic-box space-section">
             {getsubject?.data?.length > 0 &&
               getsubject?.data.map((item) => (
-                <div className="Topic-card">
+                <div
+                  className="Topic-card"
+                  style={{ cursor: "pointer" }}
+                  onClick={() =>
+                    navigate(`/trending-on-youtube`, {
+                      state: { subject: item },
+                    })
+                  }
+                >
                   <div className="taxonomy-image">
                     {/* <img src={Topic1} /> */}
                     <img
@@ -64,15 +72,7 @@ function SubjectWiseVideo(props) {
                     />
                   </div>
                   <div>
-                    <h5
-                      onClick={() =>
-                        navigate(`/trending-on-youtube`, {
-                          state: { subject: item },
-                        })
-                      }
-                    >
-                      {item?.subject_name}
-                    </h5>
+                    <h5>{item?.subject_name}</h5>
                   </div>
                 </div>
               ))}

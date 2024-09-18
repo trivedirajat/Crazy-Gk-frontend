@@ -116,6 +116,7 @@ function TrendingonYoutube() {
                                 width: "256px",
                                 borderRadius: 15,
                                 height: "176px",
+                                cursor: "pointer",
                               }}
                               alt="Editorials"
                             />
