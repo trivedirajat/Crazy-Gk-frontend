@@ -105,7 +105,9 @@ const SignUpModal = ({ show, handleClose, handleLoginModalShow }) => {
                 <option value="other">Other</option>
               </Form.Select>
               {errors.gender && (
-                <p style={{ color: "red" }}>{errors.gender.message}</p>
+                <p style={{ color: "red", marginTop: "5px", fontSize: "12px" }}>
+                  {errors.gender.message}
+                </p>
               )}
             </Form.Group>
 

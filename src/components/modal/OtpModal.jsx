@@ -77,11 +77,8 @@ const OtpModal = ({ show, handleClose, mobileNo, data, type }) => {
             data,
           }
         );
-        if (res.status === 200) {
-          toast.success(res?.data?.message || "OTP verified successfully");
-          setTimeout(() => {
-            toast.success("signup successfully");
-          }, 500);
+        if (res.status === 201) {
+          toast.success("signup successfully");
           handleClose();
         }
       } catch (error) {
