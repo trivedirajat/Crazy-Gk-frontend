@@ -4,18 +4,17 @@ import Header from "../../directives/header/header";
 import { Col, Container, Row } from "react-bootstrap";
 import Footer from "../../directives/footer/footer";
 import { Link, useNavigate } from "react-router-dom";
-import Topic1 from "../../assets/images/img/science 2.png";
-import axios from "axios";
 import { BaseURL } from "../../Config";
 import placeholder from "../../assets/images/placeholder.png";
 import { useSelector } from "react-redux";
+import Axios from "../../utils/Axios";
 
 function Quiz(props) {
   const navigate = useNavigate();
   const [quizList, setQuizList] = useState([]);
   useEffect(() => {
     const getquize = async () => {
-      const res = await axios.get(`${BaseURL}/quiz/getQuizs`);
+      const res = await Axios.get(`${BaseURL}/quiz/getQuizs`);
       if (res.data?.data.length > 0) {
         setQuizList(res.data.data);
       }

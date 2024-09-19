@@ -4,9 +4,9 @@ import Header from "../../directives/header/header";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import Footer from "../../directives/footer/footer";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
 import { BaseURL } from "../../Config";
 import moment from "moment";
+import Axios from "../../utils/Axios";
 
 function QuizBySubject(props) {
   const { subjectId } = useParams();
@@ -14,7 +14,7 @@ function QuizBySubject(props) {
   const [quizList, setQuizList] = useState([]);
   useEffect(() => {
     const getquize = async () => {
-      const res = await axios.get(
+      const res = await Axios.get(
         `${BaseURL}/quiz/getQuizsbySubject/${subjectId}`
       );
       if (res.data?.data.length > 0) {

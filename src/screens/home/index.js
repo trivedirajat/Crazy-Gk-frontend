@@ -24,11 +24,11 @@ import {
 import moment from "moment";
 import { fetchVideos } from "../../reduxx/action/VideoAction";
 import HtmlRenderer from "../../utils/stripHtmlTags";
-import axios from "axios";
 import { BaseURL, COURSES } from "../../Config";
 import AddReviewModal from "../../components/modal/AddReviewModal";
 import { toast } from "react-toastify";
 import StarRatingComponent from "react-star-rating-component";
+import Axios from "../../utils/Axios";
 
 const testimonialSlider = {
   desktop: {
@@ -126,13 +126,13 @@ function Index(props) {
       })
     );
     const getquize = async () => {
-      const res = await axios.get(`${BaseURL}/quiz/getQuizsbyFeatured`);
+      const res = await Axios.get(`${BaseURL}/quiz/getQuizsbyFeatured`);
       if (res.data?.data.length > 0) {
         setQuizSubject(res.data.data);
       }
     };
     const getReview = async () => {
-      const res = await axios.get(`${BaseURL}/review/getReviews`);
+      const res = await Axios.get(`${BaseURL}/review/getReviews`);
       if (res.data?.reviews.length > 0) {
         setUserRewiew(res?.data?.reviews);
       }
@@ -159,7 +159,7 @@ function Index(props) {
   const handleClose = () => setShowModal(false);
 
   const handleSubmitReview = async (data) => {
-    const res = await axios.post(`${BaseURL}/review/addReview`, {
+    const res = await Axios.post(`${BaseURL}/review/addReview`, {
       rating: data.rating,
       review: data.review,
     });

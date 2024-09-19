@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
@@ -6,6 +5,7 @@ import apiEndPoints from "../../utils/apiEndPoints";
 import { toast } from "react-toastify";
 import { BaseURL } from "../../Config";
 import OtpModal from "./OtpModal";
+import Axios from "../../utils/Axios";
 
 const ForgotPasswordModal = ({ show, handleClose }) => {
   const [OtpModalShow, setOtpModalShow] = useState(false);
@@ -20,7 +20,7 @@ const ForgotPasswordModal = ({ show, handleClose }) => {
   const onSubmit = async (data) => {
     setSignupData(data);
     try {
-      const response = await axios.post(
+      const response = await Axios.post(
         `${BaseURL}${apiEndPoints.FORGOTPASSWORD_API}`,
         data
       );

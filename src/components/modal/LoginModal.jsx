@@ -1,4 +1,3 @@
-import axios from "axios";
 import React from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
@@ -8,6 +7,7 @@ import apiEndPoints from "../../utils/apiEndPoints";
 import { toast } from "react-toastify";
 import { USER_LOGIN_SUCCESS } from "../../reduxx/action/actionTypes";
 import { useDispatch } from "react-redux";
+import Axios from "../../utils/Axios";
 
 const LoginModal = ({
   show,
@@ -27,7 +27,7 @@ const LoginModal = ({
 
   const onSubmit = async (data) => {
     try {
-      const res = await axios.post(`${BaseURL}/${apiEndPoints?.LOGIN_API}`, {
+      const res = await Axios.post(`${BaseURL}/${apiEndPoints?.LOGIN_API}`, {
         user_type: "user",
         ...data,
       });

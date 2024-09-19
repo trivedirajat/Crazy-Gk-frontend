@@ -3,10 +3,10 @@ import { Modal, Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import OtpModal from "./OtpModal";
-import axios from "axios";
 import { BaseURL } from "../../Config";
 import apiEndPoints from "../../utils/apiEndPoints";
 import { toast } from "react-toastify";
+import Axios from "../../utils/Axios";
 
 const SignUpModal = ({ show, handleClose, handleLoginModalShow }) => {
   const [OtpModalShow, setOtpModalShow] = useState(false);
@@ -21,7 +21,7 @@ const SignUpModal = ({ show, handleClose, handleLoginModalShow }) => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post(
+      const response = await Axios.post(
         `${BaseURL}${apiEndPoints.REGISTRATION_API}`,
         data
       );

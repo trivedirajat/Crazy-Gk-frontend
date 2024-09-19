@@ -1,5 +1,4 @@
-// action creator file
-import axios from "axios";
+
 import {
   SET_AUTH_TOKEN,
   REMOVE_AUTH_TOKEN,
@@ -34,6 +33,7 @@ import {
 } from "./actionTypes";
 import { BaseURL } from "../../Config";
 import apiEndPoints from "../../utils/apiEndPoints";
+import Axios from "../../utils/Axios";
 
 // TOKEN SECTION START
 export const setAuthToken = (token) => ({
@@ -48,7 +48,7 @@ export const removeAuthToken = () => ({
 // Register SECTION START
 export const userRegister = (user_name) => async (dispatch) => {
   try {
-    await axios
+    await Axios
       .post(`${BaseURL}${apiEndPoints.REGISTRATION_API}`, user_name)
       .then((response) => {
         console.log("response", response);
@@ -76,7 +76,7 @@ export const userRegister = (user_name) => async (dispatch) => {
 // RESENTOTP_API SECTION END
 export const userVerfiyOTP = () => async (dispatch) => {
   try {
-    await axios
+    await Axios
       .post(`${BaseURL}${apiEndPoints.VERFIYOTP_API}`)
       .then((response) => {
         console.log("response", response);
@@ -104,7 +104,7 @@ export const userVerfiyOTP = () => async (dispatch) => {
 export const userReSendOTP = (users) => async (dispatch) => {
   console.log("user11111", users);
   try {
-    await axios
+    await Axios
       .post(`${BaseURL}${apiEndPoints.RESENTOTP_API}`, users)
       .then((response) => {
         console.log("response", response);
@@ -134,7 +134,7 @@ export const userReSendOTP = (users) => async (dispatch) => {
 
 export const userForgotPassword = (user) => async (dispatch) => {
   try {
-    await axios
+    await Axios
       .post(`${BaseURL}${apiEndPoints.FORGOTPASSWORD_API}`, user)
       .then((response) => {
         console.log("response", response);
@@ -161,7 +161,7 @@ export const userForgotPassword = (user) => async (dispatch) => {
 };
 export const userUpdatePassword = (user) => async (dispatch) => {
   try {
-    await axios
+    await Axios
       .post(`${BaseURL}${apiEndPoints.UPDATEPASSWORD_API}`, user)
       .then((response) => {
         console.log("response", response);
@@ -188,7 +188,7 @@ export const userUpdatePassword = (user) => async (dispatch) => {
 };
 export const userChangePassword = (user) => async (dispatch) => {
   try {
-    await axios
+    await Axios
       .post(`${BaseURL}${apiEndPoints.CHANGEPASSWORD_API}`, user)
       .then((response) => {
         console.log("response", response);
@@ -215,7 +215,7 @@ export const userChangePassword = (user) => async (dispatch) => {
 };
 export const userUpdateProfile = (user) => async (dispatch) => {
   try {
-    await axios
+    await Axios
       .post(`${BaseURL}${apiEndPoints.UPDATEPROFILE_API}`, user)
       .then((response) => {
         console.log("response", response);
@@ -242,7 +242,7 @@ export const userUpdateProfile = (user) => async (dispatch) => {
 };
 export const userGetList = (user) => async (dispatch) => {
   try {
-    await axios
+    await Axios
       .post(`${BaseURL}${apiEndPoints.GETUSERLIST_API}`, user)
       .then((response) => {
         console.log("response", response);
@@ -279,7 +279,7 @@ export const loginFailure = () => ({
 });
 export const fetchSubject = (subject) => async (dispatch) => {
   try {
-    await axios
+    await Axios
       .get(`${BaseURL}${apiEndPoints.GETSUBJECTS_API}`, subject)
       .then((response) => {
         console.log("response", response);
@@ -308,7 +308,7 @@ export const fetchSubject = (subject) => async (dispatch) => {
 // ADDPLAN_API,GETPLAN_API SECTION START
 export const addPlan = () => async (dispatch) => {
   try {
-    await axios
+    await Axios
       .post(`${BaseURL}${apiEndPoints.ADDPLAN_API}`)
       .then((response) => {
         console.log("response", response);
@@ -336,7 +336,7 @@ export const addPlan = () => async (dispatch) => {
 export const fetchPlan = (plan) => async (dispatch) => {
   console.log("user11111");
   try {
-    await axios
+    await Axios
       .get(`${BaseURL}${apiEndPoints.GETPLAN_API}`, plan)
       .then((response) => {
         console.log("response", response);
@@ -365,7 +365,7 @@ export const fetchPlan = (plan) => async (dispatch) => {
 // ADDVIDEO_API,GETVIDEO_API SECTION START
 export const addVideo = () => async (dispatch) => {
   try {
-    await axios
+    await Axios
       .post(`${BaseURL}${apiEndPoints.ADDVIDEO_API}`)
       .then((response) => {
         console.log("response", response);
@@ -393,7 +393,7 @@ export const addVideo = () => async (dispatch) => {
 export const fetchVideo = (plan) => async (dispatch) => {
   console.log("user11111");
   try {
-    await axios
+    await Axios
       .get(`${BaseURL}${apiEndPoints.GETVIDEO_API}`, plan)
       .then((response) => {
         console.log("response", response);

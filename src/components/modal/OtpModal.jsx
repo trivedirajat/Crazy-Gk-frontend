@@ -2,10 +2,10 @@ import React, { useState, useRef } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Countdown from "../shared/Countdown";
-import axios from "axios";
 import { BaseURL } from "../../Config";
 import apiEndPoints from "../../utils/apiEndPoints";
 import { toast } from "react-toastify";
+import Axios from "../../utils/Axios";
 
 const OtpModal = ({ show, handleClose, mobileNo, data, type }) => {
   const [otp, setOtp] = useState(Array(6).fill(""));
@@ -30,7 +30,7 @@ const OtpModal = ({ show, handleClose, mobileNo, data, type }) => {
 
   const handleResendOtp = async () => {
     try {
-      const res = await axios.post(
+      const res = await Axios.post(
         `${BaseURL}${apiEndPoints?.RESENTOTP_API}`,
         data
       );
@@ -52,7 +52,7 @@ const OtpModal = ({ show, handleClose, mobileNo, data, type }) => {
     const otpValue = otp.join("");
     if (type === "forgotPassword") {
       try {
-        const res = await axios.post(
+        const res = await Axios.post(
           `${BaseURL}${apiEndPoints?.UPDATEPASSWORD_API}`,
           {
             emailOrMobile: mobileNo,
@@ -69,7 +69,7 @@ const OtpModal = ({ show, handleClose, mobileNo, data, type }) => {
       }
     } else {
       try {
-        const res = await axios.post(
+        const res = await Axios.post(
           `${BaseURL}${apiEndPoints?.VERFIYOTP_API}`,
           {
             mobile: mobileNo,

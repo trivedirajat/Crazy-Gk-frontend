@@ -1,11 +1,12 @@
-import axios from "axios";
+
 import { BaseURL } from "../../Config";
 import apiEndPoints from "../../utils/apiEndPoints";
+import Axios from "../../utils/Axios";
 import { USER_LOGIN_FAILURE, USER_LOGIN_SUCCESS, REMOVE_LOGIN_RESPONSE, REGISTER_ADD_USERS_SUCCESS, REGISTER_ADD_FAILURE, VERFIY_OTP_SUCCESS, VERFIY_OTP_FAILURE, RESENT_OTP_SUCCESS, RESENT_OTP_FAILURE, FORGOT_PASSWORD_SUCCESS, FORGOT_PASSWORD_FAILURE, CHECK_MOBILE_SUCCESS, CHECK_MOBILE_ERROR, START_LOADING, STOP_LOADING, UPDATE_PROFILE_SUCCESS, UPDATE_PROFILE_FAILURE, UPDATE_PASSWORD_SUCCESS, UPDATE_PASSWORD_FAILURE } from "./actionTypes";
 
 export const userLogin = (user) => async (dispatch) => {
     try {
-        await axios
+        await Axios
             .post(`${BaseURL}${apiEndPoints.LOGIN_API}`, user)
             .then((response) => {
                 console.log("response", response);
@@ -39,7 +40,7 @@ export const userLogin = (user) => async (dispatch) => {
 };
 export const userForgotPassword = (user) => async (dispatch) => {
     try {
-        await axios
+        await Axios
             .post(`${BaseURL}${apiEndPoints.FORGOTPASSWORD_API}`, user)
             .then((response) => {
                 console.log("response", response);
@@ -75,7 +76,7 @@ export const userForgotPassword = (user) => async (dispatch) => {
 export const checkUserMobile = (mobile) => async (dispatch) => {
     dispatch({ type: START_LOADING });
     try {
-        await axios
+        await Axios
             .post(`${BaseURL}${apiEndPoints.CHECK_MOBILE}`, mobile)
             .then((response) => {
                 console.log("response checkUserMobile", response);
@@ -114,7 +115,7 @@ export const checkUserMobile = (mobile) => async (dispatch) => {
 export const userRegister = (user_name) => async (dispatch) => {
     dispatch({ type: START_LOADING });
     try {
-        await axios
+        await Axios
             .post(`${BaseURL}${apiEndPoints.REGISTRATION_API}`, user_name)
             .then((response) => {
                 console.log("REGISTER_ADD_USERS_SUCCESS", response);
@@ -145,7 +146,7 @@ export const updateProfile = (params) => async (dispatch) => {
     const userToken = await localStorage.getItem('token')
     dispatch({ type: START_LOADING });
     try {
-        await axios.post(
+        await Axios.post(
             `${BaseURL}${apiEndPoints.UPDATEPROFILE_API}`,
             params,
             {
@@ -191,7 +192,7 @@ export const updateProfile = (params) => async (dispatch) => {
 // RESENTOTP_API SECTION END
 export const userVerfiyOTP = (data) => async (dispatch) => {
     try {
-        await axios
+        await Axios
             .post(`${BaseURL}${apiEndPoints.VERFIYOTP_API}`, data)
             .then((response) => {
                 console.log("response", response);
@@ -227,7 +228,7 @@ export const userVerfiyOTP = (data) => async (dispatch) => {
 export const userReSendOTP = (users) => async (dispatch) => {
     console.log("user11111", users);
     try {
-        await axios
+        await Axios
             .post(`${BaseURL}${apiEndPoints.RESENTOTP_API}`, users)
             .then((response) => {
                 console.log("response", response);
@@ -254,7 +255,7 @@ export const userReSendOTP = (users) => async (dispatch) => {
 };
 export const resetPassword = (password) => async (dispatch) => {
     try {
-        await axios
+        await Axios
             .post(`${BaseURL}${apiEndPoints.UPDATEPASSWORD_API}`, password)
             .then((response) => {
                 console.log("response resetPassword", response);

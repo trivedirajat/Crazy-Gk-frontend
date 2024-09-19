@@ -1,11 +1,12 @@
-import axios from "axios";
+
 import { BaseURL } from "../../Config";
 import apiEndPoints from "../../utils/apiEndPoints";
+import Axios from "../../utils/Axios";
 import { GET_VIDEO_FAILURE, GET_VIDEO_SUCCESS } from "./actionTypes";
 
 export const fetchVideos = (videoData) => async (dispatch) => {
     try {
-        await axios
+        await Axios
             .post(`${BaseURL}${apiEndPoints.GETVIDEO_API}`, videoData)
             .then((response) => {
                 if (response.status === 200) {

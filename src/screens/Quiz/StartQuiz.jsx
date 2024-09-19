@@ -11,8 +11,7 @@ import {
   Row,
 } from "react-bootstrap";
 import Footer from "../../directives/footer/footer";
-import { Link, useLocation, useParams } from "react-router-dom";
-import axios from "axios";
+import { Link, useLocation } from "react-router-dom";
 import { BaseURL } from "../../Config";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
@@ -39,7 +38,7 @@ function StartQuiz(props) {
   useEffect(() => {
     const getquize = async () => {
       try {
-        const res = await axios.get(`${BaseURL}/quiz/startQuiz/${subjectId}`, {
+        const res = await Axios.get(`${BaseURL}/quiz/startQuiz/${subjectId}`, {
           params: {
             QuizeId,
             subjectId,
@@ -59,7 +58,7 @@ function StartQuiz(props) {
   useEffect(() => {
     const virefyUser = async () => {
       try {
-        const res = await axios.get(`${BaseURL}/auth/verify/${user._id}`);
+        const res = await Axios.get(`${BaseURL}/auth/verify/${user._id}`);
         if (res.status === 200) {
           setUserVirefy(true);
         }
@@ -113,7 +112,10 @@ function StartQuiz(props) {
         answers: selectedAnswers[question._id] || [],
       })),
     }));
-    const res = await Axios.post(`quiz/submitQuiz`, result);
+    const res = await Axios.post("quiz/submitQuiz", result, {
+      requireAuth: true,
+    });
+
     if (res.status === 200) {
       setShowResultModal({
         show: true,

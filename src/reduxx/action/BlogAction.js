@@ -1,12 +1,13 @@
-import axios from "axios";
+
 import { BaseURL } from "../../Config";
 import apiEndPoints from "../../utils/apiEndPoints";
+import Axios from "../../utils/Axios";
 import { GET_BLOG, GET_BLOG_FAILURE, GET_DAILYVOCAB, GET_DAILYVOCAB_FAILURE, GET_EBOOK, GET_EBOOK_FAILURE, GET_JOBS, GET_JOBS_FAILURE, GET_WHATSNEW, GET_WHATSNEW_FAILURE, START_LOADING, STOP_LOADING } from "./actionTypes";
 
 export const fetchBlog = (params) => async (dispatch) => {
     dispatch({ type: START_LOADING });
     try {
-        await axios
+        await Axios
             .post(`${BaseURL}${apiEndPoints.GETBLOG}`, params)
             .then((response) => {
                 if (response.status === 200) {
@@ -45,7 +46,7 @@ export const fetchBlog = (params) => async (dispatch) => {
 export const fetchWhatsNew = (params) => async (dispatch) => {
     dispatch({ type: START_LOADING });
     try {
-        await axios
+        await Axios
             .post(`${BaseURL}${apiEndPoints.GETWHATSNEW}`, params)
             .then((response) => {
                 if (response.status === 200) {
@@ -84,7 +85,7 @@ export const fetchWhatsNew = (params) => async (dispatch) => {
 export const fetcEBooks = (params) => async (dispatch) => {
     dispatch({ type: START_LOADING });
     try {
-        await axios
+        await Axios
             .post(`${BaseURL}${apiEndPoints.GETEBOOK}`, params)
             .then((response) => {
                 if (response.status === 200) {
@@ -123,7 +124,7 @@ export const fetcEBooks = (params) => async (dispatch) => {
 export const fetchDaliyVocab = (params) => async (dispatch) => {
     dispatch({ type: START_LOADING });
     try {
-        await axios
+        await Axios
             .post(`${BaseURL}${apiEndPoints.GET_DALYVOCAB}`, params)
             .then((response) => {
                 if (response.status === 200) {
@@ -162,7 +163,7 @@ export const fetchDaliyVocab = (params) => async (dispatch) => {
 export const fetchJobs = (params) => async (dispatch) => {
     dispatch({ type: START_LOADING });
     try {
-        await axios
+        await Axios
             .post(`${BaseURL}${apiEndPoints.GET_JOB}`, params)
             .then((response) => {
                 if (response.status === 200) {
