@@ -1,4 +1,4 @@
-export default {
+const apiEndPoints = {
   JWTTOKEN: "/token/tokenGenrate",
   // USER REGISTER AUTH
   REGISTRATION_API: "/auth/signup",
@@ -19,10 +19,12 @@ export default {
   GETPLAN_API: "/plans/getPlan",
   // ADDVIDEO SECTION API
   ADDVIDEO_API: "/video/addVideo",
-  GETVIDEO_API: "/video/getvideo",
+  GETVIDEO_API: "/video/getAllVideo",
   GETBLOG: "/blogs/getBlogs",
   GETWHATSNEW: "/whatsNew/getWhatsNew",
-  GETEBOOK: "/books/getBooks",
+  GETEBOOK: "/books/geteebooks",
   GET_DALYVOCAB: "/dalyVocab/getDalyVocab",
   GET_JOB: "/job/getJob",
 };
+
+export default apiEndPoints;

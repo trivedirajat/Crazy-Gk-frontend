@@ -164,7 +164,7 @@ function VideoPlayer(props) {
                     itemClass="carousel-item-padding-40-px"
                   >
                     {getvideo?.length > 0 &&
-                      getvideo.map((item, index) => {
+                      getvideo?.map((item, index) => {
                         const id = extractVideoId(item?.video_url);
                         return (
                           <div className="testimonial" key={index}>

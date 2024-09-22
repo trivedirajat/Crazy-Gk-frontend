@@ -14,7 +14,6 @@ function LatestBlogs(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { getBlog } = useSelector((state) => state.blog);
-  console.log("🚀 ~ LatestBlogs ~ getBlog:", getBlog);
 
   useEffect(() => {
     dispatch(
@@ -83,7 +82,7 @@ function LatestBlogs(props) {
                             </div>
                             <div className="what-read-btn">
                               <span
-                                style={{ color: "#04aa50" }}
+                                style={{ color: "#04aa50", cursor: "pointer" }}
                                 onClick={() =>
                                   navigate(`/blog-details`, {
                                     state: {

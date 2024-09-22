@@ -21,7 +21,6 @@ function Quiz(props) {
     };
     getquize();
   }, []);
-  const { getsubject } = useSelector((state) => state.subject);
   return (
     <>
       <Header />
@@ -49,7 +48,12 @@ function Quiz(props) {
           <div className="topic-box">
             {quizList.length > 0 &&
               quizList.map((item) => (
-                <div className="Topic-card">
+                <div
+                  className="Topic-card"
+                  key={item?._id}
+                  style={{ cursor: "pointer" }}
+                  onClick={() => navigate(`/subjectwisequiz/${item?._id}`)}
+                >
                   <div className="taxonomy-image">
                     {/* <img src={Topic1} /> */}
                     <img
@@ -62,11 +66,7 @@ function Quiz(props) {
                     />
                   </div>
                   <div>
-                    <h5
-                      onClick={() => navigate(`/subjectwisequiz/${item?._id}`)}
-                    >
-                      {item?.subject_name}
-                    </h5>
+                    <h5>{item?.subject_name}</h5>
                   </div>
                 </div>
               ))}

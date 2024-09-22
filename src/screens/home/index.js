@@ -47,20 +47,6 @@ const testimonialSlider = {
     slidesToSlide: 1,
   },
 };
-const Lightbox = () => {
-  return (
-    <div className="lightbox">
-      {/* Video player */}
-      <video controls>
-        <source
-          src="https://www.youtube.com/watch?time_continue=13&v=jPbtsRGhlNU&embeds_referring_euri=https%3A%2F%2Fcrazygk.zetawiztechnologies.com%2F&embeds_referring_origin=https%3A%2F%2Fcrazygk.zetawiztechnologies.com&source_ve_path=MjM4NTE&feature=emb_title"
-          type="video/mp4"
-        />
-        Your browser does not support the video tag.
-      </video>
-    </div>
-  );
-};
 
 const RendomeImage = () => [BG1, BG2, BG3, BG4][Math.floor(Math.random() * 4)];
 function Index(props) {
@@ -72,13 +58,15 @@ function Index(props) {
   const { getBlog, getWhatsNew, getEBook, getDaliyVocab, getJobs } =
     useSelector((state) => state.blog);
   const { getvideo } = useSelector((state) => state.video);
-  const VideoLightboxData = getvideo?.map((item) => {
-    return {
-      url: item?.video_url,
-      type: "video",
-      title: item?.title,
-    };
-  });
+  const VideoLightboxData =
+    getvideo.length > 0 &&
+    getvideo?.map((item) => {
+      return {
+        url: item?.video_url,
+        type: "video",
+        title: item?.title,
+      };
+    });
   const [openLightBox, setOpenLightBox] = useState(false);
 
   useEffect(() => {
@@ -133,8 +121,8 @@ function Index(props) {
     };
     const getReview = async () => {
       const res = await Axios.get(`${BaseURL}/review/getReviews`);
-      if (res.data?.reviews.length > 0) {
-        setUserRewiew(res?.data?.reviews);
+      if (res.data?.data.length > 0) {
+        setUserRewiew(res?.data?.data);
       }
     };
     getquize();
@@ -346,7 +334,7 @@ function Index(props) {
             itemClass="carousel-item-padding-40-px"
           >
             {getvideo?.length > 0 &&
-              getvideo.map((item) => {
+              getvideo?.map((item) => {
                 const id = extractVideoId(item?.video_url);
                 return (
                   <div
@@ -556,7 +544,7 @@ function Index(props) {
                   <h4>WORD OF THE DAY</h4>
                   {getDaliyVocab?.data?.length > 0 && (
                     <HtmlRenderer
-                      htmlContent={getDaliyVocab?.data[0]?.content}
+                      htmlContent={getDaliyVocab?.data[0]?.description}
                     />
                   )}
                   <Button className="btn-green">Daily Vocab</Button>
@@ -585,6 +573,11 @@ function Index(props) {
                           onError={(e) => {
                             e.target.onerror = null;
                             e.target.src = RendomeImage();
+                          }}
+                          style={{
+                            width: "100px",
+                            height: "100px",
+                            borderRadius: "10px",
                           }}
                         />
                       </div>

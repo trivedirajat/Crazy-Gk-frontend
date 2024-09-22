@@ -129,10 +129,7 @@ function Header(props) {
                     </Link>
                   </Col>
                   <Col sm={2} className="p-0">
-                    <Form.Select aria-label="Default select example">
-                      <option>English</option>
-                      <option>Hindi</option>
-                    </Form.Select>
+                    <div id="google_translate_element" />
                   </Col>
                 </Row>
               </div>

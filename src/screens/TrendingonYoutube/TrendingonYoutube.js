@@ -97,7 +97,7 @@ function TrendingonYoutube() {
 
                 <Row>
                   {getvideo?.length > 0 &&
-                    getvideo.map((item) => {
+                    getvideo?.map((item) => {
                       const id = extractVideoId(item?.video_url);
                       return (
                         <Col lg={3} sm={6} className="mb-4">

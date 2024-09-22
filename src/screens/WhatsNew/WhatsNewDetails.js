@@ -58,9 +58,9 @@ function WhatsNewDetails(props) {
                   <HtmlRenderer htmlContent={whatsData?.description || ""} />
                 </div>
                 <div className="what-date">
-                  <Link to="">
+                 
                     {moment(whatsData?.createdDate).format("DD MMM YYYY")} :
-                  </Link>
+                
                   <span> {whatsData?.title} </span>
                 </div>
               </div>
