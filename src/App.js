@@ -6,6 +6,7 @@ import { persistor, store } from "./store/configureStore";
 import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Root from "./navigation";
+import { BrowserRouter } from "react-router-dom";
 
 // const dispatch = useDispatch();
 
@@ -54,9 +55,11 @@ function App() {
         transition={Bounce}
       />
       <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <Root />
-        </PersistGate>
+        <BrowserRouter>
+          <PersistGate loading={null} persistor={persistor}>
+            <Root />
+          </PersistGate>
+        </BrowserRouter>
       </Provider>
     </>
   );

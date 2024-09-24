@@ -79,7 +79,7 @@ function StudyMaterial(props) {
                   <div>
                     <h5
                       onClick={() =>
-                        navigate(`/science-and-technology`, {
+                        navigate(`/study-material/${item?._id}`, {
                           state: { subjectData: item },
                         })
                       }
@@ -92,7 +92,7 @@ function StudyMaterial(props) {
             </div>
           ) : (
             <div className="justify-content-center d-flex align-items-center">
-              <img src={NotFound} alt="error"/>
+              <img src={NotFound} alt="error" />
             </div>
           )}
         </Container>

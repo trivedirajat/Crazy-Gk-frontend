@@ -6,15 +6,13 @@ export function stripHtmlTags(html) {
 }
 
 export function renderHtmlContent(html) {
-  const doc = new DOMParser().parseFromString(html, "text/html");
-  const sanitizedHtml = DOMPurify.sanitize(doc.body.innerHTML || ""); 
-  return sanitizedHtml;
+  return DOMPurify.sanitize(html);
 }
 
 const HtmlRenderer = ({ htmlContent }) => {
-  const convertedHtml = renderHtmlContent(htmlContent);
+  const sanitizedHtml = renderHtmlContent(htmlContent);
 
-  return <div dangerouslySetInnerHTML={{ __html: convertedHtml }} />;
+  return <div dangerouslySetInnerHTML={{ __html: sanitizedHtml }} />;
 };
 
 export default HtmlRenderer;

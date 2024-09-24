@@ -3,7 +3,13 @@ import Loader from "../components/Loader/Loader";
 import "../screens/home/index.css";
 import "../components/Lightbox/lightbox.css";
 const Index = lazy(() => import("../screens/home"));
+const StudyMaterialBySubject = lazy(() =>
+  import("../screens/StudyMaterialbySubject/StudyMaterialBySubject")
+);
 const Welcome = lazy(() => import("../screens/Welcome/Welcome"));
+const CurrentAffairsByTopic = lazy(() =>
+  import("../screens/CurrentAffairsByTopic/CurrentAffairsByTopic")
+);
 const StudyMaterial = lazy(() =>
   import("../screens/StudyMaterial/StudyMaterial")
 );
@@ -15,6 +21,9 @@ const ScienceAndTechnology = lazy(() =>
 );
 const ScienceTechnologyTopic = lazy(() =>
   import("../screens/ScienceAndTechnology/ScienceTechnologyTopic")
+);
+const StudyMaterialDetail = lazy(() =>
+  import("../screens/StudyMaterialbySubject/StudyMaterial")
 );
 const DailyCurrentAffairs = lazy(() =>
   import("../screens/DailyCurrentAffairs/DailyCurrentAffairs")
@@ -84,6 +93,24 @@ const routesConfig = [
     ),
   },
   {
+    path: "/study-material/:subjectId",
+    label: "Study Material",
+    component: (
+      <Suspense fallback={<Loader />}>
+        <StudyMaterialBySubject />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/study-material/subject",
+    label: "Study Material",
+    component: (
+      <Suspense fallback={<Loader />}>
+        <StudyMaterialDetail />
+      </Suspense>
+    ),
+  },
+  {
     path: "/science-and-technology",
     label: "Science and Technology",
     component: (
@@ -98,6 +125,15 @@ const routesConfig = [
     component: (
       <Suspense fallback={<Loader />}>
         <ScienceTechnologyTopic />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/current-affairs/:topicId",
+    label: "Science Technology Topic",
+    component: (
+      <Suspense fallback={<Loader />}>
+        <CurrentAffairsByTopic />
       </Suspense>
     ),
   },

@@ -1,13 +1,57 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 body {
   margin: 0;
-  font-family: Poppins,sans-serif;
+  font-family: Poppins, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: Poppins,sans-serif;
+  font-family: Poppins, sans-serif;
+}
+.topic-details img {
+  display: block;
+  max-width: 100%;
+  max-height: 400px;
+  width: auto;
+  height: auto;
+  margin: 0 auto;
+  margin-bottom: 1.5rem;
+}
+
+/* Ensure the HtmlRenderer content doesn't overflow */
+.topic-details {
+  max-width: 100%;
+  overflow-x: auto;
+  word-wrap: break-word;
+}
+
+/* Table-specific styles */
+.topic-details table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+  overflow-x: auto;
+}
+
+.topic-details th,
+.topic-details td {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+/* Add scroll behavior if content overflows */
+.topic-details::-webkit-scrollbar {
+  height: 6px;
+  background-color: #f1f1f1;
+}
+
+.topic-details::-webkit-scrollbar-thumb {
+  background-color: #888;
+}
+
+.topic-details::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
 }

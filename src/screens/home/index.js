@@ -176,7 +176,7 @@ function Index(props) {
                   <Button onClick={() => window.open(COURSES, "_blank")}>
                     Exam Note
                   </Button>
-                  <Button onClick={() => navigate("/topic-current-affairs")}>
+                  <Button onClick={() => navigate("/daily-current-affairs")}>
                     Current Affairs
                   </Button>
                   <Button onClick={() => navigate("/quiz")}>MCQ</Button>
@@ -296,7 +296,7 @@ function Index(props) {
                           </h5>
                           <p className="latest-des">
                             <HtmlRenderer
-                              htmlContent={item?.description || ""}
+                              htmlContent={item?.sortdescription || ""}
                             />
                             ...
                           </p>

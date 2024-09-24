@@ -25,6 +25,9 @@ const apiEndPoints = {
   GETEBOOK: "/books/geteebooks",
   GET_DALYVOCAB: "/dalyVocab/getDalyVocab",
   GET_JOB: "/job/getJob",
+  //stydymaterial
+  GET_STYDYMATERIAL_BY_SUBJECT: "/studyMaterial/getstudyMaterialBySubjectId",
+  GET_STYDYMATERIAL_BY_ID: "/studyMaterial/getStudyById",
 };
 
 export default apiEndPoints;

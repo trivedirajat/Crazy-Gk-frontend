@@ -1,5 +1,11 @@
-import React from "react";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import React, { useEffect } from "react";
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import "../assets/css/style.css";
 import "../assets/css/responsive.css";
 import routesConfig from "./routesConfig";
@@ -16,16 +22,21 @@ const ScrollToTop = () => {
 };
 
 function Routing() {
+  const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+  useEffect(() => {
+    if (user?._id) {
+      navigate("/home");
+    }
+  }, []);
   return (
     <>
-      <BrowserRouter>
-        <ScrollToTop />
-        <Routes>
-          {routesConfig.map((route, index) => (
-            <Route key={index} path={route.path} element={route.component} />
-          ))}
-        </Routes>
-      </BrowserRouter>
+      <ScrollToTop />
+      <Routes>
+        {routesConfig.map((route, index) => (
+          <Route key={index} path={route.path} element={route.component} />
+        ))}
+      </Routes>
     </>
   );
 }

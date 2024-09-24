@@ -3,11 +3,12 @@ import { Button } from "react-bootstrap";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
-function CalendarPage({ onSetDate = () => {} }) {
+function CalendarPage({ onSetDate = () => {}, handleClearDate = () => {} }) {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const handleCancel = () => {
-    setSelectedDate(new Date());
+    // setSelectedDate(new Date());
+    handleClearDate();
   };
 
   const handleSetDate = () => {

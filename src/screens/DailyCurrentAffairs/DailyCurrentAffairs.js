@@ -7,6 +7,7 @@ import Footer from "../../directives/footer/footer";
 import Axios from "../../utils/Axios";
 import { BaseURL } from "../../Config";
 import moment from "moment";
+import { toast } from "react-toastify";
 
 function DailyCurrentAffairs(props) {
   const [getCAdate, setgetCAdate] = useState(new Date());
@@ -18,10 +19,24 @@ function DailyCurrentAffairs(props) {
   useEffect(() => {
     const covertDate = moment(getCAdate).format("YYYY-MM-DD");
     const getdailycurrentaffairs = async () => {
-      const response = await Axios.get(
-        `${BaseURL}/currentAffairs/getallCurrentAffairs?type=daily&date=${covertDate}`
-      );
-      setgetdailycurrentaffairs(response.data.data);
+      try {
+        const response = await Axios.get(
+          `${BaseURL}/currentAffairs/getallCurrentAffairs`,
+          {
+            params: {
+              type: "daily",
+              date: covertDate,
+              onlytopic: true,
+            },
+          }
+        );
+        if (response.data.data.length === 0) {
+          toast.warning("No Current Affair found for selected date");
+        }
+        setgetdailycurrentaffairs(response.data.data);
+      } catch (error) {
+        toast.error(error?.response?.data?.message || "Something went wrong");
+      }
     };
     getdailycurrentaffairs();
   }, [getCAdate]);
@@ -71,7 +86,9 @@ function DailyCurrentAffairs(props) {
                         return (
                           <Col lg={3} sm={3} xs={6} className="mb-4">
                             <div className="sub-topic">
-                              <Link to="/science-technology-topic">
+                              <Link
+                                to={`/current-affairs/${item._id}?type=daily`}
+                              >
                                 <i className="fa fa-calendar m-0" />{" "}
                                 {item.title}
                               </Link>
@@ -91,7 +108,7 @@ function DailyCurrentAffairs(props) {
                         return (
                           <Col lg={3} sm={3} xs={6} className="mb-4">
                             <div className="sub-topic">
-                              <Link to="/science-technology-topic">
+                              <Link to={`/current-affairs/${item._id}`}>
                                 <i className="fa fa-calendar m-0" />{" "}
                                 {item.title}
                               </Link>

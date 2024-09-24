@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import WelcomeHeader from "../../directives/WelcomeHeader/WelcomeHeader";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import welcome1 from "../../assets/images/icon/welcome1.png";
@@ -93,7 +93,7 @@ const Welcome = () => {
                         <img src={test} alt="img" />
                       </div>
                       <div onClick={goToQuiz}>
-                        <Link to={""}>
+                        <Link to={"/quiz"}>
                           <h5>MCQ</h5>
                         </Link>
                       </div>
@@ -114,9 +114,9 @@ const Welcome = () => {
                         <img src={Study} alt="img" />
                       </div>
                       <div>
-                        <Link to={""}>
+                        <a href={EXAM_NOTES} target="_blank" rel="noopener noreferrer">
                           <h5>Exam Notes</h5>
-                        </Link>
+                        </a>
                       </div>
                     </div>
                   </Col>
@@ -126,7 +126,7 @@ const Welcome = () => {
                         <img src={reporter} alt="img" />
                       </div>
                       <div>
-                        <Link to={""}>
+                        <Link to={"/daily-current-affairs"}>
                           <h5>Current Affairs</h5>
                         </Link>
                       </div>
@@ -138,7 +138,7 @@ const Welcome = () => {
                         <img src={test} alt="img" />
                       </div>
                       <div>
-                        <Link to={""}>
+                        <Link to={"/quiz"}>
                           <h5>MCQ</h5>
                         </Link>
                       </div>
