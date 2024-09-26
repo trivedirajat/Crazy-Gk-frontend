@@ -1,30 +1,35 @@
-import React, { useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { fetchSubject } from '../../reduxx/action/SubjectAction';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { fetchSubject } from "../../reduxx/action/SubjectAction";
 
 function OtherSubjects() {
-
   const navigate = useNavigate();
-  const dispatch = useDispatch()
-  const { getsubject } = useSelector(state => state.subject)
-  console.log('getsubject', getsubject);
+  const dispatch = useDispatch();
+  const { getsubject } = useSelector((state) => state.subject);
+  console.log("getsubject", getsubject);
   useEffect(() => {
-    dispatch(fetchSubject({
-      offset: 0,
-      limit: 100
-    }))
-  }, [])
-  const handleOnpress = (data) => {
-    navigate(`/science-and-technology`, { state: { subjectData: data } })
-    window.scrollTo(0, 0)
-  }
+    dispatch(
+      fetchSubject({
+        offset: 0,
+        limit: 100,
+      })
+    );
+  }, []);
+  const handleOnpress = (item) => {
+    navigate(`/study-material/${item?._id}`);
+    // navigate(`/science-and-technology`, { state: { subjectData: data } });
+    window.scrollTo(0, 0);
+  };
   return (
     <>
-      <div className='other-sub'>
+      <div className="other-sub">
         <h4 className="inner-head">Other Subjects</h4>
         <ul>
-          {getsubject?.data?.length > 0 && getsubject?.data.map((item) => (<li onClick={() => handleOnpress(item)}>{item?.subject_name}</li>))}
+          {getsubject?.data?.length > 0 &&
+            getsubject?.data.map((item) => (
+              <li key={item?._id} style={{ cursor: "pointer" }} onClick={() => handleOnpress(item)}>{item?.subject_name}</li>
+            ))}
           {/* <li onClick={() => handleOnpress('History')}>History</li>
           <li onClick={() => handleOnpress('Geography')}>Geography</li>
           <li onClick={() => handleOnpress('Economics')}>Economics</li>
@@ -34,9 +39,9 @@ function OtherSubjects() {
           <li onClick={() => handleOnpress('Mathematics')}>Mathematics</li>
           <li onClick={() => handleOnpress('Philosophy')}>Philosophy</li> */}
         </ul>
-      </div >
+      </div>
     </>
-  )
+  );
 }
 
-export default OtherSubjects
+export default OtherSubjects;

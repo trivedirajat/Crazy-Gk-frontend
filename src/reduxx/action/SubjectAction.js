@@ -13,11 +13,11 @@ import {
 export const fetchSubject = (subject) => async (dispatch) => {
   dispatch({ type: START_LOADING });
   try {
-    await Axios.get(`${BaseURL}${apiEndPoints.GETSUBJECTS_API}`, subject)
+    await Axios.get(`${BaseURL}${apiEndPoints.GETSUBJECTS_API}`, {
+      params: subject,
+    })
       .then((response) => {
         if (response.status === 200) {
-          console.log("responseeeee", response?.data?.data);
-
           dispatch({
             type: GET_SUBJECTS_SUCCESS,
             payload: response?.data,

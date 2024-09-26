@@ -1,33 +1,92 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import "./index.css";
-import Header from "../../directives/header/header";
-import { Button, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
-import { Link, useLocation, useParams } from "react-router-dom";
-import Footer from "../../directives/footer/footer";
-import TopicList from "../../components/ScienceAndTechnology/TopicList";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchSubjectTopics } from "../../reduxx/action/SubjectAction";
-import Axios from "../../utils/Axios";
+import React, { useEffect, useState } from "react";
+import { Col, Container, Form, InputGroup, Row } from "react-bootstrap";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import TopicList from "../../components/ScienceAndTechnology/TopicList";
 import { BaseURL } from "../../Config";
+import Footer from "../../directives/footer/footer";
+import Header from "../../directives/header/header";
 import apiEndPoints from "../../utils/apiEndPoints";
+import Axios from "../../utils/Axios";
 import HtmlRenderer from "../../utils/stripHtmlTags";
+import "./index.css";
 
-function StudyMaterial(props) {
-  const dispatch = useDispatch();
-  const location = useLocation();
-  const { topicData } = location.state || {};
-  const { subjectTopics } = useSelector((state) => state.subject);
-
-  // states
-  const [topicContent, setTopicContent] = useState();
+function StudyMaterial() {
+  const navigate = useNavigate();
   const urlParams = new URLSearchParams(window.location.search);
   const topicId = urlParams.get("topicid");
+  const subjectId = urlParams.get("subid");
 
-  const [topicdetail, settopicdetail] = useState();
+  const [studyMaterial, setStudyMaterial] = useState([]);
+  const [topicDetail, setTopicDetail] = useState();
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Fetch study materials
+  const getStudyMaterial = async () => {
+    try {
+      const res = await Axios.get(
+        `${BaseURL}${apiEndPoints.GET_STYDYMATERIAL_BY_SUBJECT}/${subjectId}?onlytopics=true`
+      );
+      if (res.data?.data) {
+        const index = res.data.data.studyMaterials.findIndex(
+          (el) => el._id === topicId
+        );
+        setCurrentIndex(index);
+        setStudyMaterial(res.data.data.studyMaterials || []);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Fetch topic content
+  const fetchData = async () => {
+    try {
+      const res = await Axios.get(
+        `${BaseURL}/${apiEndPoints.GET_STYDYMATERIAL_BY_ID}/${topicId}`
+      );
+      if (res.status === 200) {
+        setTopicDetail(res.data.data);
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Something went wrong");
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [topicId]);
+
+  useEffect(() => {
+    getStudyMaterial();
+  }, [subjectId]);
+
+  // Handle next and previous buttons
+  const handleNextButton = () => {
+    const index = studyMaterial.findIndex((el) => el._id === topicId);
+    if (index !== -1 && index + 1 < studyMaterial.length) {
+      const nextTopic = studyMaterial[index + 1];
+      navigate(
+        `/study-material/subject?subid=${subjectId}&topicid=${nextTopic._id}`
+      );
+      setCurrentIndex(index + 1);
+    }
+  };
+
+  const handlePrevButton = () => {
+    const index = studyMaterial.findIndex((el) => el._id === topicId);
+    if (index > 0) {
+      const prevTopic = studyMaterial[index - 1];
+      navigate(
+        `/study-material/subject?subid=${subjectId}&topicid=${prevTopic._id}`
+      );
+      setCurrentIndex(index - 1);
+    }
+  };
+
   const handleClick = (id) => {
     const element = document.getElementById(id);
-    const headerOffset = 150; // Height of the fixed header
+    const headerOffset = 150;
     const elementPosition = element.getBoundingClientRect().top;
     const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -36,84 +95,6 @@ function StudyMaterial(props) {
       behavior: "smooth",
     });
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await Axios.get(
-          `${BaseURL}/${apiEndPoints.GET_STYDYMATERIAL_BY_ID}/${topicId}`
-        );
-        if (res.status === 200) {
-          settopicdetail(res.data.data);
-        }
-      } catch (error) {
-        toast.error(error?.response?.data?.message || "Something went wrong");
-      }
-    };
-    fetchData();
-  }, [topicId]);
-  const fetchSubjectTopicsMemoized = useCallback(
-    (data) => dispatch(fetchSubjectTopics(data)),
-    [dispatch]
-  );
-
-  const prevTopicDataRef = useRef();
-
-  useEffect(() => {
-    if (prevTopicDataRef.current !== topicData?.subject_id) {
-      fetchSubjectTopicsMemoized({
-        limit: 100,
-        offset: 0,
-        subject_id: topicData?.subject_id,
-      });
-      prevTopicDataRef.current = topicData?.subject_id;
-    }
-  }, [topicData, fetchSubjectTopicsMemoized]);
-  useEffect(() => {
-    setTopicContent(topicData);
-  }, [topicData]);
-
-  const [h1Tags, setH1Tags] = useState([]);
-
-  useEffect(() => {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(topicContent?.containt, "text/html");
-    const h1Elements = doc.getElementsByTagName("h1");
-    const h1Texts = Array.from(h1Elements).map(
-      (element) => element.textContent
-    );
-    setH1Tags(h1Texts);
-  }, [topicContent?.containt]);
-  console.log("subjectTopics", subjectTopics);
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const PressNextButton = () => {
-    const index = subjectTopics?.data?.findIndex(
-      (el) => el._id === topicContent?._id
-    );
-
-    if (index !== -1 && index + 1 < subjectTopics?.data?.length) {
-      const nextData = subjectTopics?.data[index + 1];
-      setCurrentIndex(index + 1);
-      setTopicContent(nextData);
-      window.scrollTo(0, 0);
-    }
-  };
-
-  const PressPrevButton = () => {
-    const index = subjectTopics?.data?.findIndex(
-      (el) => el._id === topicContent?._id
-    );
-
-    if (index > 0) {
-      const prevData = subjectTopics?.data[index - 1];
-      setCurrentIndex(index - 1);
-      setTopicContent(prevData);
-      window.scrollTo(0, 0);
-    }
-  };
-
   return (
     <>
       <Header />
@@ -126,11 +107,11 @@ function StudyMaterial(props) {
                 <Link to="/study-material">Study Material </Link>
                 <span>
                   <i className="fa fa-angle-double-right" />{" "}
-                  {topicContent?.subject_name ?? ""}
+                  {topicDetail?.subject_name ?? ""}
                 </span>
                 <span>
                   <i className="fa fa-angle-double-right" />{" "}
-                  {topicContent?.topic_name ?? ""}
+                  {topicDetail?.topic_name ?? ""}
                 </span>
                 <InputGroup className="mb-3">
                   <Form.Control placeholder="Search Subject" />
@@ -148,50 +129,55 @@ function StudyMaterial(props) {
           <Row>
             <Col lg={3} sm={3}>
               <TopicList
-                topics={
-                  subjectTopics?.data?.length > 0 ? subjectTopics?.data : []
-                }
+                topics={studyMaterial.length > 0 ? studyMaterial : []}
                 setCurrentIndex={setCurrentIndex}
               />
             </Col>
             <Col lg={6} sm={6} md={6}>
               <div className="topic-details">
-                <HtmlRenderer htmlContent={topicdetail?.containt} />
+                <HtmlRenderer htmlContent={topicDetail?.containt} />
               </div>
-
-              {/* Adds code */}
-              <div></div>
-
-              {/* <div className="pre-next">
+              <div className="pre-next">
                 <div>
-                  <Button
-                    variant="success"
-                    onClick={() => PressPrevButton()}
+                  <button
+                    className="btn btn-success"
+                    onClick={handlePrevButton}
                     disabled={currentIndex === 0}
                   >
                     <i className="fa fa-caret-left" /> Previous
-                  </Button>
+                  </button>
                 </div>
                 <div>
-                  <Button variant="success">Take a Quiz</Button>
+                  <button
+                    className="btn btn-success"
+                    onClick={() => navigate("/quiz")}
+                  >
+                    Take a Quiz
+                  </button>
                 </div>
                 <div>
-                  <Button
-                    variant="success"
-                    onClick={() => PressNextButton()}
-                    disabled={currentIndex === subjectTopics?.data?.length - 1}
+                  <button
+                    className="btn btn-success"
+                    onClick={handleNextButton}
+                    disabled={currentIndex === studyMaterial.length - 1}
                   >
                     Next <i className="fa fa-caret-right" />
-                  </Button>
+                  </button>
                 </div>
-              </div> */}
+              </div>
             </Col>
             <Col lg={3} sm={3}>
               <div className="About-Subject mb-3">
                 <h4 className="inner-head">Table of Content</h4>
                 <ul>
-                  {h1Tags.map((text, index) => (
-                    <li key={index}>{text}</li>
+                  {topicDetail?.toc?.map((toc) => (
+                    <li
+                      style={{ cursor: "pointer" }}
+                      onClick={() => handleClick(toc?.id)}
+                      key={toc?._id}
+                    >
+                      {toc?.text}
+                    </li>
                   ))}
                 </ul>
               </div>

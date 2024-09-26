@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import "./index.css";
-import Header from "../../directives/header/header";
 import { Button, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import OtherSubjects from "../../components/OtherSubjects/OtherSubjects";
-import Footer from "../../directives/footer/footer";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchSubjectTopics } from "../../reduxx/action/SubjectAction";
 import NotFound from "../../assets/images/img/notfound.png";
-import HtmlRenderer from "../../utils/stripHtmlTags";
-import Axios from "../../utils/Axios";
+import OtherSubjects from "../../components/OtherSubjects/OtherSubjects";
 import { BaseURL } from "../../Config";
+import Footer from "../../directives/footer/footer";
+import Header from "../../directives/header/header";
+import { fetchSubjectTopics } from "../../reduxx/action/SubjectAction";
 import apiEndPoints from "../../utils/apiEndPoints";
+import Axios from "../../utils/Axios";
+import HtmlRenderer from "../../utils/stripHtmlTags";
+import "./index.css";
 
 function StudyMaterialBySubject(props) {
   const { subjectId } = useParams();
@@ -19,7 +19,6 @@ function StudyMaterialBySubject(props) {
   const location = useLocation();
   const navigate = useNavigate();
   const { subjectData } = location.state || {};
-  const { subjectTopics } = useSelector((state) => state.subject);
   const [searchTxt, setSearchTxt] = useState("");
   const [studyMaterial, setStudyMaterial] = useState([]);
   useEffect(() => {
@@ -38,21 +37,21 @@ function StudyMaterialBySubject(props) {
       );
     }
   };
-  useEffect(() => {
-    const getStudyMaterial = async () => {
-      try {
-        const res = await Axios.get(
-          `${BaseURL}${apiEndPoints.GET_STYDYMATERIAL_BY_SUBJECT}/${subjectId}`
-        );
-        if (res.data?.data) {
-          setStudyMaterial(res.data.data);
-        }
-      } catch (error) {
-        console.log(error);
+  const getStudyMaterial = async (subjectId) => {
+    try {
+      const res = await Axios.get(
+        `${BaseURL}${apiEndPoints.GET_STYDYMATERIAL_BY_SUBJECT}/${subjectId}`
+      );
+      if (res.data?.data) {
+        setStudyMaterial(res.data.data);
       }
-    };
-    getStudyMaterial();
-  }, []);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getStudyMaterial(subjectId);
+  }, [subjectId]);
   return (
     <>
       <Header />
