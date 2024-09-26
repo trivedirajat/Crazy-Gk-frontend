@@ -4,6 +4,7 @@ const apiEndPoints = {
   REGISTRATION_API: "/auth/signup",
   UPDATEPROFILE_API: "/auth/updateProfile",
   LOGIN_API: "/auth/login",
+  GOOGLE_AUTH_API: "/auth/googleauth",
   RESENTOTP_API: "/auth/resentOtp",
   VERFIYOTP_API: "/auth/otpVerify",
   CHECK_MOBILE: "/auth/checkMobile",

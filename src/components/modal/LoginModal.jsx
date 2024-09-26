@@ -8,6 +8,10 @@ import { toast } from "react-toastify";
 import { USER_LOGIN_SUCCESS } from "../../reduxx/action/actionTypes";
 import { useDispatch } from "react-redux";
 import Axios from "../../utils/Axios";
+import googleLoginImage from "../../assets/images/icon/google.png";
+import facebookLoginImage from "../../assets/images/icon/facebook.png";
+import { firebaseAuth, provider, signInWithPopup } from "../firebase/firebase";
+import { GoogleAuthProvider } from "firebase/auth/web-extension";
 
 const LoginModal = ({
   show,
@@ -50,6 +54,31 @@ const LoginModal = ({
       }
     } catch (error) {
       toast.error(error?.response?.data?.message || "Something went wrong");
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await signInWithPopup(firebaseAuth, provider);
+      // const credential = GoogleAuthProvider.credentialFromResult(result);
+      // const token = credential.accessToken;
+      const user = result.user;
+
+      const idToken = await user.getIdToken();
+      const res = await Axios.post(
+        `${BaseURL}${apiEndPoints?.GOOGLE_AUTH_API}`,
+        {
+          idToken,
+        }
+      );
+      if (res.status === 200) {
+        toast.success("Google login successful");
+      }
+
+      toast.success("Google login successful");
+    } catch (error) {
+      console.error("Error in Google login:", error);
+      toast.error("Google login failed");
     }
   };
 
@@ -110,6 +139,22 @@ const LoginModal = ({
                 Create account
               </Link>
             </p>
+          </div>
+          <div className="text-center mt-4">
+            <p>Or login with</p>
+            <div className="d-flex justify-content-center gap-3">
+              <img
+                src={googleLoginImage}
+                alt="Google Login"
+                style={{ width: "35px", height: "35px", cursor: "pointer" }}
+                onClick={handleGoogleLogin}
+              />
+              <img
+                src={facebookLoginImage}
+                alt="Facebook Login"
+                style={{ width: "35px", height: "35px", cursor: "pointer" }}
+              />
+            </div>
           </div>
         </Form>
       </Modal.Body>
