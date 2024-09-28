@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-const Countdown = ({ initialTime, onComplete }) => {
+const Countdown = ({ minutes, onComplete }) => {
+  const initialTime = minutes * 60 * 1000;
   const [timeLeft, setTimeLeft] = useState(initialTime);
 
   useEffect(() => {
@@ -8,7 +9,11 @@ const Countdown = ({ initialTime, onComplete }) => {
       if (onComplete) onComplete();
       return;
     }
-    const timerId = setInterval(() => setTimeLeft(timeLeft - 1000), 1000);
+
+    const timerId = setInterval(
+      () => setTimeLeft((prevTime) => prevTime - 1000),
+      1000
+    );
     return () => clearInterval(timerId);
   }, [timeLeft, onComplete]);
 

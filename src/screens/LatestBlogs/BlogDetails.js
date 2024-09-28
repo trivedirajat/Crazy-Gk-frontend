@@ -1,16 +1,79 @@
-import React from "react";
-import "../WhatsNew/WhatsNew.css";
-import Header from "../../directives/header/header";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { BaseURL } from "../../Config";
 import Footer from "../../directives/footer/footer";
-import moment from "moment";
-import placeholder from "../../assets/images/placeholder.png";
+import Header from "../../directives/header/header";
+import apiEndPoints from "../../utils/apiEndPoints";
+import Axios from "../../utils/Axios";
 import HtmlRenderer from "../../utils/stripHtmlTags";
+import "../StudyMaterialbySubject/index.css";
 
-function BlogDetails(props) {
-  const location = useLocation();
-  const { blogData, base_url } = location.state || {};
+function BlogDetails() {
+  const { blogId } = useParams();
+  // const navigate = useNavigate();
+
+  const [blogDeatils, setBlogDeatils] = useState([]);
+  // const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Fetch study materials
+  const getBlog = async () => {
+    try {
+      const res = await Axios.get(
+        `${BaseURL}${apiEndPoints.GETBLOG_BY_ID}/${blogId}`
+      );
+      if (res.data?.data) {
+        // const index = res.data.data.studyMaterials.findIndex(
+        //   (el) => el._id === topicId
+        // );
+        // setCurrentIndex(index);
+        setBlogDeatils(res.data.data || []);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Fetch topic content
+
+  useEffect(() => {
+    getBlog();
+  }, [blogId]);
+
+  // Handle next and previous buttons
+  // const handleNextButton = () => {
+  //   const index = studyMaterial.findIndex((el) => el._id === topicId);
+  //   if (index !== -1 && index + 1 < studyMaterial.length) {
+  //     const nextTopic = studyMaterial[index + 1];
+  //     navigate(
+  //       `/study-material/subject?subid=${subjectId}&topicid=${nextTopic._id}`
+  //     );
+  //     setCurrentIndex(index + 1);
+  //   }
+  // };
+
+  // const handlePrevButton = () => {
+  //   const index = studyMaterial.findIndex((el) => el._id === topicId);
+  //   if (index > 0) {
+  //     const prevTopic = studyMaterial[index - 1];
+  //     navigate(
+  //       `/study-material/subject?subid=${subjectId}&topicid=${prevTopic._id}`
+  //     );
+  //     setCurrentIndex(index - 1);
+  //   }
+  // };
+
+  const handleClick = (id) => {
+    const element = document.getElementById(id);
+    const headerOffset = 150;
+    const elementPosition = element.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: "smooth",
+    });
+  };
   return (
     <>
       <Header />
@@ -38,74 +101,56 @@ function BlogDetails(props) {
       </div>
       <section className="section-padding">
         <Container fluid className="container-space">
-          <Row className="justify-content-center">
-            <Col lg={10} sm={10}>
-              <div className="About-Subject">
-                <div className="Editorials-card">
-                  {/* <img src={Editorials} /> */}
-                  <img
-                    style={{
-                      maxWidth: "300px",
-                    }}
-                    src={blogData?.image || placeholder}
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src = placeholder;
-                    }}
-                    alt="Editorials"
-                  />
-                </div>
-                <div
-                  className="Editorials-content"
-                  style={{ marginTop: "10px" }}
-                >
-                  <h6> {blogData?.title} </h6>
-                  <HtmlRenderer htmlContent={blogData?.description} />
-                </div>
-                <div className="what-date">
-                  <span className="blog-date">
-                    {moment(blogData?.createdDate).format("DD MMM YYYY")} :
-                  </span>
-                  <span> {blogData?.title} </span>
-                </div>
+          <Row>
+            <Col lg={3} sm={3}></Col>
+            <Col lg={6} sm={6} md={6}>
+              <div className="topic-details">
+                <HtmlRenderer htmlContent={blogDeatils?.description} />
               </div>
-              {/* <div className="About-Subject">
-                <div className="Editorials-card">
-                  <img src={Editorials} />
+              {/* <div className="pre-next">
+                <div>
+                  <button
+                    className="btn btn-success"
+                    onClick={handlePrevButton}
+                    disabled={currentIndex === 0}
+                  >
+                    <i className="fa fa-caret-left" /> Previous
+                  </button>
                 </div>
-                <div className="Editorials-content">
-                  <h6> History of Khalistan Movement in canada </h6>
-                  <p>
-                    Content Number 1 Lorem Ipsum is simply dummy text of the
-                    printing and typesetting industry. Lorem Ipsum has been the
-                    industry's standard dummy text ever since the 1500s, when
-                    unknown printer took a galley of type and scrambled it to
-                    make a type specimen book. It has survived not only five
-                    centuries, but also the leap into electronic
-                    typesetting,Content Number 1 Lorem Ipsum is simply dummy
-                    text of the printing and typesetting industry. Lorem Ipsum
-                    has been the industry's standard dummy text ever since the
-                    1500s, when unknown printer took a galley of type and
-                    scrambled it to make a type specimen book. It has survived
-                    not only five centuries, but also the leap into electronic
-                    typesetting,Content Number 1 Lorem Ipsum is simply dummy
-                    text of the printing and typesetting industry. Lorem Ipsum
-                    has been the industry's standard dummy text ever since the
-                    1500s, when unknown printer took a galley of type and
-                    scrambled it to make a type specimen book. It has survived
-                    not only five centuries, but also the leap into electronic
-                    typesetting,Content Number 1 Lorem Ipsum is simply dummy
-                    text of the printing and typesetting industry. Lorem Ipsum
-                    has been the industry's standard dummy text ever since the
-                    1500s, when unknown printer took a galley of type and
-                    scrambled it to make a type specimen book.
-                  </p>
+                <div>
+                  <button
+                    className="btn btn-success"
+                    onClick={() => navigate("/quiz")}
+                  >
+                    Take a Quiz
+                  </button>
                 </div>
-                <div className="what-date">
-                  <Link to="">06 October 2023 :</Link>
-                  <span> I am A topic Heading </span>
+                <div>
+                  <button
+                    className="btn btn-success"
+                    onClick={handleNextButton}
+                    disabled={currentIndex === studyMaterial.length - 1}
+                  >
+                    Next <i className="fa fa-caret-right" />
+                  </button>
                 </div>
               </div> */}
+            </Col>
+            <Col lg={3} sm={3}>
+              <div className="About-Subject mb-3">
+                <h4 className="inner-head">Table of Content</h4>
+                <ul>
+                  {blogDeatils?.toc?.map((toc) => (
+                    <li
+                      style={{ cursor: "pointer" }}
+                      onClick={() => handleClick(toc?.id)}
+                      key={toc?._id}
+                    >
+                      {toc?.text}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </Col>
           </Row>
         </Container>

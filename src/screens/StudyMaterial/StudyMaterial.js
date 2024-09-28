@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "../home/index.css";
 import Header from "../../directives/header/header";
 import { Col, Container, Form, InputGroup, Row, Button } from "react-bootstrap";
@@ -8,18 +8,17 @@ import Footer from "../../directives/footer/footer";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSubject } from "../../reduxx/action/SubjectAction";
+import debounce from "../../helper/debounce";
 
 function StudyMaterial() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { getsubject } = useSelector((state) => state.subject);
-
-  // States for search and data handling
   const [searchTxt, setSearchTxt] = useState("");
   const [subjects, setSubjects] = useState([]);
-  const [limit, setLimit] = useState(10); // Start with limit 10
+  const [limit, setLimit] = useState(10);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
-  const [totalData, setTotalData] = useState(0); // Total data count
+  const [totalData, setTotalData] = useState(0);
 
   useEffect(() => {
     fetchSubjects();
@@ -27,41 +26,37 @@ function StudyMaterial() {
 
   useEffect(() => {
     if (getsubject?.data?.length > 0) {
-      // Append new data using Set to remove duplicates
-      setSubjects((prev) => {
-        const combinedSubjects = [...prev, ...getsubject.data];
-        // Using Set to filter out duplicates based on _id
-        const uniqueSubjects = Array.from(
-          new Set(combinedSubjects.map((item) => item._id))
-        ).map((id) => combinedSubjects.find((item) => item._id === id));
-
-        return uniqueSubjects;
-      });
-
-      // Update total data from the API response
+      setSubjects(getsubject.data);
       setTotalData(getsubject.total_data);
     }
-    setIsLoadingMore(false); // Reset loading state after data is added
+    setIsLoadingMore(false);
   }, [getsubject]);
 
   const fetchSubjects = () => {
-    // Dispatch action to fetch subjects with increased limit
     dispatch(
       fetchSubject({
-        offset: 0, // Always set offset to 0
-        limit: limit, // Increment limit to fetch more data
+        offset: 0,
+        limit: limit,
         subject_name: searchTxt ?? "",
       })
     );
   };
-
   const handleLoadMore = () => {
     if (subjects.length < totalData) {
       setIsLoadingMore(true);
       setLimit((prevLimit) => prevLimit + 10); // Increase the limit by 10
     }
   };
-
+  const debouncedSearch = useCallback(
+    debounce((value) => {
+      setSearchTxt(value);
+    }, 600),
+    []
+  );
+  const handleSearchInput = (event) => {
+    const value = event.target.value;
+    debouncedSearch(value);
+  };
   return (
     <>
       <Header />
@@ -78,7 +73,7 @@ function StudyMaterial() {
                 <InputGroup className="mb-3">
                   <Form.Control
                     placeholder="Search Subject"
-                    onChange={(val) => setSearchTxt(val?.target?.value)}
+                    onChange={handleSearchInput}
                   />
                   <InputGroup.Text
                     id="basic-addon2"

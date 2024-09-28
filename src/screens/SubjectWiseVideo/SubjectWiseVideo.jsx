@@ -1,26 +1,61 @@
-import React, { useEffect } from "react";
-import "../home/index.css";
-import Header from "../../directives/header/header";
-import { Col, Container, Form, InputGroup, Row } from "react-bootstrap";
-import Footer from "../../directives/footer/footer";
+import React, { useEffect, useState } from "react";
+import {
+  Row,
+  Col,
+  Button,
+  Spinner,
+  Container,
+  InputGroup,
+  Form,
+} from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchSubject } from "../../reduxx/action/SubjectAction";
+import Axios from "../../utils/Axios";
+import { BaseURL } from "../../Config";
+import apiEndPoints from "../../utils/apiEndPoints";
 import placeholder from "../../assets/images/placeholder.png";
+import Header from "../../directives/header/header";
+import Footer from "../../directives/footer/footer";
+import { toast } from "react-toastify";
+import "../StudyMaterialbySubject/index.css";
 
-function SubjectWiseVideo(props) {
+const SubjectWiseVideo = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { getsubject } = useSelector((state) => state.subject);
-  console.log("getsubject", getsubject);
+  const [subjects, setSubjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const limit = 20;
+  const [visibleSubjects, setVisibleSubjects] = useState(limit);
+  const [totalSubjects, setTotalSubjects] = useState(0);
+
+  // Fetch subjects from API
+  const fetchSubjects = async () => {
+    setLoading(true);
+    try {
+      const response = await Axios.get(
+        `${BaseURL}${apiEndPoints.GETSUBJECTS_API}`,
+        {
+          params: { limit: visibleSubjects },
+        }
+      );
+      setSubjects(response.data.data);
+      setTotalSubjects(response.data.total_data);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    dispatch(
-      fetchSubject({
-        offset: 0,
-        limit: 100,
-      })
-    );
-  }, []);
+    fetchSubjects();
+  }, [visibleSubjects]);
+
+  const handleLoadMore = () => {
+    setVisibleSubjects((prev) => prev + limit); // Increase the limit by 10
+  };
+
+  if (loading && subjects.length === 0) return <Spinner animation="border" />;
+  if (error) toast.error(error.message || "Something went wrong");
   return (
     <>
       <Header />
@@ -49,15 +84,13 @@ function SubjectWiseVideo(props) {
       <section className="section-padding">
         <Container fluid className="container-space">
           <div className="topic-box space-section">
-            {getsubject?.data?.length > 0 &&
-              getsubject?.data.map((item) => (
+            {subjects?.length > 0 &&
+              subjects?.map((item) => (
                 <div
                   className="Topic-card"
                   style={{ cursor: "pointer" }}
                   onClick={() =>
-                    navigate(`/trending-on-youtube`, {
-                      state: { subject: item },
-                    })
+                    navigate(`/trending-on-youtube?subjectid=${item?._id}`)
                   }
                 >
                   <div className="taxonomy-image">
@@ -69,6 +102,9 @@ function SubjectWiseVideo(props) {
                         e.target.onerror = null;
                         e.target.src = placeholder;
                       }}
+                      style={{
+                        borderRadius: "10px",
+                      }}
                     />
                   </div>
                   <div>
@@ -76,80 +112,19 @@ function SubjectWiseVideo(props) {
                   </div>
                 </div>
               ))}
-            {/* <div className="Topic-card">
-            <div className="taxonomy-image">
-              <img src={Topic2} />
-              </div>
-              <div>
-                <h5 onClick={() => navigate(`/trending-on-youtube`, { state: { name: 'Technology' } })}>TECHNOLOGY</h5>
-              </div>
-            </div>
-            <div className="Topic-card">
-            <div className="taxonomy-image">
-              <img src={Topic3} />
-              </div>
-              <div>
-                <h5 onClick={() => navigate(`/trending-on-youtube`, { state: { name: 'Anthropology' } })}>Anthropology</h5>
-              </div>
-            </div>
-            <div className="Topic-card">
-            <div className="taxonomy-image">
-              <img src={Topic4} />
-              </div>
-              <div>
-                <h5 onClick={() => navigate(`/trending-on-youtube`, { state: { name: 'Philosophy' } })}>Philosophy</h5>
-              </div>
-            </div>
-            <div className="Topic-card">
-            <div className="taxonomy-image">
-              <img src={Topic5} />
-              </div>
-              <div>
-                <h5 onClick={() => navigate(`/trending-on-youtube`, { state: { name: 'Agriculture' } })}>Agriculture</h5>
-              </div>
-            </div>
-            <div className="Topic-card">
-            <div className="taxonomy-image">
-              <img src={Topic6} />
-              </div>
-              <div>
-                <h5 onClick={() => navigate(`/trending-on-youtube`, { state: { name: 'POLITY' } })}>POLITY</h5>
-              </div>
-            </div>
-            <div className="Topic-card">
-            <div className="taxonomy-image">
-              <img src={Topic7} />
-              </div>
-              <div>
-                <h5 onClick={() => navigate(`/trending-on-youtube`, { state: { name: 'History' } })}>HISTORY</h5>
-              </div>
-            </div>
-            <div className="Topic-card">
-            <div className="taxonomy-image">
-              <img src={Topic8} />
-              </div>
-              <div>
-                <h5 onClick={() => navigate(`/trending-on-youtube`, { state: { name: 'Geography' } })}>GEOGRAPHY</h5>
-              </div>
-            </div>
-            <div className="Topic-card">
-            <div className="taxonomy-image">
-              <img src={Topic9} />
-              </div>
-              <div>
-                <h5 onClick={() => navigate(`/trending-on-youtube`, { state: { name: 'Economics' } })}>ECONOMICS</h5>
-              </div>
-            </div>
-            <div className="Topic-card">
-            <div className="taxonomy-image">
-              <img src={Topic10} />
-              </div>
-              <div>
-                <h5 onClick={() => navigate(`/trending-on-youtube`, { state: { name: 'Mathematics' } })}>MATHEMATICS</h5>
-              </div>
-            </div> */}
           </div>
         </Container>
+        {visibleSubjects < totalSubjects && (
+          <div className="text-center mt-4">
+            <Button
+              variant="success"
+              onClick={handleLoadMore}
+              disabled={loading}
+            >
+              {loading ? "Loading..." : "Load More"}
+            </Button>
+          </div>
+        )}
       </section>
 
       {/* Adds code  */}
@@ -157,6 +132,6 @@ function SubjectWiseVideo(props) {
       <Footer />
     </>
   );
-}
+};
 
 export default SubjectWiseVideo;

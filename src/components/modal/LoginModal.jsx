@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Form, Button } from "react-bootstrap";
+import { Modal, Form, Button, InputGroup } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { BaseURL } from "../../Config";
@@ -11,7 +11,6 @@ import Axios from "../../utils/Axios";
 import googleLoginImage from "../../assets/images/icon/google.png";
 import facebookLoginImage from "../../assets/images/icon/facebook.png";
 import { firebaseAuth, provider, signInWithPopup } from "../firebase/firebase";
-import { GoogleAuthProvider } from "firebase/auth/web-extension";
 
 const LoginModal = ({
   show,
@@ -62,9 +61,9 @@ const LoginModal = ({
       const result = await signInWithPopup(firebaseAuth, provider);
       // const credential = GoogleAuthProvider.credentialFromResult(result);
       // const token = credential.accessToken;
-      const user = result.user;
+      const Googleuser = result.user;
 
-      const idToken = await user.getIdToken();
+      const idToken = await Googleuser.getIdToken();
       const res = await Axios.post(
         `${BaseURL}${apiEndPoints?.GOOGLE_AUTH_API}`,
         {
@@ -72,13 +71,24 @@ const LoginModal = ({
         }
       );
       if (res.status === 200) {
-        toast.success("Google login successful");
+        const { user, accessToken, refreshToken } = res?.data?.data;
+        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("refreshToken", refreshToken);
+        toast.success(res?.data?.message || "Login successful");
+        dispatch({
+          type: USER_LOGIN_SUCCESS,
+          payload: user,
+        });
+        handleClose();
+        if (type === "welcome") {
+          navigate("/home");
+        } else {
+          setUserDetails(user);
+        }
       }
-
-      toast.success("Google login successful");
     } catch (error) {
-      console.error("Error in Google login:", error);
-      toast.error("Google login failed");
+      toast.error(error?.response?.data?.message || "Google login failed");
     }
   };
 
@@ -92,21 +102,22 @@ const LoginModal = ({
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Form.Group className="mb-3">
             <Form.Label>Mobile Number</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter your Mobile Number"
-              {...register("mobile", {
-                required: "Mobile number is required",
-                pattern: {
-                  value: /^[0-9]{10}$/,
-                  message: "Enter valid mobile number",
-                },
-                maxLength: {
-                  value: 10,
-                  message: "Mobile number should be 10 digits",
-                },
-              })}
-            />
+            <InputGroup>
+              <InputGroup.Text>+91</InputGroup.Text>
+              <Form.Control
+                type="tel"
+                placeholder="Enter your Mobile Number"
+                minLength={10}
+                maxLength={10}
+                {...register("mobile", {
+                  required: "Mobile number is required",
+                  maxLength: {
+                    value: 10,
+                    message: "Mobile number cannot exceed 10 digits",
+                  },
+                })}
+              />
+            </InputGroup>
             {errors.mobile && (
               <p style={{ color: "red", marginTop: "5px", fontSize: "12px" }}>
                 {errors.mobile.message}

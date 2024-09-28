@@ -201,7 +201,7 @@ const routesConfig = [
     ),
   },
   {
-    path: "/blog-details",
+    path: "/blog-details/:blogId",
     label: "Blog Details",
     component: (
       <Suspense fallback={<Loader />}>

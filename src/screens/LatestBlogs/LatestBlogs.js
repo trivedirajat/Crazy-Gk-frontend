@@ -1,28 +1,56 @@
-import React, { useEffect } from "react";
-import "../WhatsNew/WhatsNew.css";
-import Header from "../../directives/header/header";
-import { Col, Container, Form, InputGroup, Row } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
-import Footer from "../../directives/footer/footer";
-import { useDispatch, useSelector } from "react-redux";
-import placeholder from "../../assets/images/placeholder.png";
-import { fetchBlog } from "../../reduxx/action/BlogAction";
+import React, { useEffect, useState } from "react";
+import {
+  Row,
+  Col,
+  Button,
+  Spinner,
+  Container,
+  InputGroup,
+  Form,
+} from "react-bootstrap";
 import moment from "moment";
-import HtmlRenderer from "../../utils/stripHtmlTags";
+import "./latestblogs.css";
+import Header from "../../directives/header/header";
+import { Link, useNavigate } from "react-router-dom";
+import Axios from "../../utils/Axios";
+import { BaseURL } from "../../Config";
+import apiEndPoints from "../../utils/apiEndPoints";
+import { stripHtmlTags } from "../../utils/stripHtmlTags";
+import { toast } from "react-toastify";
 
-function LatestBlogs(props) {
-  const dispatch = useDispatch();
+const LatestBlogs = () => {
   const navigate = useNavigate();
-  const { getBlog } = useSelector((state) => state.blog);
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const limit = 10;
+  const [visibleBlogs, setVisibleBlogs] = useState(10);
+  const [totalBlogs, setTotalBlogs] = useState(0);
+
+  const fetchBlogs = async () => {
+    try {
+      const response = await Axios.get(`${BaseURL}${apiEndPoints.GETBLOG}`, {
+        params: { limit: visibleBlogs },
+      });
+      setBlogs(response.data.data); // Use 'data' from API response
+      setTotalBlogs(response.data.total_data); // Use 'total_data' from API response
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    dispatch(
-      fetchBlog({
-        limit: 100,
-        offset: 0,
-      })
-    );
-  }, [dispatch]);
+    fetchBlogs();
+  }, [visibleBlogs]);
+
+  const handleLoadMore = () => {
+    setVisibleBlogs((prev) => prev + limit); // Increase visible blogs count
+  };
+
+  if (loading && blogs.length === 0) return <Spinner animation="border" />;
+  if (error) toast.error(error.message || "Something went wrong");
 
   return (
     <>
@@ -51,72 +79,53 @@ function LatestBlogs(props) {
           </Row>
         </Container>
       </div>
-      <section className="section-padding">
-        <Container fluid className="container-space">
+      <div className="latest-blogs">
+        <Container fluid>
           <Row>
-            <Col lg={9} sm={12}>
-              {getBlog?.data?.length > 0
-                ? getBlog?.data.map((item) => (
-                    <div className="About-Subject mb-4">
-                      <div className="About-Subject">
-                        <Row>
-                          <Col lg={5} sm={5} className="mb-4">
-                            <div className="Editorials-card">
-                              {/* <img src={Editorials} /> */}
-                              <img
-                                src={item?.image || placeholder}
-                                alt="Editorials"
-                                onError={(e) => {
-                                  e.target.onerror = null;
-                                  e.target.src = placeholder;
-                                }}
-                              />
-                            </div>
-                          </Col>
-                          <Col lg={7} sm={7} className="mb-4">
-                            <div className="Editorials-content">
-                              <h6> {item?.title} </h6>
-                              <HtmlRenderer
-                                htmlContent={item?.description || ""}
-                              />
-                            </div>
-                            <div className="what-read-btn">
-                              <span
-                                style={{ color: "#04aa50", cursor: "pointer" }}
-                                onClick={() =>
-                                  navigate(`/blog-details`, {
-                                    state: {
-                                      blogData: item,
-                                      base_url: getBlog?.base_url,
-                                    },
-                                  })
-                                }
-                              >
-                                Read More
-                              </span>
-                            </div>
-                          </Col>
-                        </Row>
-                      </div>
-                      <div className="what-date">
-                        <Link to="">
-                          {moment(item?.createdDate).format("DD MMM YYYY")} :
-                        </Link>
-                        <span> {item?.title} </span>
+            <Col md={2}></Col> {/* Left Spacer */}
+            <Col md={8}>
+              {/* Blog Cards */}
+              <Row>
+                {blogs.map((blog) => (
+                  <Col key={blog._id} xs={12} className="mb-4">
+                    <div
+                      className="blog-card"
+                      onClick={() => navigate(`/blog-details/${blog._id}`)}
+                    >
+                      <img
+                        src={blog.image}
+                        alt={blog.title}
+                        className="blog-image"
+                      />
+                      <div className="blog-content">
+                        <h3 className="blog-title">{blog.title}</h3>
+                        <p className="blog-description">
+                          {stripHtmlTags(blog.sortdescription)}...
+                        </p>
+                        <span className="blog-date">
+                          {moment(blog.createdDate).format("DD MMMM YYYY")}
+                        </span>
                       </div>
                     </div>
-                  ))
-                : null}
+                  </Col>
+                ))}
+              </Row>
             </Col>
-            <Col lg={3} sm={12}>
-              <div className="About-Subject"></div>
-            </Col>
+            <Col md={2}></Col> {/* Right Spacer */}
           </Row>
         </Container>
-      </section>
-      <Footer />
+        {visibleBlogs < totalBlogs && (
+          <Button
+            variant="primary"
+            className="load-more-btn"
+            onClick={handleLoadMore}
+          >
+            Load More
+          </Button>
+        )}
+      </div>
     </>
   );
-}
+};
 
 export default LatestBlogs;

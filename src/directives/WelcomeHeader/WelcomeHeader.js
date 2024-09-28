@@ -124,6 +124,8 @@ function WelcomeHeader(props) {
         show={signUpModal}
         handleClose={handleSignUpModalClose}
         handleLoginModalShow={handleShow}
+        setUserDetails={setUserDetails}
+        type="welcome"
       />
 
       {/*================================= Forgot Password Modal ============================= */}

@@ -1,0 +1,61 @@
+.latest-blogs {
+  padding: 20px;
+}
+
+.blog-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  height: 140px; /* Increased height for better card layout */
+  align-items: center; /* Aligns items in the center vertically */
+  justify-content: flex-start; /* Aligns content to the left */
+  transition: box-shadow 0.3s; /* Smooth transition for shadow effect */
+  cursor: pointer; /* Change cursor to pointer */
+}
+
+.blog-card:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Add shadow effect on hover */
+}
+
+.blog-image {
+  width: 120px; /* Increased width for the image */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: cover; /* Ensures the image covers the area without stretching */
+  margin-right: 15px; /* Added margin to create space between image and content */
+}
+
+.blog-content {
+  padding: 15px; /* Increased padding for better spacing inside the card */
+  flex-grow: 1; /* Ensures content takes available space */
+}
+
+.blog-title {
+  width: 100%; /* Full width */
+  white-space: nowrap; /* Prevent line breaks */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Show ellipsis for overflowing text */
+  font-size: 1.5rem; /* Adjust font size as needed */
+  font-weight: bold; /* Optional: Make title bold */
+  margin-bottom: 0.5rem; /* Space between title and sort description */
+}
+
+.blog-description {
+  font-size: 0.95rem; /* Slightly increased font size */
+  margin: 0;
+  overflow: hidden; /* Hide overflow content */
+  white-space: nowrap; /* Prevent line break */
+  text-overflow: ellipsis; /* Adds ellipsis for overflow text */
+}
+
+.blog-date {
+  font-size: 0.8rem;
+  color: gray;
+  margin-top: 5px; /* Space above the date */
+}
+
+.load-more-btn {
+  margin: 20px auto;
+  display: block;
+}

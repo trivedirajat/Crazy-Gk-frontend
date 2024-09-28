@@ -8,7 +8,10 @@ import OtpModal from "./OtpModal";
 import Axios from "../../utils/Axios";
 
 const ForgotPasswordModal = ({ show, handleClose }) => {
-  const [OtpModalShow, setOtpModalShow] = useState(false);
+  const [OtpModalShow, setOtpModalShow] = useState({
+    show: false,
+    OTPID: "",
+  });
   const [FormData, setSignupData] = useState({});
   const {
     register,
@@ -26,7 +29,10 @@ const ForgotPasswordModal = ({ show, handleClose }) => {
       );
       if (response.status === 200) {
         toast.success(response?.data?.message || "OTP sent successfully");
-        setOtpModalShow(true);
+        setOtpModalShow({
+          show: true,
+          OTPID: response?.data?.OTPID,
+        });
         handleClose();
       }
     } catch (error) {
@@ -101,10 +107,11 @@ const ForgotPasswordModal = ({ show, handleClose }) => {
         </Modal.Body>
       </Modal>
       <OtpModal
-        show={OtpModalShow}
-        handleClose={() => setOtpModalShow(false)}
+        show={OtpModalShow.OTPID}
+        handleClose={() => setOtpModalShow({ show: false, OTPID: "" })}
         mobileNo={FormData?.emailOrMobile}
         data={FormData}
+        OTPID={OtpModalShow.OTPID}
         type="forgotPassword"
       />
     </>

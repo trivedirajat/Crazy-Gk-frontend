@@ -15,8 +15,8 @@ function OtherTopics() {
       })
     );
   }, []);
-  const handleOnpress = (name) => {
-    navigate(`/trending-on-youtube`, { state: { subject: name } });
+  const handleOnpress = (subjecId) => {
+    navigate(`/trending-on-youtube?subjectid=${subjecId}`);
     window.scrollTo(0, 0);
   };
   return (
@@ -28,7 +28,7 @@ function OtherTopics() {
             getsubject?.data.map((item) => (
               <li
                 style={{ cursor: "pointer" }}
-                onClick={() => handleOnpress(item)}
+                onClick={() => handleOnpress(item._id)}
               >
                 {item?.subject_name}
               </li>

@@ -92,7 +92,7 @@ const Welcome = () => {
                       <div className="taxonomy-image">
                         <img src={test} alt="img" />
                       </div>
-                      <div onClick={goToQuiz}>
+                      <div>
                         <Link to={"/quiz"}>
                           <h5>MCQ</h5>
                         </Link>
@@ -114,7 +114,11 @@ const Welcome = () => {
                         <img src={Study} alt="img" />
                       </div>
                       <div>
-                        <a href={EXAM_NOTES} target="_blank" rel="noopener noreferrer">
+                        <a
+                          href={EXAM_NOTES}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <h5>Exam Notes</h5>
                         </a>
                       </div>

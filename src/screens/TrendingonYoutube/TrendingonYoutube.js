@@ -8,23 +8,24 @@ import Footer from "../../directives/footer/footer";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchVideos } from "../../reduxx/action/VideoAction";
 import moment from "moment";
+import "../StudyMaterialbySubject/index.css";
 
 function TrendingonYoutube() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const subjectid = urlParams.get("subjectid");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const { subject } = location.state || {};
   const { getvideo } = useSelector((state) => state.video);
-  console.log("getvideo", getvideo);
 
   useEffect(() => {
-    console.log("subject", subject);
-    if (subject?._id) {
+    if (subjectid) {
       dispatch(
         fetchVideos({
-          limit: 100,
+          limit: 20,
           offset: 0,
-          subject_id: subject?._id,
+          subject_id: subjectid,
         })
       );
     } else {
@@ -36,7 +37,7 @@ function TrendingonYoutube() {
         })
       );
     }
-  }, [subject]);
+  }, [subjectid, dispatch]);
   const extractVideoId = (videoUrl) => {
     // Regular expression to match YouTube video ID from various URL formats
     const match = videoUrl.match(

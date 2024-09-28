@@ -7,7 +7,7 @@ import apiEndPoints from "../../utils/apiEndPoints";
 import { toast } from "react-toastify";
 import Axios from "../../utils/Axios";
 
-const OtpModal = ({ show, handleClose, mobileNo, data, type }) => {
+const OtpModal = ({ show, handleClose, mobileNo, data, type, OTPID = "" }) => {
   const [otp, setOtp] = useState(Array(6).fill(""));
   const [canResend, setCanResend] = useState(false);
   const inputRefs = useRef([]);
@@ -30,15 +30,16 @@ const OtpModal = ({ show, handleClose, mobileNo, data, type }) => {
 
   const handleResendOtp = async () => {
     try {
-      const res = await Axios.post(
-        `${BaseURL}${apiEndPoints?.RESENTOTP_API}`,
-        data
-      );
+      const res = await Axios.post(`${BaseURL}${apiEndPoints?.RESENTOTP_API}`, {
+        ...data,
+        OTPID,
+      });
       if (res.status === 200) {
         toast.success(res?.data?.message || "OTP sent successfully");
         setCanResend(false);
       }
     } catch (error) {
+      handleClose();
       toast.error(error?.response?.data?.message || "Something went wrong");
     }
     setCanResend(false);
@@ -57,6 +58,7 @@ const OtpModal = ({ show, handleClose, mobileNo, data, type }) => {
           {
             emailOrMobile: mobileNo,
             otp: otpValue,
+            OTPID,
             newPassword: data?.confirmPassword,
           }
         );
@@ -74,6 +76,7 @@ const OtpModal = ({ show, handleClose, mobileNo, data, type }) => {
           {
             mobile: mobileNo,
             otp: otpValue,
+            OTPID,
             data,
           }
         );
@@ -84,7 +87,6 @@ const OtpModal = ({ show, handleClose, mobileNo, data, type }) => {
       } catch (error) {
         toast.error(error?.response?.data?.message || "Something went wrong");
       }
-      handleClose();
     }
   };
 
@@ -139,10 +141,7 @@ const OtpModal = ({ show, handleClose, mobileNo, data, type }) => {
           ) : (
             <span>
               Resend{" "}
-              <Countdown
-                initialTime={120000}
-                onComplete={handleCountdownComplete}
-              />
+              <Countdown minutes={1} onComplete={handleCountdownComplete} />
             </span>
           )}
         </div>

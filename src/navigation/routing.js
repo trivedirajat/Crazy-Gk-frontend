@@ -11,21 +11,22 @@ import "../assets/css/responsive.css";
 import routesConfig from "./routesConfig";
 
 // ScrollToTop component
-const ScrollToTop = () => {
-  const { pathname } = useLocation();
-
-  React.useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-
-  return null;
-};
 
 function Routing() {
+  const { pathname } = useLocation();
   const navigate = useNavigate();
+  console.log("🚀 ~ Routing ~ navigate:", pathname);
+
   const user = JSON.parse(localStorage.getItem("user") || "{}");
+  const ScrollToTop = () => {
+    React.useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [pathname]);
+
+    return null;
+  };
   useEffect(() => {
-    if (user?._id) {
+    if (user?._id && pathname === "/") {
       navigate("/home");
     }
   }, []);

@@ -11,7 +11,7 @@ import {
   Row,
 } from "react-bootstrap";
 import Footer from "../../directives/footer/footer";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { BaseURL } from "../../Config";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
@@ -29,6 +29,7 @@ function StartQuiz(props) {
     show: false,
     result: {},
   });
+  const navigate = useNavigate();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { search } = useLocation();
   const QuizeId = new URLSearchParams(search).get("qi") || "";
@@ -197,6 +198,13 @@ function StartQuiz(props) {
       });
     }
   };
+  const handleclosePopup = () => {
+    setShowResultModal({
+      show: false,
+      result: {},
+    });
+    navigate("/home", { replace: true });
+  };
 
   return (
     <>
@@ -255,7 +263,7 @@ function StartQuiz(props) {
       <Footer />
       <QuizResultModal
         show={showResultModal.show}
-        handleClose={() => setShowResultModal({ show: false, result: {} })}
+        handleClose={handleclosePopup}
         result={showResultModal.result}
       />
     </>

@@ -23,7 +23,7 @@ import {
 } from "../../reduxx/action/BlogAction";
 import moment from "moment";
 import { fetchVideos } from "../../reduxx/action/VideoAction";
-import HtmlRenderer from "../../utils/stripHtmlTags";
+import HtmlRenderer, { stripHtmlTags } from "../../utils/stripHtmlTags";
 import { BaseURL, COURSES } from "../../Config";
 import AddReviewModal from "../../components/modal/AddReviewModal";
 import { toast } from "react-toastify";
@@ -276,7 +276,7 @@ function Index(props) {
                             className="fw-bold mb-3"
                             style={{ cursor: "pointer" }}
                             onClick={() =>
-                              navigate(`/blog-details`, {
+                              navigate(`/blog-details/${item?._id}`, {
                                 state: {
                                   blogData: item,
                                   base_url: getBlog?.base_url,
@@ -295,9 +295,7 @@ function Index(props) {
                             <span>Admin</span>
                           </h5>
                           <p className="latest-des">
-                            <HtmlRenderer
-                              htmlContent={item?.sortdescription || ""}
-                            />
+                            {stripHtmlTags(item?.sortdescription)}
                             ...
                           </p>
                         </div>

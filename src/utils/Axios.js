@@ -52,6 +52,7 @@ Axios.interceptors.response.use(
       if (!refresh_token) {
         sessionStorage.clear();
         localStorage.clear();
+
         return Promise.reject(error);
       }
 
@@ -71,6 +72,7 @@ Axios.interceptors.response.use(
       } catch (error) {
         sessionStorage.clear();
         localStorage.clear();
+        window.location.replace("/home");
       }
     }
 

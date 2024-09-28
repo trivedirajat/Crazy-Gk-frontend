@@ -1,15 +1,33 @@
 import React, { useState } from "react";
-import { Modal, Form, Button } from "react-bootstrap";
+import { Modal, Form, Button, InputGroup } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import OtpModal from "./OtpModal";
 import { BaseURL } from "../../Config";
 import apiEndPoints from "../../utils/apiEndPoints";
 import { toast } from "react-toastify";
 import Axios from "../../utils/Axios";
+import { useDispatch } from "react-redux";
+import { signInWithPopup } from "firebase/auth";
+import { firebaseAuth, provider } from "../firebase/firebase";
+import { USER_LOGIN_SUCCESS } from "../../reduxx/action/actionTypes";
+import googleLoginImage from "../../assets/images/icon/google.png";
+import facebookLoginImage from "../../assets/images/icon/facebook.png";
 
-const SignUpModal = ({ show, handleClose, handleLoginModalShow }) => {
-  const [OtpModalShow, setOtpModalShow] = useState(false);
+const SignUpModal = ({
+  show,
+  handleClose,
+  handleLoginModalShow,
+  setUserDetails,
+  type,
+}) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [OtpModalShow, setOtpModalShow] = useState({
+    show: false,
+    OTPID: "",
+  });
   const [signupData, setSignupData] = useState({});
   const {
     register,
@@ -26,7 +44,7 @@ const SignUpModal = ({ show, handleClose, handleLoginModalShow }) => {
         data
       );
       if (response.status === 201) {
-        setOtpModalShow(true);
+        setOtpModalShow({ show: true, OTPID: response?.data?.OTPID });
         handleClose();
       }
     } catch (error) {
@@ -34,7 +52,39 @@ const SignUpModal = ({ show, handleClose, handleLoginModalShow }) => {
     }
     setSignupData(data);
     console.log(data);
-    // Handle signup logic here
+  };
+
+  const handleGoogleSignUp = async () => {
+    try {
+      const result = await signInWithPopup(firebaseAuth, provider);
+      const Googleuser = result.user;
+      const idToken = await Googleuser.getIdToken();
+      const res = await Axios.post(
+        `${BaseURL}${apiEndPoints?.GOOGLE_AUTH_API}`,
+        {
+          idToken,
+        }
+      );
+      if (res.status === 200) {
+        const { user, accessToken, refreshToken } = res?.data?.data;
+        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("refreshToken", refreshToken);
+        toast.success(res?.data?.message || "Login successful");
+        dispatch({
+          type: USER_LOGIN_SUCCESS,
+          payload: user,
+        });
+        handleClose();
+        if (type === "welcome") {
+          navigate("/home");
+        } else {
+          setUserDetails(user);
+        }
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Google login failed");
+    }
   };
 
   return (
@@ -79,14 +129,21 @@ const SignUpModal = ({ show, handleClose, handleLoginModalShow }) => {
 
             <Form.Group className="mb-3">
               <Form.Label>Mobile Number</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter your Mobile Number"
-                {...register("mobile", {
-                  required: "Mobile number is required",
-                  maxLength: 10,
-                })}
-              />
+              <InputGroup>
+                <InputGroup.Text>+91</InputGroup.Text>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter your Mobile Number"
+                  maxLength={10}
+                  {...register("mobile", {
+                    required: "Mobile number is required",
+                    maxLength: {
+                      value: 10,
+                      message: "Mobile number cannot exceed 10 digits",
+                    },
+                  })}
+                />
+              </InputGroup>
               {errors.mobile && (
                 <p style={{ color: "red", marginTop: "5px", fontSize: "12px" }}>
                   {errors.mobile.message}
@@ -158,11 +215,28 @@ const SignUpModal = ({ show, handleClose, handleLoginModalShow }) => {
                 </Link>
               </p>
             </div>
+            <div className="text-center mt-4">
+              <p>Or sign up with</p>
+              <div className="d-flex justify-content-center gap-3">
+                <img
+                  src={googleLoginImage}
+                  alt="Google Login"
+                  style={{ width: "35px", height: "35px", cursor: "pointer" }}
+                  onClick={handleGoogleSignUp}
+                />
+                <img
+                  src={facebookLoginImage}
+                  alt="Facebook Login"
+                  style={{ width: "35px", height: "35px", cursor: "pointer" }}
+                />
+              </div>
+            </div>
           </Form>
         </Modal.Body>
       </Modal>
       <OtpModal
-        show={OtpModalShow}
+        show={OtpModalShow.show}
+        OTPID={OtpModalShow.OTPID}
         handleClose={() => setOtpModalShow(false)}
         mobileNo={signupData?.mobile}
         data={signupData}

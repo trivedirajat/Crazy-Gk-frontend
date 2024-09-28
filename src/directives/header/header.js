@@ -140,6 +140,9 @@ function Header(props) {
       <Navbar
         expand="lg"
         className={`nav-area ${props.openLightBox && "d-none"}`}
+        style={{
+          zIndex: 10,
+        }}
       >
         <Container fluid>
           <Navbar.Brand>
@@ -152,7 +155,7 @@ function Header(props) {
             <Nav className="m-auto nav-menus">
               <Nav.Link>
                 <Link className="linkA-view" to="/home">
-                  Home
+                  Home Page
                 </Link>
               </Nav.Link>
               <Nav.Link>
@@ -313,6 +316,7 @@ function Header(props) {
         show={signUpModal}
         handleClose={handleSignUpModalClose}
         handleLoginModalShow={handleShow}
+        setUserDetails={setUserDetails}
       />
 
       {/*================================= Forgot Password Modal ============================= */}

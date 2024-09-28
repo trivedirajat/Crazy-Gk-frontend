@@ -2,6 +2,7 @@ const apiEndPoints = {
   JWTTOKEN: "/token/tokenGenrate",
   // USER REGISTER AUTH
   REGISTRATION_API: "/auth/signup",
+  GETPROFILE_API: "/auth/getuserbyid",
   UPDATEPROFILE_API: "/auth/updateProfile",
   LOGIN_API: "/auth/login",
   GOOGLE_AUTH_API: "/auth/googleauth",
@@ -22,6 +23,7 @@ const apiEndPoints = {
   ADDVIDEO_API: "/video/addVideo",
   GETVIDEO_API: "/video/getAllVideo",
   GETBLOG: "/blogs/getBlogs",
+  GETBLOG_BY_ID: "/blogs/getBlogById",
   GETWHATSNEW: "/whatsNew/getWhatsNew",
   GETEBOOK: "/books/geteebooks",
   GET_DALYVOCAB: "/dalyVocab/getDalyVocab",
@@ -29,6 +31,8 @@ const apiEndPoints = {
   //stydymaterial
   GET_STYDYMATERIAL_BY_SUBJECT: "/studyMaterial/getstudyMaterialBySubjectId",
   GET_STYDYMATERIAL_BY_ID: "/studyMaterial/getStudyById",
+  //editorial
+  GET_EDITORIAL: "/blogs/geteditorial",
 };
 
 export default apiEndPoints;

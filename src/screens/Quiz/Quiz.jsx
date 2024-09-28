@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-import "../home/index.css";
-import Header from "../../directives/header/header";
 import { Col, Container, Row } from "react-bootstrap";
-import Footer from "../../directives/footer/footer";
 import { Link, useNavigate } from "react-router-dom";
 import { BaseURL } from "../../Config";
 import placeholder from "../../assets/images/placeholder.png";
-import { useSelector } from "react-redux";
+import Footer from "../../directives/footer/footer";
+import Header from "../../directives/header/header";
 import Axios from "../../utils/Axios";
+import "../home/index.css";
 
 function Quiz(props) {
   const navigate = useNavigate();

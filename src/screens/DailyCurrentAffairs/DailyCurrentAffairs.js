@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Header from "../../directives/header/header";
 import { Alert, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -8,8 +8,10 @@ import Axios from "../../utils/Axios";
 import { BaseURL } from "../../Config";
 import moment from "moment";
 import { toast } from "react-toastify";
+import debounce from "../../helper/debounce";
 
 function DailyCurrentAffairs(props) {
+  const [searchTxt, setSearchTxt] = useState("");
   const [getCAdate, setgetCAdate] = useState(new Date());
   const [getdailycurrentaffairs, setgetdailycurrentaffairs] = useState([]);
   const ImportendDay = getdailycurrentaffairs?.filter((item) => {
@@ -27,6 +29,7 @@ function DailyCurrentAffairs(props) {
               type: "daily",
               date: covertDate,
               onlytopic: true,
+              topicquery: searchTxt,
             },
           }
         );
@@ -39,8 +42,22 @@ function DailyCurrentAffairs(props) {
       }
     };
     getdailycurrentaffairs();
-  }, [getCAdate]);
+  }, [getCAdate, searchTxt]);
 
+  const debouncedSearch = useCallback(
+    debounce((value) => {
+      setSearchTxt(value);
+    }, 600),
+    []
+  );
+  const handleSearchInput = (event) => {
+    // const value = event.target.value;
+    // debouncedSearch(value);
+  };
+  const handleClearDate = () => {
+    setgetCAdate(new Date());
+    setSearchTxt("");
+  };
   return (
     <>
       <Header />
@@ -56,7 +73,10 @@ function DailyCurrentAffairs(props) {
                   Affairs
                 </span>
                 <InputGroup className="mb-3">
-                  <Form.Control placeholder="Search topic" />
+                  <Form.Control
+                    placeholder="Search topic"
+                    onChange={handleSearchInput}
+                  />
                   <InputGroup.Text id="basic-addon2">
                     <i className="fa fa-search" />
                   </InputGroup.Text>
@@ -70,7 +90,10 @@ function DailyCurrentAffairs(props) {
         <Container fluid className="container-space">
           <Row>
             <Col lg={3} sm={12}>
-              <CalendarPage onSetDate={setgetCAdate} />
+              <CalendarPage
+                onSetDate={setgetCAdate}
+                handleClearDate={handleClearDate}
+              />
             </Col>
             <Col lg={9} sm={12}>
               {getdailycurrentaffairs.length === 0 ? (

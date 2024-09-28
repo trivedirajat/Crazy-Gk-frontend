@@ -5,7 +5,9 @@ import { GET_VIDEO_FAILURE, GET_VIDEO_SUCCESS } from "./actionTypes";
 
 export const fetchVideos = (videoData) => async (dispatch) => {
   try {
-    await Axios.get(`${BaseURL}${apiEndPoints.GETVIDEO_API}`, videoData)
+    await Axios.get(`${BaseURL}${apiEndPoints.GETVIDEO_API}`, {
+      params: videoData,
+    })
       .then((response) => {
         if (response.status === 200) {
           console.log("responseeeee", response?.data?.data);
