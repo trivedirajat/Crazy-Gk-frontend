@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
+import "../StudyMaterialbySubject/index.css";
 import Header from "../../directives/header/header";
 import { Alert, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";

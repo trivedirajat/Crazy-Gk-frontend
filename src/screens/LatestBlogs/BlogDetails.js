@@ -104,6 +104,19 @@ function BlogDetails() {
           <Row>
             <Col lg={3} sm={3}></Col>
             <Col lg={6} sm={6} md={6}>
+              <h1>{blogDeatils?.title}</h1>
+              <div style={{ textAlign: "center", margin: "15px 0" }}>
+                <img
+                  src={blogDeatils?.image}
+                  alt="blog"
+                  style={{
+                    maxWidth: "100%",
+                    height: "auto",
+                    maxHeight: "500px",
+                    objectFit: "contain",
+                  }}
+                />
+              </div>
               <div className="topic-details">
                 <HtmlRenderer htmlContent={blogDeatils?.description} />
               </div>

@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
+import "../StudyMaterialbySubject/index.css";
 import Header from "../../directives/header/header";
 import { Button, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import OtherTopics from "../../components/OtherTopics/OtherTopics";
 import Footer from "../../directives/footer/footer";
 import Carousel from "react-multi-carousel";
 import HtmlRenderer from "../../utils/stripHtmlTags";
+import Axios from "../../utils/Axios";
+import { toast } from "react-toastify";
+import { BaseURL } from "../../Config";
+import apiEndPoints from "../../utils/apiEndPoints";
 const testimonialSlider = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -26,6 +31,9 @@ const testimonialSlider = {
 
 function VideoPlayer(props) {
   const [showNotes, setShowNotes] = useState(false);
+  const { id } = useParams();
+  const [notes, setNotes] = useState({});
+  console.log("🚀 ~ VideoPlayer ~ notes:", notes);
   const navigate = useNavigate();
   const location = useLocation();
   const { videoData, getvideo } = location.state || {};
@@ -55,6 +63,23 @@ function VideoPlayer(props) {
   const handleViewNotes = () => {
     setShowNotes(!showNotes); // Show the notes
   };
+  useEffect(() => {
+    const getvideosNotes = async () => {
+      try {
+        const res = await Axios.get(
+          `${BaseURL}${apiEndPoints.GET_VIDEO_BY_ID}/${id}`
+        );
+        if (res.data?.data) {
+          setNotes(res.data.data);
+        }
+      } catch (error) {
+        toast.error("vidoe not found");
+        // setStudyMaterial([]);
+        console.log(error);
+      }
+    };
+    getvideosNotes();
+  }, [id]);
   return (
     <>
       <Header />
@@ -124,13 +149,15 @@ function VideoPlayer(props) {
                     </div>
                     {showNotes && (
                       <div>
-                        {videoData?.description?.length > 0
-                          ? videoData?.description.map((item) => (
+                        {notes?.description?.length > 0
+                          ? notes?.description.map((item) => (
                               <>
                                 <h4 className="Content-head">
                                   <i className="fa fa-circle" /> {item?.title}
                                 </h4>
-                                <HtmlRenderer html={item?.description || ""} />
+                                <HtmlRenderer
+                                  htmlContent={item?.content || ""}
+                                />
                               </>
                             ))
                           : null}

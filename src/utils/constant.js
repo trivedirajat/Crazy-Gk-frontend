@@ -51,3 +51,23 @@ export const getuser = () => {
   }
   return false;
 };
+export const convertToYouTubeEmbedURL = (url) => {
+  try {
+    if (url.includes("youtu.be")) {
+      const videoId = url.split("youtu.be/")[1].split("?")[0];
+      return `https://www.youtube.com/embed/${videoId}`;
+    }
+
+    if (url.includes("youtube.com/watch")) {
+      const videoId = new URL(url).searchParams.get("v");
+      if (videoId) {
+        return `https://www.youtube.com/embed/${videoId}`;
+      }
+    }
+
+    return url;
+  } catch (error) {
+    console.error("Invalid YouTube URL:", url);
+    return url;
+  }
+};

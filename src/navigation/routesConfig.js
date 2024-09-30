@@ -264,7 +264,7 @@ const routesConfig = [
     ),
   },
   {
-    path: "/video-player",
+    path: "/video-player/:id",
     label: "Video Player",
     component: (
       <Suspense fallback={<Loader />}>

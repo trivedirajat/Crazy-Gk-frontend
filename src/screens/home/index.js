@@ -29,6 +29,7 @@ import AddReviewModal from "../../components/modal/AddReviewModal";
 import { toast } from "react-toastify";
 import StarRatingComponent from "react-star-rating-component";
 import Axios from "../../utils/Axios";
+import { convertToYouTubeEmbedURL } from "../../utils/constant";
 
 const testimonialSlider = {
   desktop: {
@@ -62,7 +63,7 @@ function Index(props) {
     getvideo.length > 0 &&
     getvideo?.map((item) => {
       return {
-        url: item?.video_url,
+        url: convertToYouTubeEmbedURL(item?.video_url),
         type: "video",
         title: item?.title,
       };
@@ -355,7 +356,6 @@ function Index(props) {
             <ReactImageVideoLightbox
               data={VideoLightboxData || []}
               startIndex={0}
-              showResourceCount={true}
               onCloseCallback={() => setOpenLightBox(false)}
               onNavigationCallback={(currentIndex) =>
                 console.log(`Current index: ${currentIndex}`)

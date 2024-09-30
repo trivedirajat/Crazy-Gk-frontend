@@ -19,7 +19,7 @@ function OtherSubjects() {
   const handleOnpress = (item) => {
     navigate(`/study-material/${item?._id}`);
     // navigate(`/science-and-technology`, { state: { subjectData: data } });
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
   };
   return (
     <>

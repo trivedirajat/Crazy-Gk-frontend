@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import NotFound from "../../assets/images/img/notfound.png";
 import OtherSubjects from "../../components/OtherSubjects/OtherSubjects";
@@ -12,9 +12,15 @@ import apiEndPoints from "../../utils/apiEndPoints";
 import Axios from "../../utils/Axios";
 import HtmlRenderer from "../../utils/stripHtmlTags";
 import "./index.css";
+import { toast } from "react-toastify";
 
 function StudyMaterialBySubject(props) {
   const { subjectId } = useParams();
+  const { data: subjectTopics } = useSelector(
+    (state) => state?.subject?.subjectTopics
+  );
+
+  console.log("🚀 ~ StudyMaterialBySubject ~ location:", subjectTopics);
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -46,6 +52,8 @@ function StudyMaterialBySubject(props) {
         setStudyMaterial(res.data.data);
       }
     } catch (error) {
+      toast.error('Stydy Material Not Found For This Subject');
+      // setStudyMaterial([]);
       console.log(error);
     }
   };
@@ -61,16 +69,14 @@ function StudyMaterialBySubject(props) {
             <Col lg={6} sm={6}>
               <div className="all-banner-content">
                 <h3>
-                  {subjectData?.subject_name
-                    ? subjectData?.subject_name
-                    : "Science And Technology"}
+                  {studyMaterial?.subjectDetails?.subject_name ||
+                    "Science And Technology"}
                 </h3>
                 <Link to="/study-material">Study Material </Link>
                 <span>
                   <i className="fa fa-angle-double-right" />{" "}
-                  {subjectData?.subject_name
-                    ? subjectData?.subject_name
-                    : "Science And Technology"}{" "}
+                  {studyMaterial?.subjectDetails?.subject_name ||
+                    "Science And Technology"}
                 </span>
                 <InputGroup className="mb-3">
                   <Form.Control

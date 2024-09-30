@@ -50,10 +50,11 @@ export const fetchSubject = (subject) => async (dispatch) => {
 export const fetchSubjectTopics = (subject) => async (dispatch) => {
   dispatch({ type: START_LOADING });
   try {
-    await Axios.post(`${BaseURL}${apiEndPoints.GETSUBJECCTTOPICS}`, subject)
+    await Axios.get(`${BaseURL}${apiEndPoints.GETSUBJECTNAME}`, {
+      params: subject,
+    })
       .then((response) => {
         if (response.status === 200) {
-          console.log("res fetchSubjectTopics", response?.data?.data);
           dispatch({
             type: GET_SUBJECTS_TOPICS_SUCCESS,
             payload: response?.data,

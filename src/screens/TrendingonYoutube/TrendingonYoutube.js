@@ -105,7 +105,7 @@ function TrendingonYoutube() {
                           <div className="Editorials-card">
                             <img
                               onClick={() =>
-                                navigate(`/video-player`, {
+                                navigate(`/video-player/${item?._id}`, {
                                   state: {
                                     videoData: item,
                                     getvideo: getvideo,

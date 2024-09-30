@@ -5,6 +5,7 @@ import CalendarPage from "../../components/Calendar/CalendarPage";
 import Footer from "../../directives/footer/footer";
 import Header from "../../directives/header/header";
 import "../EditorialSection/EditorialSection.css";
+import "../StudyMaterialbySubject/index.css";
 import moment from "moment";
 import Axios from "../../utils/Axios";
 import { BaseURL } from "../../Config";

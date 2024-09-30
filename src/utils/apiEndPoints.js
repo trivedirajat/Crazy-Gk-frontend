@@ -16,6 +16,7 @@ const apiEndPoints = {
   // SUBJECT SECTION API
   GETSUBJECTS_API: "/subjects/getSubjects",
   GETSUBJECCTTOPICS: "/studyMaterial/getSubjectTopics",
+  GETSUBJECTNAME: "/subjects/getallsubjectname",
   // PLANS SECTION API
   ADDPLAN_API: "/plans/addPlan",
   GETPLAN_API: "/plans/getPlan",
@@ -33,6 +34,8 @@ const apiEndPoints = {
   GET_STYDYMATERIAL_BY_ID: "/studyMaterial/getStudyById",
   //editorial
   GET_EDITORIAL: "/blogs/geteditorial",
+  //video
+  GET_VIDEO_BY_ID: "/video/getVideoById",
 };
 
 export default apiEndPoints;

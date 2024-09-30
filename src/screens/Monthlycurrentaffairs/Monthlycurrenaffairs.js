@@ -1,13 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
-import Header from "../../directives/header/header";
+import moment from "moment";
+import React, { useEffect, useState } from "react";
 import { Alert, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import CalendarPage from "../../components/Calendar/CalendarPage";
-import Footer from "../../directives/footer/footer";
-import Axios from "../../utils/Axios";
-import { BaseURL } from "../../Config";
-import moment from "moment";
 import { toast } from "react-toastify";
+import CalendarPage from "../../components/Calendar/CalendarPage";
+import { BaseURL } from "../../Config";
+import Footer from "../../directives/footer/footer";
+import Header from "../../directives/header/header";
+import Axios from "../../utils/Axios";
+import "../StudyMaterialbySubject/index.css";
 
 function Monthlycurrenaffairs(props) {
   const [getCAdate, setgetCAdate] = useState(null);
