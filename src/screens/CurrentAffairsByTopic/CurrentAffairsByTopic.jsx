@@ -104,6 +104,9 @@ function CurrentAffairsByTopic(props) {
               /> */}
             </Col>
             <Col lg={6} sm={6} md={6}>
+              <div>
+                <h1>{topicdetail?.title}</h1>
+              </div>
               <div className="topic-details">
                 <HtmlRenderer htmlContent={topicdetail?.description} />
               </div>

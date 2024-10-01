@@ -33,7 +33,6 @@ function VideoPlayer(props) {
   const [showNotes, setShowNotes] = useState(false);
   const { id } = useParams();
   const [notes, setNotes] = useState({});
-  console.log("🚀 ~ VideoPlayer ~ notes:", notes);
   const navigate = useNavigate();
   const location = useLocation();
   const { videoData, getvideo } = location.state || {};
@@ -152,9 +151,19 @@ function VideoPlayer(props) {
                         {notes?.description?.length > 0
                           ? notes?.description.map((item) => (
                               <>
-                                <h4 className="Content-head">
-                                  <i className="fa fa-circle" /> {item?.title}
-                                </h4>
+                                <h1
+                                  className="Content-head"
+                                  style={{
+                                    fontSize: "35px",
+                                    fontWeight: "bold",
+                                  }}
+                                >
+                                  <i
+                                    className="fa fa-circle"
+                                    style={{ fontSize: "30px" }}
+                                  />{" "}
+                                  {item?.title}
+                                </h1>
                                 <HtmlRenderer
                                   htmlContent={item?.content || ""}
                                 />
@@ -205,6 +214,7 @@ function VideoPlayer(props) {
                                 })
                               }
                               src={`https://img.youtube.com/vi/${id}/hqdefault.jpg`}
+                              alt="img"
                             />
                           </div>
                         );

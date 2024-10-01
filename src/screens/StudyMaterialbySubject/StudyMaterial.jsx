@@ -134,6 +134,9 @@ function StudyMaterial() {
               />
             </Col>
             <Col lg={6} sm={6} md={6}>
+              <div style={{marginBottom: "15px"}}>
+                <h1>{topicDetail?.topic_name ?? ""}</h1>
+              </div>
               <div className="topic-details">
                 <HtmlRenderer htmlContent={topicDetail?.containt} />
               </div>
