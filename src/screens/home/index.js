@@ -121,7 +121,11 @@ function Index(props) {
       }
     };
     const getReview = async () => {
-      const res = await Axios.get(`${BaseURL}/review/getReviews`);
+      const res = await Axios.get(`${BaseURL}/review/getReviews`, {
+        params: {
+          feature_only: true,
+        },
+      });
       if (res.data?.data.length > 0) {
         setUserRewiew(res?.data?.data);
       }
