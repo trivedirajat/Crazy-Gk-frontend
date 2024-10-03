@@ -1,15 +1,14 @@
 import React from "react";
-import { Modal, Form, Button, InputGroup } from "react-bootstrap";
+import { Button, Form, InputGroup, Modal } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import { BaseURL } from "../../Config";
-import apiEndPoints from "../../utils/apiEndPoints";
-import { toast } from "react-toastify";
-import { USER_LOGIN_SUCCESS } from "../../reduxx/action/actionTypes";
 import { useDispatch } from "react-redux";
-import Axios from "../../utils/Axios";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import googleLoginImage from "../../assets/images/icon/google.png";
-import facebookLoginImage from "../../assets/images/icon/facebook.png";
+import { BaseURL } from "../../Config";
+import { USER_LOGIN_SUCCESS } from "../../reduxx/action/actionTypes";
+import apiEndPoints from "../../utils/apiEndPoints";
+import Axios from "../../utils/Axios";
 import { firebaseAuth, provider, signInWithPopup } from "../firebase/firebase";
 
 const LoginModal = ({
@@ -160,11 +159,11 @@ const LoginModal = ({
                 style={{ width: "35px", height: "35px", cursor: "pointer" }}
                 onClick={handleGoogleLogin}
               />
-              <img
+              {/* <img
                 src={facebookLoginImage}
                 alt="Facebook Login"
                 style={{ width: "35px", height: "35px", cursor: "pointer" }}
-              />
+              /> */}
             </div>
           </div>
         </Form>
