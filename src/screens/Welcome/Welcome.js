@@ -1,26 +1,16 @@
-import React, { useEffect } from "react";
-import WelcomeHeader from "../../directives/WelcomeHeader/WelcomeHeader";
+import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import welcome1 from "../../assets/images/icon/welcome1.png";
 import welcome2 from "../../assets/images/icon/welcome2.png";
 import welcome3 from "../../assets/images/icon/welcome3.png";
-import Study from "../../assets/images/img/studying 1.png";
 import reporter from "../../assets/images/img/news-reporter 1.png";
+import Study from "../../assets/images/img/studying 1.png";
 import test from "../../assets/images/img/test 2.png";
-import { Link, useNavigate } from "react-router-dom";
-import { COURSES, EXAM_NOTES, ROOT_APP, TRICK_APP } from "../../Config";
+import { EXAM_NOTES, PLAY_STORE_LINK, ROOT_APP_LINK } from "../../Config";
+import WelcomeHeader from "../../directives/WelcomeHeader/WelcomeHeader";
 
 const Welcome = () => {
-  const navigate = useNavigate();
-  const goToQuiz = () => {
-    navigate("/home");
-    setTimeout(() => {
-      const footerElement = document.getElementById("quiz");
-      if (footerElement) {
-        footerElement.scrollIntoView({ behavior: "smooth" });
-      }
-    }, 0);
-  };
   return (
     <>
       <WelcomeHeader />
@@ -38,13 +28,13 @@ const Welcome = () => {
                 </button>
                 <button
                   className="wel-btn"
-                  onClick={() => window.open(TRICK_APP, "_blank")}
+                  onClick={() => window.open(PLAY_STORE_LINK, "_blank")}
                 >
                   Crazy GK Trick App <img src={welcome2} alt="welcome" />
                 </button>
                 <button
                   className="wel-btn"
-                  onClick={() => window.open(ROOT_APP, "_blank")}
+                  onClick={() => window.open(ROOT_APP_LINK, "_blank")}
                 >
                   Root App <img src={welcome3} alt="welcome" />
                 </button>

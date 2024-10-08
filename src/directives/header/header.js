@@ -17,7 +17,7 @@ import { useDispatch } from "react-redux";
 import { removeAuthResponse } from "../../reduxx/action/AuthAction";
 import { logout } from "../../reduxx/action/actionCreators";
 import GlobalSearch from "../../components/shared/GlobalSearch";
-import { COURSES, EXAM_NOTES, ROOT_APP, TEST_SERIES } from "../../Config";
+import { COURSES, EXAM_NOTES, ROOT_APP, ROOT_APP_LINK, TEST_SERIES } from "../../Config";
 import LoginModal from "../../components/modal/LoginModal";
 import SignUpModal from "../../components/modal/SignUpModal";
 import ForgotPasswordModal from "../../components/modal/ForgotPasswordModal";
@@ -107,7 +107,7 @@ function Header(props) {
                     </a>
                   </Col>
                   <Col sm={7} className="p-0">
-                    <button onClick={() => window.open(ROOT_APP, "_blank")}>
+                    <button onClick={() => window.open(ROOT_APP_LINK, "_blank")}>
                       Root App <img src={welcome3} alt="welcome" />
                     </button>
                   </Col>
@@ -118,15 +118,19 @@ function Header(props) {
               <div className="contact-top">
                 <Row>
                   <Col sm={6} className="align-self-center p-0">
-                    <Link>
-                      <i className="fa fa-envelope-o" /> dummymail@123gmail.com
-                    </Link>
+                    <a href="mailto:support@crazygktrick.com">
+                      <i className="fa fa-envelope-o" />{" "}
+                      support@crazygktrick.com
+                    </a>
                   </Col>
                   <Col sm={4} className="align-self-center p-0">
-                    <Link>
-                      <i className="fa fa-volume-control-phone" /> +91 98765
-                      43321
-                    </Link>
+                    <a
+                      href="https://wa.me/+919109624872"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <i className="fa fa-whatsapp" /> 9109624872
+                    </a>
                   </Col>
                   <Col sm={2} className="p-0">
                     <div id="google_translate_element" />
@@ -177,7 +181,7 @@ function Header(props) {
               </div> */}
               <div className="dropdown">
                 <button className="dropbtn">
-                  <Link to={"/topic-current-affairs"}>
+                  <Link to={"/monthly-current-affairs"}>
                     Current Affairs <i className="fa fa-angle-down" />
                   </Link>
                 </button>

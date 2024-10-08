@@ -16,3 +16,7 @@ export const REACT_FIREBASE_MESSAGING_SENDER =
 export const REACT_FIREBASE_APP_ID = process.env.REACT_APP_FIREBASE_APP_ID;
 export const REACT_FIREBASE_MEASUREMENT_ID =
   process.env.REACT_APP_MEASUREMENT_ID;
+export const PLAY_STORE_LINK = process.env.REACT_APP_PLAY_STORE_LINK;
+export const ROOT_APP_LINK = process.env.REACT_APP_ROOT_APP_LINK;
+export const ROOT_WEB = process.env.REACT_APP_ROOT_WEB;
+export const FOLIOS = process.env.REACT_APP_FOLIOS;

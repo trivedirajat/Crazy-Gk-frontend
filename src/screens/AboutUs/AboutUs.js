@@ -39,27 +39,58 @@ function AboutUs(props) {
           </Row>
         </Container>
       </div>
+      <section className="section-padding">
+        <Container className="container-space">
+          <div className="about-shodow">
+            <div className="main-heading">
+              <h4>Our Story</h4>
+            </div>
+            <Row>
+              <Col lg={7} sm={12} className="align-self-center">
+                <p style={{ lineHeight: "36px" }}>
+                  In 2015, Akshaya Shrivastava and Atul Shrivastava launched the
+                  Crazy GkTrick YouTube Channel with the mission to make
+                  education accessible and affordable, particularly for students
+                  who couldn't afford expensive coaching. The channel's unique
+                  trick videos, which simplified difficult topics, quickly
+                  resonated with millions of students, transforming Crazy
+                  GkTrick into one of the leading educational platforms. This
+                  initiative evolved into Firstroot Solution Private Limited. In
+                  2021, Dushyant Rajoria, who shares the same vision, joined the
+                  company, furthering the commitment to providing affordable
+                  education to students. Coming from humble beginnings, we
+                  deeply understand the financial challenges many face in
+                  accessing quality education.
+                </p>
+              </Col>
+              <Col lg={5} sm={12}>
+                <div className="members-imgs">
+                  <img src={Members} />
+                </div>
+              </Col>
+            </Row>
+          </div>
+        </Container>
+      </section>
       <section className="section-padding-top">
         <Container className="container-space">
           <div className="about-shodow">
             <div className="main-heading">
-              <h4>WHO WE ARE</h4>
-              <p style={{ lineHeight: "36px" }}>
-                Content Number 1 Lorem Ipsum is simply dummy text of the
-                printing and typesetting industry. Lorem Ipsum has been the
-                industry's standard dummy <br />
-                text ever since the 1500s, when unknown printer took a galley of
-                type and scrambled it to make a type specimen book. It has
-                survived not only five <br />
-                centuries, typesetting, remaining essentially unchanged. <br />
-                Content Number 1 Lorem Ipsum is simply dummy text of the
-                printing and typesetting industry. Lorem Ipsum has been the
-                industry's standard dummy
-                <br /> text ever since the 1500s, when unknown printer took a
-                galley of type and scrambled it to make a type specimen book. It
-                has survived not only five
-                <br /> centuries, but also the leap into electronic typesetting,
-                remaining essentially unchanged.{" "}
+              <h4>Vision</h4>
+              <p
+                style={{
+                  lineHeight: "36px",
+                  textAlign: "center",
+                  textWrap: "word",
+                }}
+              >
+                "At Firstroot Solution, we envision a world where every
+                individual, no matter their background or circumstances, enjoys
+                equal access to transformative educational resources. We are
+                dedicated to fostering inclusivity, eliminating discrimination,
+                and providing equitable opportunities for learning. We believe
+                that education is a fundamental right that should be accessible
+                to all, transcending socio-economic barriers."
               </p>
             </div>
             <div className="text-center">
@@ -104,40 +135,6 @@ function AboutUs(props) {
       </section>
       {/* Adds code */}
       <div></div>
-
-      <section className="section-padding">
-        <Container className="container-space">
-          <div className="about-shodow">
-            <div className="main-heading">
-              <h4>Our Story</h4>
-            </div>
-            <Row>
-              <Col lg={7} sm={12} className="align-self-center">
-                <p style={{ lineHeight: "36px" }}>
-                  Content Number 1 Lorem Ipsum is simply dummy text of the
-                  printing and typesetting industry. Lorem Ipsum has been the
-                  industry's standard dummy text ever since the 1500s, when
-                  unknown printer took a galley of type and scrambled it to make
-                  a type specimen book. It has survived not only five centuries,
-                  typesetting, remaining essentially unchanged. Content Number 1
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when unknown printer
-                  took a galley of type and scrambled it to make a type specimen
-                  book. It has survived not only five centuries, but also the
-                  leap into electronic typesetting, remaining essentially
-                  unchanged.{" "}
-                </p>
-              </Col>
-              <Col lg={5} sm={12}>
-                <div className="members-imgs">
-                  <img src={Members} />
-                </div>
-              </Col>
-            </Row>
-          </div>
-        </Container>
-      </section>
 
       <section className="section-padding">
         <Container className="container-space">

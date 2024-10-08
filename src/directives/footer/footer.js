@@ -3,6 +3,7 @@ import "../footer/footer.css";
 import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import DarkLogo from "../../assets/images/darklogo.png";
+import { TEST_SERIES } from "../../Config";
 
 function Footer() {
   return (
@@ -10,18 +11,18 @@ function Footer() {
       <div className="footer-area">
         <Container className="container-space">
           <Row>
-            <Col lg={4} className="align-self-center">
+            <Col lg={3} className="align-self-center">
               <div className="footer-head">
-                <img src={DarkLogo} alt="error"/>
+                <img src={DarkLogo} alt="error" />
                 <p>
                   Mere tranquil existence, that I neglect my talents. I should
                   be incapable of drawing a single stroke at the present
                 </p>
               </div>
             </Col>
-            <Col lg={8}>
+            <Col lg={9}>
               <Row>
-                <Col lg={4} sm={6} xs={6} className="p-0">
+                <Col lg={3} sm={6} xs={6} className="p-0">
                   <div className="footer-head">
                     <h4>Company</h4>
                     <ul>
@@ -29,19 +30,23 @@ function Footer() {
                         <Link to="/about-us">About Us</Link>
                       </li>
                       <li>
-                        <Link to="">Study Material</Link>
+                        <Link to="/study-material">Study Material</Link>
                         {/* <Link to="">Careers</Link> */}
                       </li>
                       <li>
-                        <Link to="">Current Affairs</Link>
+                        <Link to="/monthly-current-affairs">
+                          Current Affairs
+                        </Link>
                         {/* <Link to="">Features</Link> */}
                       </li>
                       <li>
-                        <Link to="">Quiz Exam</Link>
+                        <Link to="/quiz">Quiz Exam</Link>
                         {/* <Link to="">Maps</Link> */}
                       </li>
                       <li>
-                        <Link to="">Test Series</Link>
+                        <a href={TEST_SERIES} target="_blank" rel="noreferrer">
+                          Test series
+                        </a>
                         {/* <Link to="">Works</Link> */}
                       </li>
                       {/* <li>
@@ -50,21 +55,21 @@ function Footer() {
                     </ul>
                   </div>
                 </Col>
-                <Col lg={4} sm={6} xs={6} className="p-0">
+                <Col lg={3} sm={6} xs={6} className="p-0">
                   <div className="footer-head">
                     <h4>Resources</h4>
                     <ul>
                       <li>
-                        <Link to="">Videos</Link>
+                        <Link to="/trending-on-youtube">Videos</Link>
                       </li>
                       <li>
-                        <Link to="">What’s New </Link>
+                        <Link to="/whats-new">What’s New </Link>
                       </li>
                       <li>
                         <Link to="/latest-blogs">Blogs</Link>
                       </li>
                       <li>
-                        <Link to="">Plans</Link>
+                        <Link to="#">Plans</Link>
                       </li>
                       {/* <li>
                         <Link to="">Mandhya Pradesh</Link>
@@ -109,33 +114,123 @@ function Footer() {
                     </ul>
                   </div>
                 </Col> */}
-                <Col lg={4} sm={6} xs={12} className="p-0">
+                <Col lg={3} sm={6} xs={12} className="p-0">
                   <div className="footer-head contact-footer" id="footer">
                     <h4>Contact Us</h4>
                     <ul>
                       <li>
-                        <Link>dummymailid@gmail.com</Link>
+                        <a
+                          href="mailto:support@crazygktrick"
+                          style={{ textDecoration: "none" }}
+                        >
+                          support@crazygktrick
+                        </a>
                       </li>
-                      <li>
-                        <Link>+91 87654 12323</Link>
+                      <li style={{ display: "inline", listStyle: "none" }}>
+                        <a
+                          href="tel:+919109624872"
+                          style={{
+                            textDecoration: "none",
+                            margin: "0 5px 0 0",
+                          }}
+                        >
+                          +91 9109624872
+                        </a>{" "}
+                        |
+                        <a
+                          href="tel:+916232363639"
+                          style={{ textDecoration: "none", margin: "0 5px" }}
+                        >
+                          +91 6232363639
+                        </a>{" "}
+                        <a
+                          href="tel:+917898973739"
+                          style={{ textDecoration: "none" }}
+                        >
+                          +91 7898973739
+                        </a>
                       </li>
+
                       <li>
-                        <Link>dummywebsite.com</Link>
+                        <a
+                          href="https://study.crazygktrick.com/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          crazygktrick
+                        </a>
                       </li>
                     </ul>
-                    <a>
-                      <i className="fa fa-linkedin" />
-                    </a>
-                    <a>
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://www.facebook.com/crazygktricks"
+                    >
                       <i className="fa fa-facebook" />
                     </a>
-                    <a>
-                      <i className="fa fa-xing" />
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://twitter.com/CrazyGkTrick?s=08"
+                    >
+                      <i className="fa fa-twitter" />
+                    </a>
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="http://Telegramt.me/crazygktrick_official_channel"
+                    >
+                      <i className="fa fa-telegram" />
                     </a>
 
-                    <a>
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://www.instagram.com/crazygktrick_official/?utm_medium=copy_link"
+                    >
                       <i className="fa fa-instagram" />
                     </a>
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://whatsapp.com/channel/0029VaAfN4G6xCSPo6xpcm42"
+                    >
+                      <i className="fa fa-whatsapp" />
+                    </a>
+                  </div>
+                </Col>
+                <Col lg={3} sm={6} xs={12} className="p-0">
+                  <div className="footer-head contact-footer" id="footer">
+                    <h4>YouTube Channel</h4>
+                    <ul>
+                      <li>
+                        <a
+                          href="https://www.youtube.com/@CrazyGkTrick"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Crazy GkTrick youtube
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="https://www.youtube.com/@RootByCrazyGkTrick"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Root youtube
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="https://www.youtube.com/@thefinbaba"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Finbaba youtube
+                        </a>
+                      </li>
+                    </ul>
                   </div>
                 </Col>
               </Row>
