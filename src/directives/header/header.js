@@ -17,7 +17,13 @@ import { useDispatch } from "react-redux";
 import { removeAuthResponse } from "../../reduxx/action/AuthAction";
 import { logout } from "../../reduxx/action/actionCreators";
 import GlobalSearch from "../../components/shared/GlobalSearch";
-import { COURSES, EXAM_NOTES, ROOT_APP, ROOT_APP_LINK, TEST_SERIES } from "../../Config";
+import {
+  COURSES,
+  EXAM_NOTES,
+  ROOT_APP,
+  ROOT_APP_LINK,
+  TEST_SERIES,
+} from "../../Config";
 import LoginModal from "../../components/modal/LoginModal";
 import SignUpModal from "../../components/modal/SignUpModal";
 import ForgotPasswordModal from "../../components/modal/ForgotPasswordModal";
@@ -92,7 +98,7 @@ function Header(props) {
     <>
       <div className="top-nav">
         <Container fluid className="container-space">
-          <Row>
+          <Row style={{ display: "flex", alignItems: "center" }}>
             <Col lg={6}>
               <div className="">
                 <Row>
@@ -107,7 +113,9 @@ function Header(props) {
                     </a>
                   </Col>
                   <Col sm={7} className="p-0">
-                    <button onClick={() => window.open(ROOT_APP_LINK, "_blank")}>
+                    <button
+                      onClick={() => window.open(ROOT_APP_LINK, "_blank")}
+                    >
                       Root App <img src={welcome3} alt="welcome" />
                     </button>
                   </Col>
